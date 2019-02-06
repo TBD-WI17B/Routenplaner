@@ -108,24 +108,31 @@ public class View {
 		
 		panel = new JPanel();
 		tabbedPane.addTab("Routenplaner", null, panel, null);
+		this.panel.setLayout(null);
 		
 		panel_1 = new JPanel();
 		tabbedPane.addTab("Fahrerverwaltung", null, panel_1, null);
+		this.panel_1.setLayout(null);
 		
 		panel_2 = new JPanel();
 		tabbedPane.addTab("Auftragsverwaltung", null, panel_2, null);
+		this.panel_2.setLayout(null);
 		
 		panel_3 = new JPanel();
 		tabbedPane.addTab("Kundenverwaltung", null, panel_3, null);
+		this.panel_3.setLayout(null);
 		
 		panel_4 = new JPanel();
 		tabbedPane.addTab("test", null, panel_4, null);
+		panel_4.setLayout(null);
 		
 		btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(156, 26, 89, 23);
 		
 		panel_4.add(btnNewButton);
 		
 		txttest = new JTextArea();
+		txttest.setBounds(373, 5, 164, 94);
 		txttest.setColumns(20);
 		txttest.setRows(5);
 		txttest.setLineWrap(true);
