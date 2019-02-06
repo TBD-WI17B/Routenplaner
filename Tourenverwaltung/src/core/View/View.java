@@ -41,13 +41,19 @@ public class View {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					View window = new View();
+					final View window = new View();
 					window.frmTourenverwaltung.setVisible(true);
+					window.btnNewButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							window.txttest.setText("test");
+						}
+					});
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -55,15 +61,16 @@ public class View {
 	 */
 	public View(Model m) {
 		this.model = m;
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					initialize();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});		
+		initialize();
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					initialize();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});		
 	}
 
 	public View() {
@@ -72,6 +79,7 @@ public class View {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * Wenn möglich hier kein Custom Code, da hier alles auto generiert wird.
 	 */
 	private void initialize() {
 		frmTourenverwaltung = new JFrame();
@@ -114,6 +122,7 @@ public class View {
 		tabbedPane.addTab("test", null, panel_4, null);
 		
 		btnNewButton = new JButton("New button");
+		
 		panel_4.add(btnNewButton);
 		
 		txttest = new JTextArea();
@@ -126,7 +135,7 @@ public class View {
 
 	public void addTesthandler(ActionListener al)
 	{
-		this.btnNewButton.addActionListener(al);
+		btnNewButton.addActionListener(al);
 	}
 	public void setTest(String txt) {
 		txttest.setText(txt);
