@@ -13,12 +13,13 @@ public class Verwaltung {
 	private View window;
 	private Model model;
 	private JSONParser parser;
+	private Connector sql;
 	
 	public Verwaltung(View v, Model m) {
+		this.sql = new Connector();
 		this.model = m;
 		this.window = v;
-		this.parser = new JSONParser();
-		
+		this.parser = new JSONParser();		
 		bindHandler();
 		
 	}
