@@ -9,28 +9,15 @@ public class Connector {
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 	
-	public Connector() {
+    private final String connectionURL = "jdbc:mysql://localhost:3306/tourenverwaltung?serverTimezone=Europe/Berlin&user=root";
+    
+	public Connector() throws Exception {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/tourenverwaltung?serverTimezone=Europe/Berlin", "root", "0815");
+			Class.forName("com.mysql.cj.jdbc.Driver");			
+			connect = DriverManager.getConnection(connectionURL);
 			statement = connect.createStatement();
-			resultSet=statement.executeQuery("SELECT ID, content FROM test");
-			
-			while(resultSet.next())
-			{
-				String content = resultSet.getString("content");
-				System.out.println(content);
-			}
-			
-//			resultSet = statement.executeQuery("SELECT * FROM test");
-//			ResultSetMetaData  resultSetMeta = resultSet.getMetaData();
-//			int columnCount = resultSetMeta.getColumnCount();
-		
-			
-			connect.close();
 		} catch (Exception e) {
-			System.out.println(e);
+			throw e;
 		}
 	}
 	public void query(String q)
@@ -38,8 +25,8 @@ public class Connector {
 		try {
 			this.resultSet = this.statement.executeQuery(q);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("Fehler beim Aufrufen der SQl Query: " + q);
 		}
 	}
 	public void close()
