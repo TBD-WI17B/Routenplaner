@@ -2,6 +2,8 @@ package core.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Array;
+import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
@@ -16,11 +18,26 @@ public class Verwaltung {
 	private Connector sql;
 	
 	public Verwaltung(View v, Model m) {
-		this.sql = new Connector();
+		try {
+			this.sql = new Connector();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.model = m;
 		this.window = v;
 		this.parser = new JSONParser();		
 		bindHandler();
+		
+		testSQL();
+	}
+	
+	private void testSQL()
+	{
+		ArrayList<ArrayList<String>> tmp = sql.query("SELECT * From test");
+		
+		for (ArrayList<String> arrayList : tmp) {
+			System.out.println(arrayList.toString());	
+		}
 		
 	}
 	
