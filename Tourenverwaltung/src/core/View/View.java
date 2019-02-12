@@ -132,11 +132,13 @@ public class View {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					final View window = new View();
 					window.frmTourenverwaltung.setVisible(true);
 					window.btnNewButton.addActionListener(new ActionListener() {
+						@Override
 						public void actionPerformed(ActionEvent e) {
 							window.txttest.setText("test");
 						}
@@ -196,7 +198,7 @@ public class View {
 		JMenu mnMoreStuff = new JMenu("more stuff");
 		menuBar.add(mnMoreStuff);
 		
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		frmTourenverwaltung.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		pnl_routenplaner = new JPanel();
@@ -214,9 +216,11 @@ public class View {
 		this.ls_routen.setValueIsAdjusting(true);
 		this.ls_routen.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Route 1", "Route 2", "Route 3", "Mosbach - Heilbronn"};
+			@Override
 			public int getSize() {
 				return values.length;
 			}
+			@Override
 			public Object getElementAt(int index) {
 				return values[index];
 			}
@@ -237,9 +241,11 @@ public class View {
 		this.ls_haltepunkte = new JList();
 		this.ls_haltepunkte.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Mosbach", "\u00D6hringen", "Oedheim", "Stuttgart", "Heilbronx"};
+			@Override
 			public int getSize() {
 				return values.length;
 			}
+			@Override
 			public Object getElementAt(int index) {
 				return values[index];
 			}
@@ -275,9 +281,11 @@ public class View {
 		this.ls_fahrer = new JList();
 		this.ls_fahrer.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Karl, M\u00FCller", "Heinz, Ketchup"};
+			@Override
 			public int getSize() {
 				return values.length;
 			}
+			@Override
 			public Object getElementAt(int index) {
 				return values[index];
 			}
@@ -367,9 +375,11 @@ public class View {
 		this.list = new JList();
 		this.list.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Karl, M\u00FCller", "Heinz, Ketchup"};
+			@Override
 			public int getSize() {
 				return values.length;
 			}
+			@Override
 			public Object getElementAt(int index) {
 				return values[index];
 			}
@@ -476,6 +486,7 @@ public class View {
 			Class[] columnTypes = new Class[] {
 				String.class, Object.class, String.class, Object.class, Object.class, Object.class, Object.class
 			};
+			@Override
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
@@ -543,9 +554,11 @@ public class View {
 		this.list_1 = new JList();
 		this.list_1.setModel(new AbstractListModel() {
 			String[] values = new String[] {"A123", "A221", "A55"};
+			@Override
 			public int getSize() {
 				return values.length;
 			}
+			@Override
 			public Object getElementAt(int index) {
 				return values[index];
 			}
@@ -652,6 +665,7 @@ public class View {
 		
 		btnNewButton = new JButton("New button");
 		this.btnNewButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});

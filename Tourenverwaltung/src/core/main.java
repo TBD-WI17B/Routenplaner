@@ -1,12 +1,10 @@
 package core;
 
-import java.awt.EventQueue;
-
 import core.View.View;
 import core.Controller.Verwaltung;
 import core.Model.*;
 
-public class Main {
+public class main {
 
 	
 	public static void main(String[] args) {
