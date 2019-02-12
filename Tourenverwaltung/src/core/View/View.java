@@ -1169,12 +1169,12 @@ public class View {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(156, 26, 89, 23);
+		btnNewButton.setBounds(10, 6, 89, 23);
 		
 		pnl_test.add(btnNewButton);
 		
 		txttest = new JTextArea();
-		txttest.setBounds(373, 5, 164, 94);
+		txttest.setBounds(105, 5, 542, 737);
 		txttest.setColumns(20);
 		txttest.setRows(5);
 		txttest.setLineWrap(true);

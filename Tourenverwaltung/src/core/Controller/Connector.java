@@ -15,53 +15,26 @@ public class Connector {
 	
     private final String connectionURL = "jdbc:mysql://localhost:3306/tourenverwaltung?serverTimezone=Europe/Berlin&user=root";
     
-	public Connector() throws Exception {
+	public Connector() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");			
 			connect = DriverManager.getConnection(connectionURL);
 			statement = connect.createStatement();
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
 		}
 	}
-	public ArrayList<ArrayList<String>> query(String q)
+	public ResultSet query(String q)
 	{
 		try {
 			this.resultSet = this.statement.executeQuery(q);	
 			
-			return createArrayList();
+			return this.resultSet;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Fehler beim Aufrufen der SQl Query: " + q);
 		}
 		return null;
-	}
-	private ArrayList<ArrayList<String>> createArrayList() throws SQLException
-	{
-		ArrayList<ArrayList<String>> resultList = new ArrayList<ArrayList<String>>();
-		ResultSetMetaData metaData = this.resultSet.getMetaData();
-		
-		for(int i = 0; i< metaData.getColumnCount();i++)
-		{
-			resultList.add(new ArrayList<String>());
-		}
-		
-		while(resultSet.next()) {
-			for (int i = 1 ; i <= metaData.getColumnCount();i++)
-			{
-				resultList.get(i-1).add(resultSet.getString(i));				
-			}
-		}
-		
-		
-		return resultList;
-	}
-	private Map<String,String[]> createMap()
-	{
-		
-		
-		return null;
-		
 	}
 	public void close()
 	{

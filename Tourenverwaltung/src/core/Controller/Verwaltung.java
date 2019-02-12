@@ -3,6 +3,8 @@ package core.Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
@@ -33,10 +35,18 @@ public class Verwaltung {
 	
 	private void testSQL()
 	{
-		ArrayList<ArrayList<String>> tmp = sql.query("SELECT * From test");
+		ResultSet rs = sql.query("SELECT * From test");
 		
-		for (ArrayList<String> arrayList : tmp) {
-			System.out.println(arrayList.toString());	
+		try {
+			String str = "";
+			for(int i = 0; rs.next();i++)
+			{
+				str = str + rs.getString("content");
+			}
+			System.out.println("test: " + str);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
@@ -64,7 +74,8 @@ public class Verwaltung {
 			new SwingWorker<Void, Void>() {
 				@Override
 				protected Void doInBackground() throws Exception {
-					window.setTest(parser.getJSONfromURL("https://jsonplaceholder.typicode.com/todos/1").toString());
+					//window.setTest(parser.getJSONfromURL("https://jsonplaceholder.typicode.com/todos/1").toString());
+					window.setTest(parser.getJSONfromURL("https://api.openrouteservice.org/directions?api_key=5b3ce3597851110001cf62480ff1ca98a26c4b13a279928bac75350b&coordinates=8.34234,48.23424%7C8.34423,48.26424&profile=driving-car").toString());
 					return null;
 				}
 				@Override
