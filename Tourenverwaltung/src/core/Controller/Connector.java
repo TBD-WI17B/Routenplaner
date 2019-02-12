@@ -67,5 +67,4 @@ public class Connector {
 	{
 		this.close();
 	}
-
 }

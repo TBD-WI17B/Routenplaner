@@ -59,12 +59,15 @@ public class Verwaltung {
 	 */
 	class testHandler implements ActionListener
 	{
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			new SwingWorker<Void, Void>() {
+				@Override
 				protected Void doInBackground() throws Exception {
 					window.setTest(parser.getJSONfromURL("https://jsonplaceholder.typicode.com/todos/1").toString());
 					return null;
 				}
+				@Override
 				protected void done() {					
 				}				
 			}.execute();						
