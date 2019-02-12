@@ -31,6 +31,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
+import javax.swing.ListSelectionModel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class View {
 	
@@ -126,6 +130,54 @@ public class View {
 	private JTextField textField_12;
 	private JLabel lblZiel_1;
 	private JTextField textField_8;
+	private JTextField txtDude;
+	private JTextField textField_14;
+	private JTextField textField_15;
+	private JTextField textField_16;
+	private JTextField textField_17;
+	private JLabel label;
+	private JLabel label_1;
+	private JLabel label_3;
+	private JLabel label_4;
+	private JLabel label_5;
+	private JTextField txtTim;
+	private JTextField textField_19;
+	private JTextField textField_20;
+	private JLabel label_6;
+	private JLabel lblKunden;
+	private JButton btnNeu_1;
+	private JButton btnLschen_3;
+	private JSeparator separator_2;
+	private JButton btnSpeichern_2;
+	private JButton btnAbbrechen_2;
+	private JLabel lblKrankenkasse;
+	private JTextField txtAokKln;
+	private JLabel lblKundennummer;
+	private JTextField txtK;
+	private JTable table_1;
+	private JScrollPane scrollPane_1;
+	private JTextField txtKnms;
+	private JTextField txtMan;
+	private JTextField textField_22;
+	private JTextField textField_23;
+	private JTextField textField_24;
+	private JTextField textField_25;
+	private JTextField textField_26;
+	private JTextField textField_27;
+	private JTextField textField_28;
+	private JTextField textField_29;
+	private JTextField textField_30;
+	private JTextField textField_31;
+	private JTextField textField_32;
+	private JLabel lblFahrzeuginformationen;
+	private JLabel lblBehindertenGerecht;
+	private JTextField textField_33;
+	private JTextField textField_34;
+	private JTextField textField_35;
+	private JTextField textField_36;
+	private JTable table_2;
+	private JTextField txtF;
+	private JTextField textField_21;
 
 	/**
 	 * Launch the application.
@@ -300,15 +352,15 @@ public class View {
 		this.pnl_routenplaner.add(this.lblNewLabel);
 		
 		this.btnNeueRoute = new JButton("Neue Route");
-		this.btnNeueRoute.setBounds(10, 264, 89, 23);
+		this.btnNeueRoute.setBounds(10, 264, 94, 23);
 		this.pnl_routenplaner.add(this.btnNeueRoute);
 		
 		this.btnLschen = new JButton("L\u00F6schen");
-		this.btnLschen.setBounds(109, 264, 89, 23);
+		this.btnLschen.setBounds(114, 264, 123, 23);
 		this.pnl_routenplaner.add(this.btnLschen);
 		
 		this.btnBearbeiten = new JButton("Bearbeiten");
-		this.btnBearbeiten.setBounds(10, 298, 89, 23);
+		this.btnBearbeiten.setBounds(10, 298, 94, 23);
 		this.pnl_routenplaner.add(this.btnBearbeiten);
 		
 		this.btnHinzufgen = new JButton("Hinzuf\u00FCgen");
@@ -367,6 +419,10 @@ public class View {
 		this.txtpnLoremIpsumOder.setText("Lorem Ipsum oder so");
 		this.txtpnLoremIpsumOder.setBounds(109, 559, 358, 118);
 		this.pnl_routenplaner.add(this.txtpnLoremIpsumOder);
+		
+		JButton btnRoutenGenerieren = new JButton("Routen generieren");
+		btnRoutenGenerieren.setBounds(114, 298, 123, 23);
+		pnl_routenplaner.add(btnRoutenGenerieren);
 		
 		pnl_fahrerverwaltung = new JPanel();
 		tabbedPane.addTab("Fahrerverwaltung", null, pnl_fahrerverwaltung, null);
@@ -563,101 +619,545 @@ public class View {
 				return values[index];
 			}
 		});
-		this.list_1.setBounds(10, 36, 206, 276);
+		this.list_1.setBounds(10, 36, 206, 410);
 		this.pnl_auftragsverwaltung.add(this.list_1);
 		
 		this.btnNeuerAuftrag = new JButton("Neuer Auftrag");
-		this.btnNeuerAuftrag.setBounds(10, 323, 101, 23);
+		this.btnNeuerAuftrag.setBounds(10, 457, 101, 23);
 		this.pnl_auftragsverwaltung.add(this.btnNeuerAuftrag);
 		
 		this.btnLschen_2 = new JButton("L\u00F6schen");
-		this.btnLschen_2.setBounds(115, 323, 101, 23);
+		this.btnLschen_2.setBounds(115, 457, 101, 23);
 		this.pnl_auftragsverwaltung.add(this.btnLschen_2);
 		
 		this.lblAuftragsnummer_1 = new JLabel("Auftragsnummer");
-		this.lblAuftragsnummer_1.setBounds(245, 37, 101, 14);
+		this.lblAuftragsnummer_1.setBounds(244, 57, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.lblAuftragsnummer_1);
 		
 		this.lblFahrer_2 = new JLabel("Kunde");
-		this.lblFahrer_2.setBounds(245, 62, 101, 14);
+		this.lblFahrer_2.setBounds(244, 82, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.lblFahrer_2);
 		
 		this.lblRoute = new JLabel("Buchungsdatum");
-		this.lblRoute.setBounds(245, 87, 101, 14);
+		this.lblRoute.setBounds(244, 107, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.lblRoute);
 		
 		this.label_2 = new JLabel("Auftragsnummer");
-		this.label_2.setBounds(245, 112, 101, 14);
+		this.label_2.setBounds(244, 132, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.label_2);
 		
 		this.textField_2 = new JTextField();
-		this.textField_2.setBounds(356, 34, 86, 20);
+		this.textField_2.setBounds(355, 54, 163, 20);
 		this.pnl_auftragsverwaltung.add(this.textField_2);
 		this.textField_2.setColumns(10);
 		
 		this.textField_5 = new JTextField();
 		this.textField_5.setColumns(10);
-		this.textField_5.setBounds(356, 59, 86, 20);
+		this.textField_5.setBounds(355, 79, 163, 20);
 		this.pnl_auftragsverwaltung.add(this.textField_5);
 		
 		this.textField_6 = new JTextField();
 		this.textField_6.setColumns(10);
-		this.textField_6.setBounds(356, 84, 86, 20);
+		this.textField_6.setBounds(355, 104, 163, 20);
 		this.pnl_auftragsverwaltung.add(this.textField_6);
 		
 		this.textField_7 = new JTextField();
 		this.textField_7.setColumns(10);
-		this.textField_7.setBounds(356, 109, 86, 20);
+		this.textField_7.setBounds(355, 129, 163, 20);
 		this.pnl_auftragsverwaltung.add(this.textField_7);
 		
 		this.lblFahrer_3 = new JLabel("Fahrer");
-		this.lblFahrer_3.setBounds(582, 39, 101, 14);
+		this.lblFahrer_3.setBounds(581, 59, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.lblFahrer_3);
 		
 		this.lblAusfhrdatum = new JLabel("Datum");
-		this.lblAusfhrdatum.setBounds(582, 64, 101, 14);
+		this.lblAusfhrdatum.setBounds(581, 84, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.lblAusfhrdatum);
 		
 		this.lblRoute_1 = new JLabel("Route");
-		this.lblRoute_1.setBounds(582, 89, 101, 14);
+		this.lblRoute_1.setBounds(581, 109, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.lblRoute_1);
 		
 		this.lblZiel = new JLabel("Start");
-		this.lblZiel.setBounds(582, 114, 101, 14);
+		this.lblZiel.setBounds(581, 134, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.lblZiel);
 		
 		this.textField_9 = new JTextField();
 		this.textField_9.setColumns(10);
-		this.textField_9.setBounds(693, 36, 86, 20);
+		this.textField_9.setBounds(692, 56, 136, 20);
 		this.pnl_auftragsverwaltung.add(this.textField_9);
 		
 		this.textField_10 = new JTextField();
 		this.textField_10.setColumns(10);
-		this.textField_10.setBounds(693, 61, 86, 20);
+		this.textField_10.setBounds(692, 81, 136, 20);
 		this.pnl_auftragsverwaltung.add(this.textField_10);
 		
 		this.textField_11 = new JTextField();
 		this.textField_11.setColumns(10);
-		this.textField_11.setBounds(693, 86, 86, 20);
+		this.textField_11.setBounds(692, 106, 136, 20);
 		this.pnl_auftragsverwaltung.add(this.textField_11);
 		
 		this.textField_12 = new JTextField();
 		this.textField_12.setColumns(10);
-		this.textField_12.setBounds(693, 111, 86, 20);
+		this.textField_12.setBounds(692, 131, 136, 20);
 		this.pnl_auftragsverwaltung.add(this.textField_12);
 		
 		this.lblZiel_1 = new JLabel("Ziel");
-		this.lblZiel_1.setBounds(582, 142, 101, 14);
+		this.lblZiel_1.setBounds(581, 162, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.lblZiel_1);
 		
 		this.textField_8 = new JTextField();
 		this.textField_8.setColumns(10);
-		this.textField_8.setBounds(693, 139, 86, 20);
+		this.textField_8.setBounds(692, 159, 136, 20);
 		this.pnl_auftragsverwaltung.add(this.textField_8);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(245, 276, 889, 2);
+		pnl_auftragsverwaltung.add(separator_1);
+		
+		JButton btnSpeichern_1 = new JButton("Speichern");
+		btnSpeichern_1.setBounds(245, 289, 89, 23);
+		pnl_auftragsverwaltung.add(btnSpeichern_1);
+		
+		JButton btnAbbrechen_1 = new JButton("Abbrechen");
+		btnAbbrechen_1.setBounds(344, 289, 89, 23);
+		pnl_auftragsverwaltung.add(btnAbbrechen_1);
+		
+		JLabel lblDistanz_1 = new JLabel("Distanz");
+		lblDistanz_1.setBounds(244, 177, 101, 14);
+		pnl_auftragsverwaltung.add(lblDistanz_1);
+		
+		textField_26 = new JTextField();
+		textField_26.setColumns(10);
+		textField_26.setBounds(355, 174, 136, 20);
+		pnl_auftragsverwaltung.add(textField_26);
+		
+		JLabel lblBetrag = new JLabel("Betrag");
+		lblBetrag.setBounds(244, 205, 101, 14);
+		pnl_auftragsverwaltung.add(lblBetrag);
+		
+		textField_27 = new JTextField();
+		textField_27.setColumns(10);
+		textField_27.setBounds(355, 202, 136, 20);
+		pnl_auftragsverwaltung.add(textField_27);
+		
+		JLabel lblSteuercode = new JLabel("Steuercode");
+		lblSteuercode.setBounds(886, 59, 101, 14);
+		pnl_auftragsverwaltung.add(lblSteuercode);
+		
+		textField_28 = new JTextField();
+		textField_28.setColumns(10);
+		textField_28.setBounds(997, 56, 136, 20);
+		pnl_auftragsverwaltung.add(textField_28);
+		
+		JLabel lblNetto = new JLabel("Netto");
+		lblNetto.setBounds(886, 87, 101, 14);
+		pnl_auftragsverwaltung.add(lblNetto);
+		
+		textField_29 = new JTextField();
+		textField_29.setColumns(10);
+		textField_29.setBounds(997, 84, 136, 20);
+		pnl_auftragsverwaltung.add(textField_29);
+		
+		JLabel lblBrutto = new JLabel("Brutto");
+		lblBrutto.setBounds(886, 117, 101, 14);
+		pnl_auftragsverwaltung.add(lblBrutto);
+		
+		textField_30 = new JTextField();
+		textField_30.setColumns(10);
+		textField_30.setBounds(997, 114, 136, 20);
+		pnl_auftragsverwaltung.add(textField_30);
+		
+		JLabel lblPauschale = new JLabel("Pauschale");
+		lblPauschale.setBounds(886, 145, 101, 14);
+		pnl_auftragsverwaltung.add(lblPauschale);
+		
+		textField_31 = new JTextField();
+		textField_31.setColumns(10);
+		textField_31.setBounds(997, 142, 136, 20);
+		pnl_auftragsverwaltung.add(textField_31);
+		
+		JLabel lblRechnungsinformation = new JLabel("Rechnungsinformation");
+		lblRechnungsinformation.setBounds(886, 11, 114, 14);
+		pnl_auftragsverwaltung.add(lblRechnungsinformation);
+		
+		JLabel lblGesamt = new JLabel("Gesamt");
+		lblGesamt.setBounds(886, 202, 101, 14);
+		pnl_auftragsverwaltung.add(lblGesamt);
+		
+		textField_32 = new JTextField();
+		textField_32.setColumns(10);
+		textField_32.setBounds(997, 199, 136, 20);
+		pnl_auftragsverwaltung.add(textField_32);
+		
+		JSeparator separator_4 = new JSeparator();
+		separator_4.setBounds(886, 174, 248, 2);
+		pnl_auftragsverwaltung.add(separator_4);
+		
+		JButton btnRechnungErstellen = new JButton("Rechnung erstellen");
+		btnRechnungErstellen.setBounds(1009, 289, 125, 23);
+		pnl_auftragsverwaltung.add(btnRechnungErstellen);
 		
 		pnl_kundenverwaltung = new JPanel();
 		tabbedPane.addTab("Kundenverwaltung", null, pnl_kundenverwaltung, null);
 		this.pnl_kundenverwaltung.setLayout(null);
+		
+		txtDude = new JTextField();
+		txtDude.setText("Dude");
+		txtDude.setColumns(10);
+		txtDude.setBounds(381, 36, 119, 20);
+		pnl_kundenverwaltung.add(txtDude);
+		
+		textField_14 = new JTextField();
+		textField_14.setText("12346");
+		textField_14.setColumns(10);
+		textField_14.setBounds(381, 67, 73, 20);
+		pnl_kundenverwaltung.add(textField_14);
+		
+		textField_15 = new JTextField();
+		textField_15.setText("Nestar\u00DFe");
+		textField_15.setColumns(10);
+		textField_15.setBounds(381, 98, 195, 20);
+		pnl_kundenverwaltung.add(textField_15);
+		
+		textField_16 = new JTextField();
+		textField_16.setText("01234568");
+		textField_16.setColumns(10);
+		textField_16.setBounds(381, 129, 248, 20);
+		pnl_kundenverwaltung.add(textField_16);
+		
+		textField_17 = new JTextField();
+		textField_17.setText("012345644");
+		textField_17.setColumns(10);
+		textField_17.setBounds(381, 160, 248, 20);
+		pnl_kundenverwaltung.add(textField_17);
+		
+		label = new JLabel("Name, Vorname");
+		label.setBounds(273, 37, 98, 14);
+		pnl_kundenverwaltung.add(label);
+		
+		label_1 = new JLabel("PLZ, Ort");
+		label_1.setBounds(273, 70, 98, 14);
+		pnl_kundenverwaltung.add(label_1);
+		
+		label_3 = new JLabel("Stra\u00DFe, Nr.");
+		label_3.setBounds(273, 101, 98, 14);
+		pnl_kundenverwaltung.add(label_3);
+		
+		label_4 = new JLabel("Telefon");
+		label_4.setBounds(273, 132, 98, 14);
+		pnl_kundenverwaltung.add(label_4);
+		
+		label_5 = new JLabel("Mobil");
+		label_5.setBounds(273, 163, 98, 14);
+		pnl_kundenverwaltung.add(label_5);
+		
+		txtTim = new JTextField();
+		txtTim.setText("Tim");
+		txtTim.setColumns(10);
+		txtTim.setBounds(510, 36, 119, 20);
+		pnl_kundenverwaltung.add(txtTim);
+		
+		textField_19 = new JTextField();
+		textField_19.setText("Testhausen");
+		textField_19.setColumns(10);
+		textField_19.setBounds(464, 67, 165, 20);
+		pnl_kundenverwaltung.add(textField_19);
+		
+		textField_20 = new JTextField();
+		textField_20.setText("1");
+		textField_20.setColumns(10);
+		textField_20.setBounds(586, 98, 43, 20);
+		pnl_kundenverwaltung.add(textField_20);
+		
+		label_6 = new JLabel("Anschrift");
+		label_6.setBounds(273, 11, 46, 14);
+		pnl_kundenverwaltung.add(label_6);
+		
+		JList list_2 = new JList();
+		list_2.setModel(new AbstractListModel() {
+			String[] values = new String[] {"K135", "K12"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list_2.setSelectedIndex(0);
+		list_2.setBounds(10, 36, 253, 377);
+		pnl_kundenverwaltung.add(list_2);
+		
+		lblKunden = new JLabel("Kunden");
+		lblKunden.setBounds(10, 11, 46, 14);
+		pnl_kundenverwaltung.add(lblKunden);
+		
+		btnNeu_1 = new JButton("Neu");
+		btnNeu_1.setBounds(10, 424, 89, 23);
+		pnl_kundenverwaltung.add(btnNeu_1);
+		
+		btnLschen_3 = new JButton("L\u00F6schen");
+		btnLschen_3.setBounds(109, 424, 89, 23);
+		pnl_kundenverwaltung.add(btnLschen_3);
+		
+		separator_2 = new JSeparator();
+		separator_2.setBounds(273, 213, 689, 2);
+		pnl_kundenverwaltung.add(separator_2);
+		
+		btnSpeichern_2 = new JButton("Speichern");
+		btnSpeichern_2.setBounds(273, 226, 89, 23);
+		pnl_kundenverwaltung.add(btnSpeichern_2);
+		
+		btnAbbrechen_2 = new JButton("Abbrechen");
+		btnAbbrechen_2.setBounds(381, 226, 89, 23);
+		pnl_kundenverwaltung.add(btnAbbrechen_2);
+		
+		lblKrankenkasse = new JLabel("Krankenkasse");
+		lblKrankenkasse.setBounds(694, 73, 89, 14);
+		pnl_kundenverwaltung.add(lblKrankenkasse);
+		
+		txtAokKln = new JTextField();
+		txtAokKln.setText("AOK K\u00F6ln");
+		txtAokKln.setBounds(793, 70, 195, 20);
+		pnl_kundenverwaltung.add(txtAokKln);
+		txtAokKln.setColumns(10);
+		
+		lblKundennummer = new JLabel("Kundennummer");
+		lblKundennummer.setBounds(694, 39, 89, 14);
+		pnl_kundenverwaltung.add(lblKundennummer);
+		
+		txtK = new JTextField();
+		txtK.setText("K135");
+		txtK.setColumns(10);
+		txtK.setBounds(793, 36, 195, 20);
+		pnl_kundenverwaltung.add(txtK);
+		
+		JLabel lblAuftrger = new JLabel("Auftr\u00E4ge");
+		lblAuftrger.setBounds(10, 496, 98, 14);
+		pnl_kundenverwaltung.add(lblAuftrger);
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBounds(10, 458, 974, 2);
+		pnl_kundenverwaltung.add(separator_3);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 521, 1233, 207);
+		pnl_kundenverwaltung.add(scrollPane_1);
+		
+		table_1 = new JTable();
+		table_1.setFillsViewportHeight(true);
+		scrollPane_1.setViewportView(table_1);
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"K135", "Tim", "Dude", "A112", "N\u00FCrnberg", "Berlin", "20.3.2019", "400", "1501,35"},
+				{"K135", "Tim", "Dude", "A155", "Berlin", "N\u00FCrnberg", "25.3.2019", "400", null},
+			},
+			new String[] {
+				"Kunde", "Name", "Vorname", "Auftrag", "Start", "Ziel", "Datum", "Distanz", "Betrag"
+			}
+		));
+		
+		JPanel pnl_fahrzeugverwaltung = new JPanel();
+		tabbedPane.addTab("Fahrzeuggverwaltung", null, pnl_fahrzeugverwaltung, null);
+		pnl_fahrzeugverwaltung.setLayout(null);
+		
+		JLabel lblFahrzeuge = new JLabel("Fahrzeuge");
+		lblFahrzeuge.setBounds(10, 11, 82, 14);
+		pnl_fahrzeugverwaltung.add(lblFahrzeuge);
+		
+		JList list_3 = new JList();
+		list_3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list_3.setModel(new AbstractListModel() {
+			String[] values = new String[] {"F12", "F1", "F5"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list_3.setSelectedIndex(0);
+		list_3.setBounds(10, 36, 197, 373);
+		pnl_fahrzeugverwaltung.add(list_3);
+		
+		JLabel lblKennzeichen = new JLabel("Kennzeichen");
+		lblKennzeichen.setBounds(217, 73, 145, 14);
+		pnl_fahrzeugverwaltung.add(lblKennzeichen);
+		
+		JLabel lblMarke = new JLabel("Marke");
+		lblMarke.setBounds(217, 98, 145, 14);
+		pnl_fahrzeugverwaltung.add(lblMarke);
+		
+		JLabel lblVersicherungsnummer = new JLabel("Versicherungsnummer");
+		lblVersicherungsnummer.setBounds(217, 174, 145, 14);
+		pnl_fahrzeugverwaltung.add(lblVersicherungsnummer);
+		
+		txtKnms = new JTextField();
+		txtKnms.setText("K\u00DCN-MS-1993");
+		txtKnms.setBounds(372, 72, 136, 20);
+		pnl_fahrzeugverwaltung.add(txtKnms);
+		txtKnms.setColumns(10);
+		
+		txtMan = new JTextField();
+		txtMan.setColumns(10);
+		txtMan.setBounds(371, 97, 136, 20);
+		pnl_fahrzeugverwaltung.add(txtMan);
+		
+		textField_22 = new JTextField();
+		textField_22.setText("K\u00DCN-MS-1993");
+		textField_22.setColumns(10);
+		textField_22.setBounds(371, 173, 136, 20);
+		pnl_fahrzeugverwaltung.add(textField_22);
+		
+		JLabel lblSitzpltze = new JLabel("Sitzpl\u00E4tze");
+		lblSitzpltze.setBounds(217, 202, 145, 14);
+		pnl_fahrzeugverwaltung.add(lblSitzpltze);
+		
+		JLabel lblMaxGewicht = new JLabel("Max. Gewicht");
+		lblMaxGewicht.setBounds(217, 227, 145, 14);
+		pnl_fahrzeugverwaltung.add(lblMaxGewicht);
+		
+		JLabel label_11 = new JLabel("Kennzeichen");
+		label_11.setBounds(217, 252, 145, 14);
+		pnl_fahrzeugverwaltung.add(label_11);
+		
+		textField_23 = new JTextField();
+		textField_23.setText("K\u00DCN-MS-1993");
+		textField_23.setColumns(10);
+		textField_23.setBounds(372, 201, 136, 20);
+		pnl_fahrzeugverwaltung.add(textField_23);
+		
+		textField_24 = new JTextField();
+		textField_24.setText("K\u00DCN-MS-1993");
+		textField_24.setColumns(10);
+		textField_24.setBounds(371, 226, 136, 20);
+		pnl_fahrzeugverwaltung.add(textField_24);
+		
+		textField_25 = new JTextField();
+		textField_25.setText("K\u00DCN-MS-1993");
+		textField_25.setColumns(10);
+		textField_25.setBounds(371, 251, 136, 20);
+		pnl_fahrzeugverwaltung.add(textField_25);
+		
+		lblFahrzeuginformationen = new JLabel("Fahrzeuginformationen");
+		lblFahrzeuginformationen.setBounds(217, 11, 118, 14);
+		pnl_fahrzeugverwaltung.add(lblFahrzeuginformationen);
+		
+		lblBehindertenGerecht = new JLabel("Behindertengerecht");
+		lblBehindertenGerecht.setBounds(217, 277, 145, 14);
+		pnl_fahrzeugverwaltung.add(lblBehindertenGerecht);
+		
+		JRadioButton rdbtnJa = new JRadioButton("ja");
+		rdbtnJa.setBounds(372, 278, 47, 23);
+		pnl_fahrzeugverwaltung.add(rdbtnJa);
+		
+		JRadioButton rdbtnNein = new JRadioButton("Nein");
+		rdbtnNein.setSelected(true);
+		rdbtnNein.setBounds(421, 278, 58, 23);
+		pnl_fahrzeugverwaltung.add(rdbtnNein);
+		
+		JLabel lblStandortdaten = new JLabel("Standortdaten");
+		lblStandortdaten.setBounds(562, 11, 118, 14);
+		pnl_fahrzeugverwaltung.add(lblStandortdaten);
+		
+		textField_33 = new JTextField();
+		textField_33.setText("12346");
+		textField_33.setColumns(10);
+		textField_33.setBounds(670, 48, 73, 20);
+		pnl_fahrzeugverwaltung.add(textField_33);
+		
+		textField_34 = new JTextField();
+		textField_34.setText("Nestar\u00DFe");
+		textField_34.setColumns(10);
+		textField_34.setBounds(670, 79, 195, 20);
+		pnl_fahrzeugverwaltung.add(textField_34);
+		
+		JLabel label_7 = new JLabel("PLZ, Ort");
+		label_7.setBounds(562, 51, 98, 14);
+		pnl_fahrzeugverwaltung.add(label_7);
+		
+		JLabel label_8 = new JLabel("Stra\u00DFe, Nr.");
+		label_8.setBounds(562, 82, 98, 14);
+		pnl_fahrzeugverwaltung.add(label_8);
+		
+		textField_35 = new JTextField();
+		textField_35.setText("Testhausen");
+		textField_35.setColumns(10);
+		textField_35.setBounds(753, 48, 165, 20);
+		pnl_fahrzeugverwaltung.add(textField_35);
+		
+		textField_36 = new JTextField();
+		textField_36.setText("1");
+		textField_36.setColumns(10);
+		textField_36.setBounds(875, 79, 43, 20);
+		pnl_fahrzeugverwaltung.add(textField_36);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(10, 505, 1287, 237);
+		pnl_fahrzeugverwaltung.add(scrollPane_2);
+		
+		table_2 = new JTable();
+		table_2.setFillsViewportHeight(true);
+		table_2.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"A123", "R122", "K12", "\u00D6hringen", "Heilbronn", "2", "150", "12.12.2018", null},
+				{"A15", "R155", "K178", "Leipzig", "Jena", "5", "235", "10.01.2019", "20.12.2018"},
+			},
+			new String[] {
+				"Auftrag", "Route", "Kunde", "Start", "Ziel", "Anzahl Haltestellen", "Distanz", "Datum", "Auftragsdatum"
+			}
+		));
+		scrollPane_2.setViewportView(table_2);
+		
+		JLabel lblFahrzeugid = new JLabel("Fahrzeug-ID");
+		lblFahrzeugid.setBounds(217, 43, 145, 14);
+		pnl_fahrzeugverwaltung.add(lblFahrzeugid);
+		
+		txtF = new JTextField();
+		txtF.setText("F12");
+		txtF.setColumns(10);
+		txtF.setBounds(372, 42, 136, 20);
+		pnl_fahrzeugverwaltung.add(txtF);
+		
+		JLabel lblTyp = new JLabel("Typ");
+		lblTyp.setBounds(217, 123, 145, 14);
+		pnl_fahrzeugverwaltung.add(lblTyp);
+		
+		textField_21 = new JTextField();
+		textField_21.setText("K\u00DCN-MS-1993");
+		textField_21.setColumns(10);
+		textField_21.setBounds(372, 122, 136, 20);
+		pnl_fahrzeugverwaltung.add(textField_21);
+		
+		JLabel label_9 = new JLabel("Kennzeichen");
+		label_9.setBounds(217, 149, 145, 14);
+		pnl_fahrzeugverwaltung.add(label_9);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"PKW", "BUS", "Limousine"}));
+		comboBox.setSelectedIndex(0);
+		comboBox.setBounds(372, 146, 136, 20);
+		pnl_fahrzeugverwaltung.add(comboBox);
+		
+		JButton btnNeu_2 = new JButton("Neu");
+		btnNeu_2.setBounds(10, 420, 89, 23);
+		pnl_fahrzeugverwaltung.add(btnNeu_2);
+		
+		JButton btnLschen_4 = new JButton("L\u00F6schen");
+		btnLschen_4.setBounds(109, 420, 89, 23);
+		pnl_fahrzeugverwaltung.add(btnLschen_4);
+		
+		JSeparator separator_5 = new JSeparator();
+		separator_5.setBounds(217, 314, 840, 2);
+		pnl_fahrzeugverwaltung.add(separator_5);
+		
+		JButton btnNewButton_2 = new JButton("Speichern");
+		btnNewButton_2.setBounds(217, 327, 89, 23);
+		pnl_fahrzeugverwaltung.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Abbrechen");
+		btnNewButton_3.setBounds(316, 327, 89, 23);
+		pnl_fahrzeugverwaltung.add(btnNewButton_3);
 		
 		pnl_test = new JPanel();
 		tabbedPane.addTab("test", null, pnl_test, null);
