@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Connector {
 
@@ -54,6 +55,13 @@ public class Connector {
 		
 		
 		return resultList;
+	}
+	private Map<String,String[]> createMap()
+	{
+		
+		
+		return null;
+		
 	}
 	public void close()
 	{
