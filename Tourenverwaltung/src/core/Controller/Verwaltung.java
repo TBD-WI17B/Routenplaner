@@ -17,11 +17,11 @@ public class Verwaltung {
 	private View window;
 	private Model model;
 	private JSONParser parser;
-	private Connector sql;
+	//private Connector sql;
 	
 	public Verwaltung(View v, Model m) {
 		try {
-			this.sql = new Connector();
+			//this.sql = new Connector();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -35,9 +35,10 @@ public class Verwaltung {
 	
 	private void testSQL()
 	{
-		ResultSet rs = sql.query("SELECT * From test");
+		//ResultSet rs = Connector.test("SELECT * From test");
 		
 		try {
+			ResultSet rs = Connector.test("SELECT * From test");
 			String str = "";
 			for(int i = 0; rs.next();i++)
 			{
@@ -45,6 +46,9 @@ public class Verwaltung {
 			}
 			System.out.println("test: " + str);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

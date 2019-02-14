@@ -35,10 +35,18 @@ import javax.swing.JCheckBox;
 import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class View {
 	
 	private Model model;
+	private int x = 100;
+	private int y= 100;
+	private int height= 840;
+	private int width = 1340;
 
 	private JFrame frmTourenverwaltung;
 	private JPanel pnl_test;
@@ -232,7 +240,7 @@ public class View {
 		frmTourenverwaltung = new JFrame();
 		frmTourenverwaltung.setIconImage(Toolkit.getDefaultToolkit().getImage(View.class.getResource("/images/72-200.png")));
 		frmTourenverwaltung.setTitle("Tourenverwaltung");
-		frmTourenverwaltung.setBounds(100, 100, 1342, 841);
+		frmTourenverwaltung.setBounds(x, y, height, width);
 		frmTourenverwaltung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		menuBar = new JMenuBar();
@@ -251,6 +259,30 @@ public class View {
 		menuBar.add(mnMoreStuff);
 		
 		tabbedPane = new JTabbedPane(SwingConstants.TOP);
+		this.tabbedPane.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				switch (tabbedPane.getSelectedIndex()) {
+				case 0:
+					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width, height);
+					break;
+				case 1:
+					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width-250, height);
+					break;
+				case 2:
+					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width-150, height-220);
+					break;
+				case 3:
+					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width-50, height);
+					break;
+				case 4:
+					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width, height);
+					break;
+				default:
+					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width, height);
+					break;
+				}
+			}
+		});
 		frmTourenverwaltung.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		pnl_routenplaner = new JPanel();
