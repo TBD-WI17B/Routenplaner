@@ -20,13 +20,13 @@ public class Verwaltung {
 	//private Connector sql;
 	
 	public Verwaltung() {
-		Model model = new Model();//Bis jetzt nicht benutzt??
-		View window = new View(model);	
+		model = new Model();//Bis jetzt nicht benutzt??
+		window = new View(model);	
 	
 		this.parser = new JSONParser();		
 		bindHandler();
 		
-		testSQL();
+		//testSQL();
 		window.setVisible(true);//Macht Fenster jetzt erst sichtbar, da es vorher initialisiert wird
 	}
 	

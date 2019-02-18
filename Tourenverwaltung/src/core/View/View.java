@@ -11,34 +11,12 @@ import javax.swing.JTabbedPane;
 import core.Model.Model;
 
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
-import javax.swing.ListSelectionModel;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
-import java.awt.Component;
 
 public class View {
 	
@@ -89,21 +67,25 @@ public class View {
 		this.fahrzeug = new View_Fahrzeug();
 		this.kunde = new View_Kunde();
 		this.route = new View_Route();
+		this.standort = new View_Standort();
+		this.test = new View_Test();
 		
-		initialize();
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					initialize();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});		
+		this.initialize();		
 	}
 
+	/**
+	 * Parameter Konstruktor für Testzwecke
+	 */
 	public View() {
-		initialize();
+		this.auftrag = new View_Auftrag();
+		this.fahrer = new View_Fahrer();
+		this.fahrzeug = new View_Fahrzeug();
+		this.kunde = new View_Kunde();
+		this.route = new View_Route();
+		this.standort = new View_Standort();
+		this.test = new View_Test();
+		
+		this.initialize();
 	}
 
 	/**
@@ -111,89 +93,75 @@ public class View {
 	 * Wenn möglich hier kein Custom Code, da hier alles auto generiert wird.
 	 */
 	private void initialize() {
-		frmTourenverwaltung = new JFrame();
-		frmTourenverwaltung.setIconImage(Toolkit.getDefaultToolkit().getImage(View.class.getResource("/images/72-200.png")));
-		frmTourenverwaltung.setTitle("Tourenverwaltung");
-		frmTourenverwaltung.setBounds(x, y, width, height);
-		frmTourenverwaltung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frmTourenverwaltung = new JFrame();
+		this.frmTourenverwaltung.setIconImage(Toolkit.getDefaultToolkit().getImage(View.class.getResource("/images/72-200.png")));
+		this.frmTourenverwaltung.setTitle("Tourenverwaltung");
+		this.frmTourenverwaltung.setBounds(this.x, this.y, this.width, this.height);
+		this.frmTourenverwaltung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 		
-		menuBar = new JMenuBar();
-		frmTourenverwaltung.setJMenuBar(menuBar);
+		this.menuBar = new JMenuBar();
+		this.frmTourenverwaltung.setJMenuBar(this.menuBar);
 		
 		JMenu mnMenu = new JMenu("Menu");
-		menuBar.add(mnMenu);
+		this.menuBar.add(mnMenu);
 		
 		JMenuItem mntmSettings = new JMenuItem("settings");
 		mnMenu.add(mntmSettings);
 		
 		JMenu mnHelp = new JMenu("Help");
-		menuBar.add(mnHelp);
+		this.menuBar.add(mnHelp);
 		
 		JMenu mnMoreStuff = new JMenu("more stuff");
-		menuBar.add(mnMoreStuff);
+		this.menuBar.add(mnMoreStuff);
 		
-		tabbedPane = new JTabbedPane(SwingConstants.TOP);
+		this.tabbedPane = new JTabbedPane(SwingConstants.TOP);
 		this.tabbedPane.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent e) {
-				switch (tabbedPane.getSelectedIndex()) {
+				switch (View.this.tabbedPane.getSelectedIndex()) {
 				case 0:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width, height);
+					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width, View.this.height);
 					break;
 				case 1:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width-250, height);
+					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width-250, View.this.height);
 					break;
 				case 2:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width-150, height-220);
+					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width-150, View.this.height-220);
 					break;
 				case 3:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width-50, height);
+					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width-50, View.this.height);
 					break;
 				case 4:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width, height);
+					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width, View.this.height);
 					break;
 				default:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width, height);
+					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width, View.this.height);
 					break;
 				}
 			}
 		});
-		frmTourenverwaltung.getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
-		
-		
+		this.frmTourenverwaltung.getContentPane().add(this.tabbedPane, BorderLayout.CENTER);		
 		
 		/**
 		 * Ausgelagerte Klassen für die einzelenen Tabs
 		 */
-		route = new View_Route();		
-		tabbedPane.addTab("Routenplaner", null, route.getSubPanel(), null);		
+		this.tabbedPane.addTab("Routenplaner", null, this.route.getSubPanel(), null);
+		this.tabbedPane.addTab("Fahrerverwaltung", null, this.fahrer.getSubPanel(), null);
+		this.tabbedPane.addTab("Auftragsverwaltung", null, this.auftrag.getSubPanel(), null);
+		this.tabbedPane.addTab("Kundenverwaltung", null, this.kunde.getSubPanel(), null);
+		this.tabbedPane.addTab("Fahrzeuggverwaltung", null, this.fahrzeug.getSubPanel(), null);
+		this.tabbedPane.addTab("Standortverwaltung", null, this.standort.getSubPanel(), null);
+		this.tabbedPane.addTab("test", null, this.test.getSubPanel(), null);
 		
-		fahrer = new View_Fahrer();
-		tabbedPane.addTab("Fahrerverwaltung", null, fahrer.getSubPanel(), null);		
-		
-		auftrag = new View_Auftrag();
-		tabbedPane.addTab("Auftragsverwaltung", null, auftrag.getSubPanel(), null);
-
-		kunde = new View_Kunde();
-		tabbedPane.addTab("Kundenverwaltung", null, kunde.getSubPanel(), null);
-		
-		fahrzeug = new View_Fahrzeug();
-		tabbedPane.addTab("Fahrzeuggverwaltung", null, fahrzeug.getSubPanel(), null);
-		
-		standort = new View_Standort();
-		this.tabbedPane.addTab("Standortverwaltung", null, standort.getSubPanel(), null);
-		
-		test = new View_Test();
-		this.tabbedPane.addTab("test", null, test.getSubPanel(), null);
 	}
 	public void bindTesthandler(ActionListener al) {
-		test.addTesthandler(al);
+		this.test.addTesthandler(al);
 	}
 	public void setTest(String txt) 
 	{
-		test.setTestTA(txt);
+		this.test.setTestTA(txt);
 	}
 	public void setVisible(boolean b) 
 	{
