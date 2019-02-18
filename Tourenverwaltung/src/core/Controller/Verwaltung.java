@@ -19,18 +19,15 @@ public class Verwaltung {
 	private JSONParser parser;
 	//private Connector sql;
 	
-	public Verwaltung(View v, Model m) {
-		try {
-			//this.sql = new Connector();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		this.model = m;
-		this.window = v;
+	public Verwaltung() {
+		Model model = new Model();//Bis jetzt nicht benutzt??
+		View window = new View(model);	
+	
 		this.parser = new JSONParser();		
 		bindHandler();
 		
 		testSQL();
+		window.setVisible(true);//Macht Fenster jetzt erst sichtbar, da es vorher initialisiert wird
 	}
 	
 	private void testSQL()
