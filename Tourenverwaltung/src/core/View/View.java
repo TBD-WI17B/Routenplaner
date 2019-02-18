@@ -48,6 +48,8 @@ public class View {
 	private View_Fahrzeug fahrzeug;
 	private View_Kunde kunde;
 	private View_Route route;
+	private View_Test test;
+	private View_Standort standort;
 	
 	private int x = 100;
 	private int y= 100;
@@ -55,169 +57,8 @@ public class View {
 	private int width = 1340;
 
 	private JFrame frmTourenverwaltung;
-	private JPanel pnl_test;
-	private JPanel pnl_kundenverwaltung;
-	private JPanel pnl_auftragsverwaltung;
-	private JPanel pnl_fahrerverwaltung;
-	private JPanel pnl_routenplaner;
-	private JTextArea txttest;
 	private JMenuBar menuBar;
 	private JTabbedPane tabbedPane;
-	private JButton btnNewButton;
-	private JLabel lbl_map;
-	private JList ls_routen;
-	private JLabel lbl_routen;
-	private JLabel lbl_haltepunkte;
-	private JList ls_haltepunkte;
-	private JTextField txtAuftragsnummer;
-	private JTextField txtFahrer;
-	private JTextField txtKm;
-	private JTextField txtDauer;
-	private JList ls_fahrer;
-	private JLabel lblNewLabel;
-	private JButton btnNeueRoute;
-	private JButton btnLschen;
-	private JButton btnBearbeiten;
-	private JButton btnHinzufgen;
-	private JButton btnEntfernen;
-	private JButton btnZuweisen;
-	private JLabel lblAuftragsnummer;
-	private JLabel lblFahrer;
-	private JLabel lblDauer;
-	private JLabel lblDistanz;
-	private JLabel lblInfos;
-	private JLabel lblInfos_1;
-	private JTextField txtAbc;
-	private JTextField txtZzz;
-	private JLabel lblZusatz;
-	private JTextPane txtpnLoremIpsumOder;
-	private JList list;
-	private JTextField txtMller;
-	private JTextField textField_1;
-	private JTextField txtNestare;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JLabel lblNewLabel_1;
-	private JLabel lblPlzOrt;
-	private JLabel lblStrae;
-	private JLabel lblTelefon;
-	private JLabel lblMobil;
-	private JTextField txtKarl;
-	private JTextField txtTesthausen;
-	private JTextField textField;
-	private JLabel lblAngestelltennummer;
-	private JTextField txtA;
-	private JTable table;
-	private JScrollPane scrollPane;
-	private JLabel lblStatus;
-	private JRadioButton rdbtnAktiv;
-	private JRadioButton rdbtnInaktiv;
-	
-	private JLabel lblFahrer_1;
-	private JLabel lblAnschrift;
-	private JLabel lblInformationen;
-	private JButton btnNeu;
-	private JButton btnLschen_1;
-	private JButton btnNewButton_1;
-	private JButton btnSpeichern;
-	private JButton btnAbbrechen;
-	private JSeparator separator;
-	private JLabel lblAuftrge;
-	private JList list_1;
-	private JButton btnNeuerAuftrag;
-	private JButton btnLschen_2;
-	private JLabel lblAuftragsnummer_1;
-	private JLabel lblFahrer_2;
-	private JLabel lblRoute;
-	private JLabel label_2;
-	private JTextField textField_2;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JLabel lblFahrer_3;
-	private JLabel lblAusfhrdatum;
-	private JLabel lblRoute_1;
-	private JLabel lblZiel;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JLabel lblZiel_1;
-	private JTextField textField_8;
-	private JTextField txtDude;
-	private JTextField textField_14;
-	private JTextField textField_15;
-	private JTextField textField_16;
-	private JTextField textField_17;
-	private JLabel label;
-	private JLabel label_1;
-	private JLabel label_3;
-	private JLabel label_4;
-	private JLabel label_5;
-	private JTextField txtTim;
-	private JTextField textField_19;
-	private JTextField textField_20;
-	private JLabel label_6;
-	private JLabel lblKunden;
-	private JButton btnNeu_1;
-	private JButton btnLschen_3;
-	private JSeparator separator_2;
-	private JButton btnSpeichern_2;
-	private JButton btnAbbrechen_2;
-	private JLabel lblKundennummer;
-	private JTextField txtK;
-	private JTable table_1;
-	private JScrollPane scrollPane_1;
-	private JTextField txtKnms;
-	private JTextField txtMan;
-	private JTextField textField_22;
-	private JTextField textField_23;
-	private JTextField textField_26;
-	private JTextField textField_27;
-	private JTextField textField_28;
-	private JTextField textField_29;
-	private JTextField textField_30;
-	private JTextField textField_31;
-	private JTextField textField_32;
-	private JLabel lblFahrzeuginformationen;
-	private JLabel lblBehindertenGerecht;
-	private JTextField textField_33;
-	private JTextField textField_34;
-	private JTextField textField_35;
-	private JTextField textField_36;
-	private JTable table_2;
-	private JTextField txtF;
-	private JTextField textField_21;
-	private JLabel lblHandicap;
-	private JRadioButton rdbtnJa_1;
-	private JRadioButton rdbtnNein_1;
-	private JLabel lblStandortId;
-	private JTextField txtS;
-	private JPanel pnl_standortverwaltung;
-	private JList list_standorte;
-	private JButton btnNeuerStandort;
-	private JList list_4;
-	private JLabel lblStandorte;
-	private JLabel lblFahrzeuge_1;
-	private JList list_5;
-	private JLabel lblFahrer_4;
-	private JButton btnLschen_5;
-	private JButton btnHinzufgen_1;
-	private JButton btnEntfernen_1;
-	private JButton btnHinzufgen_2;
-	private JButton btnEntfernen_2;
-	private JLabel lblName;
-	private JLabel lblStandortid;
-	private JTextField textField_13;
-	private JTextField textField_18;
-	private JLabel label_9;
-	private JLabel label_10;
-	private JTextField textField_24;
-	private JTextField textField_25;
-	private JTextField txtS_1;
-	private JTextField txtMosbach;
-	private JPanel test;
-	private View_Standort standort;
 
 	/**
 	 * Launch the application.
@@ -344,58 +185,18 @@ public class View {
 		standort = new View_Standort();
 		this.tabbedPane.addTab("Standortverwaltung", null, standort.getSubPanel(), null);
 		
-		pnl_test = new JPanel();
-		//tabbedPane.addTab("test", null, pnl_test, null);
-		pnl_test.setLayout(null);
-		
-		btnNewButton = new JButton("New button");
-		this.btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(10, 6, 89, 23);
-		
-		pnl_test.add(btnNewButton);
-		
-		txttest = new JTextArea();
-		txttest.setBounds(105, 5, 542, 737);
-		txttest.setColumns(20);
-		txttest.setRows(5);
-		txttest.setLineWrap(true);
-		txttest.setText("sdfsdfsdf");
-		pnl_test.add(txttest);
+		test = new View_Test();
+		this.tabbedPane.addTab("test", null, test.getSubPanel(), null);
 	}
-
-	public void addTesthandler(ActionListener al)
+	public void bindTesthandler(ActionListener al) {
+		test.addTesthandler(al);
+	}
+	public void setTest(String txt) 
 	{
-		btnNewButton.addActionListener(al);
+		test.setTestTA(txt);
 	}
-	public void setTest(String txt) {
-		txttest.setText(txt);
-	}
-
-	public void setVisible(boolean b) {
-		this.frmTourenverwaltung.setVisible(b);
-		
-	}
-	/**
-	 * @wbp.factory
-	 * @wbp.factory.parameter.source arg2 test
-	 * @wbp.factory.parameter.source arg2_1 fahrer.getSubPanel()
-	 * @wbp.factory.parameter.source arg2_2 pnl_auftragsverwaltung
-	 * @wbp.factory.parameter.source arg2_3 pnl_kundenverwaltung
-	 * @wbp.factory.parameter.source arg2_4 pnl_fahrzeugverwaltung
-	 * @wbp.factory.parameter.source arg2_5 this.pnl_standortverwaltung
-	 */
-	public static JTabbedPane createJTabbedPane(Component arg2, Component arg2_1, Component arg2_2, Component arg2_3, Component arg2_4, Component arg2_5) {
-		JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP);
-		tabbedPane.addTab("Routenplaner", null, arg2, null);
-		tabbedPane.addTab("Fahrerverwaltung", null, arg2_1, null);
-		tabbedPane.addTab("Auftragsverwaltung", null, arg2_2, null);
-		tabbedPane.addTab("Kundenverwaltung", null, arg2_3, null);
-		tabbedPane.addTab("Fahrzeuggverwaltung", null, arg2_4, null);
-		tabbedPane.addTab("Standortverwaltung", null, arg2_5, null);
-		return tabbedPane;
+	public void setVisible(boolean b) 
+	{
+		this.frmTourenverwaltung.setVisible(b);		
 	}
 }

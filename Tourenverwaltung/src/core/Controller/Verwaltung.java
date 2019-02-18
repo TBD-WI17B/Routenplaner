@@ -59,7 +59,7 @@ public class Verwaltung {
 	 */
 	private void bindHandler()
 	{
-		window.addTesthandler(new testHandler());
+		window.bindTesthandler(new testHandler());
 	}
 	
 	/**
