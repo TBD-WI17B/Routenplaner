@@ -41,7 +41,9 @@ import javax.swing.event.ChangeEvent;
 import java.awt.Component;
 
 public class View {
+	//TODO Bennen die Variablen bitte mit Sinn Manu ^^ (TextField_2)
 	
+	//Models
 	private Model model;
 	private View_Auftrag auftrag;
 	private View_Fahrer fahrer;
@@ -49,79 +51,20 @@ public class View {
 	private View_Kunde kunde;
 	private View_Route route;
 	
+	//Globale Fenster Einstellungen
 	private int x = 100;
 	private int y= 100;
 	private int height= 840;
 	private int width = 1340;
 
 	private JFrame frmTourenverwaltung;
-	private JPanel pnl_test;
-	private JPanel pnl_kundenverwaltung;
-	private JPanel pnl_auftragsverwaltung;
-	private JPanel pnl_fahrerverwaltung;
-	private JPanel pnl_routenplaner;
+	
+	private JPanel pnl_test,pnl_kundenverwaltung, pnl_auftragsverwaltung, pnl_standortverwaltung, test;
+	
 	private JTextArea txttest;
 	private JMenuBar menuBar;
 	private JTabbedPane tabbedPane;
 	private JButton btnNewButton;
-	private JLabel lbl_map;
-	private JList ls_routen;
-	private JLabel lbl_routen;
-	private JLabel lbl_haltepunkte;
-	private JList ls_haltepunkte;
-	private JTextField txtAuftragsnummer;
-	private JTextField txtFahrer;
-	private JTextField txtKm;
-	private JTextField txtDauer;
-	private JList ls_fahrer;
-	private JLabel lblNewLabel;
-	private JButton btnNeueRoute;
-	private JButton btnLschen;
-	private JButton btnBearbeiten;
-	private JButton btnHinzufgen;
-	private JButton btnEntfernen;
-	private JButton btnZuweisen;
-	private JLabel lblAuftragsnummer;
-	private JLabel lblFahrer;
-	private JLabel lblDauer;
-	private JLabel lblDistanz;
-	private JLabel lblInfos;
-	private JLabel lblInfos_1;
-	private JTextField txtAbc;
-	private JTextField txtZzz;
-	private JLabel lblZusatz;
-	private JTextPane txtpnLoremIpsumOder;
-	private JList list;
-	private JTextField txtMller;
-	private JTextField textField_1;
-	private JTextField txtNestare;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JLabel lblNewLabel_1;
-	private JLabel lblPlzOrt;
-	private JLabel lblStrae;
-	private JLabel lblTelefon;
-	private JLabel lblMobil;
-	private JTextField txtKarl;
-	private JTextField txtTesthausen;
-	private JTextField textField;
-	private JLabel lblAngestelltennummer;
-	private JTextField txtA;
-	private JTable table;
-	private JScrollPane scrollPane;
-	private JLabel lblStatus;
-	private JRadioButton rdbtnAktiv;
-	private JRadioButton rdbtnInaktiv;
-	
-	private JLabel lblFahrer_1;
-	private JLabel lblAnschrift;
-	private JLabel lblInformationen;
-	private JButton btnNeu;
-	private JButton btnLschen_1;
-	private JButton btnNewButton_1;
-	private JButton btnSpeichern;
-	private JButton btnAbbrechen;
-	private JSeparator separator;
 	private JLabel lblAuftrge;
 	private JList list_1;
 	private JButton btnNeuerAuftrag;
@@ -193,7 +136,6 @@ public class View {
 	private JRadioButton rdbtnNein_1;
 	private JLabel lblStandortId;
 	private JTextField txtS;
-	private JPanel pnl_standortverwaltung;
 	private JList list_standorte;
 	private JButton btnNeuerStandort;
 	private JList list_4;
@@ -216,7 +158,6 @@ public class View {
 	private JTextField textField_25;
 	private JTextField txtS_1;
 	private JTextField txtMosbach;
-	private JPanel test;
 
 	/**
 	 * Launch the application.
