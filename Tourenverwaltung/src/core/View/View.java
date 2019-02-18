@@ -1192,7 +1192,7 @@ public class View {
 		pnl_fahrzeugverwaltung.add(btnNewButton_3);
 		
 		pnl_test = new JPanel();
-		tabbedPane.addTab("test", null, pnl_test, null);
+		//tabbedPane.addTab("test", null, pnl_test, null);
 		pnl_test.setLayout(null);
 		
 		btnNewButton = new JButton("New button");
