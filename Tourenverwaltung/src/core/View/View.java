@@ -19,7 +19,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 public class View {
+	//TODO Bennen die Variablen bitte mit Sinn Manu ^^ (TextField_2)
 	
+	//Models
 	private Model model;
 	private View_Auftrag auftrag;
 	private View_Fahrer fahrer;
@@ -29,14 +31,17 @@ public class View {
 	private View_Test test;
 	private View_Standort standort;
 	
+	//Globale Fenster Einstellungen
 	private int x = 100;
 	private int y= 100;
 	private int height= 840;
 	private int width = 1340;
 
 	private JFrame frmTourenverwaltung;
+	
 	private JMenuBar menuBar;
 	private JTabbedPane tabbedPane;
+
 
 	/**
 	 * Launch the application.
