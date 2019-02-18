@@ -8,7 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
-import core.Model.Model;
+import core.Model.Model_View;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
@@ -22,7 +22,7 @@ public class View {
 	//TODO Bennen die Variablen bitte mit Sinn Manu ^^ (TextField_2)
 	
 	//Models
-	private Model model;
+	private Model_View model;
 	private View_Auftrag auftrag;
 	private View_Fahrer fahrer;
 	private View_Fahrzeug fahrzeug;
@@ -65,7 +65,7 @@ public class View {
 	/**
 	 * Create the application.
 	 */
-	public View(Model m) {
+	public View(Model_View m) {
 		this.model = m;
 		this.auftrag = new View_Auftrag();
 		this.fahrer = new View_Fahrer();

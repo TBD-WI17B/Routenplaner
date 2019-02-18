@@ -1,8 +1,8 @@
 package core.Model;
 
-public class Route {
+public class Model_Fahrer {
 
-	public Route() {
+	public Model_Fahrer() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -9,18 +9,18 @@ import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
-import core.Model.Model;
+import core.Model.Model_View;
 import core.View.View;
 
 public class Verwaltung {
 
 	private View window;
-	private Model model;
+	private Model_View model;
 	private JSONParser parser;
 	//private Connector sql;
 	
 	public Verwaltung() {
-		model = new Model();//Bis jetzt nicht benutzt??
+		model = new Model_View();//Bis jetzt nicht benutzt??
 		window = new View(model);	
 	
 		this.parser = new JSONParser();		

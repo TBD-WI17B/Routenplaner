@@ -1,8 +1,8 @@
 package core.Model;
 
-public class Kunde {
+public class Model_Auftrag {
 
-	public Kunde() {
+	public Model_Auftrag() {
 		// TODO Auto-generated constructor stub
 	}
 

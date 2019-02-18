@@ -1,8 +1,8 @@
 package core.Model;
 
-public class Fahrer {
+public class Model_Kunde {
 
-	public Fahrer() {
+	public Model_Kunde() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -1,8 +1,8 @@
 package core.Model;
 
-public class Auftrag {
+public class Model_Route {
 
-	public Auftrag() {
+	public Model_Route() {
 		// TODO Auto-generated constructor stub
 	}
 
