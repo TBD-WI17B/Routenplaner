@@ -30,7 +30,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
@@ -39,10 +38,17 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.Component;
 
 public class View {
 	
 	private Model model;
+	private View_Auftrag auftrag;
+	private View_Fahrer fahrer;
+	private View_Fahrzeug fahrzeug;
+	private View_Kunde kunde;
+	private View_Route route;
+	
 	private int x = 100;
 	private int y= 100;
 	private int height= 840;
@@ -106,7 +112,7 @@ public class View {
 	private JLabel lblStatus;
 	private JRadioButton rdbtnAktiv;
 	private JRadioButton rdbtnInaktiv;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	
 	private JLabel lblFahrer_1;
 	private JLabel lblAnschrift;
 	private JLabel lblInformationen;
@@ -158,8 +164,6 @@ public class View {
 	private JSeparator separator_2;
 	private JButton btnSpeichern_2;
 	private JButton btnAbbrechen_2;
-	private JLabel lblKrankenkasse;
-	private JTextField txtAokKln;
 	private JLabel lblKundennummer;
 	private JTextField txtK;
 	private JTable table_1;
@@ -168,8 +172,6 @@ public class View {
 	private JTextField txtMan;
 	private JTextField textField_22;
 	private JTextField textField_23;
-	private JTextField textField_24;
-	private JTextField textField_25;
 	private JTextField textField_26;
 	private JTextField textField_27;
 	private JTextField textField_28;
@@ -186,6 +188,35 @@ public class View {
 	private JTable table_2;
 	private JTextField txtF;
 	private JTextField textField_21;
+	private JLabel lblHandicap;
+	private JRadioButton rdbtnJa_1;
+	private JRadioButton rdbtnNein_1;
+	private JLabel lblStandortId;
+	private JTextField txtS;
+	private JPanel pnl_standortverwaltung;
+	private JList list_standorte;
+	private JButton btnNeuerStandort;
+	private JList list_4;
+	private JLabel lblStandorte;
+	private JLabel lblFahrzeuge_1;
+	private JList list_5;
+	private JLabel lblFahrer_4;
+	private JButton btnLschen_5;
+	private JButton btnHinzufgen_1;
+	private JButton btnEntfernen_1;
+	private JButton btnHinzufgen_2;
+	private JButton btnEntfernen_2;
+	private JLabel lblName;
+	private JLabel lblStandortid;
+	private JTextField textField_13;
+	private JTextField textField_18;
+	private JLabel label_9;
+	private JLabel label_10;
+	private JTextField textField_24;
+	private JTextField textField_25;
+	private JTextField txtS_1;
+	private JTextField txtMosbach;
+	private JPanel test;
 
 	/**
 	 * Launch the application.
@@ -216,6 +247,12 @@ public class View {
 	 */
 	public View(Model m) {
 		this.model = m;
+		this.auftrag = new View_Auftrag();
+		this.fahrer = new View_Fahrer();
+		this.fahrzeug = new View_Fahrzeug();
+		this.kunde = new View_Kunde();
+		this.route = new View_Route();
+		
 		initialize();
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
@@ -240,8 +277,10 @@ public class View {
 		frmTourenverwaltung = new JFrame();
 		frmTourenverwaltung.setIconImage(Toolkit.getDefaultToolkit().getImage(View.class.getResource("/images/72-200.png")));
 		frmTourenverwaltung.setTitle("Tourenverwaltung");
-		frmTourenverwaltung.setBounds(x, y, height, width);
+		frmTourenverwaltung.setBounds(x, y, width, height);
 		frmTourenverwaltung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 		
 		menuBar = new JMenuBar();
 		frmTourenverwaltung.setJMenuBar(menuBar);
@@ -285,351 +324,23 @@ public class View {
 		});
 		frmTourenverwaltung.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
-		pnl_routenplaner = new JPanel();
-		tabbedPane.addTab("Routenplaner", null, pnl_routenplaner, null);
-		this.pnl_routenplaner.setLayout(null);
 		
-		this.lbl_map = new JLabel("");
-		this.lbl_map.setVerticalAlignment(SwingConstants.TOP);
-		this.lbl_map.setHorizontalAlignment(SwingConstants.RIGHT);
-		this.lbl_map.setIcon(new ImageIcon(View.class.getResource("/images/500px-Karte_Deutschland.svg.png")));
-		this.lbl_map.setBounds(795, 11, 508, 684);
-		this.pnl_routenplaner.add(this.lbl_map);
 		
-		this.ls_routen = new JList();
-		this.ls_routen.setValueIsAdjusting(true);
-		this.ls_routen.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Route 1", "Route 2", "Route 3", "Mosbach - Heilbronn"};
-			@Override
-			public int getSize() {
-				return values.length;
-			}
-			@Override
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		this.ls_routen.setSelectedIndex(0);
-		this.ls_routen.setBounds(10, 36, 227, 217);
-		this.pnl_routenplaner.add(this.ls_routen);
 		
-		this.lbl_routen = new JLabel("Routen");
-		this.lbl_routen.setLabelFor(this.ls_routen);
-		this.lbl_routen.setBounds(10, 11, 88, 14);
-		this.pnl_routenplaner.add(this.lbl_routen);
+		//Test ausgelagterte SubPanels
+		route = new View_Route();		
+		test = new JPanel();
+		for (Component comp : route.getComp()) {
+			test.add(comp);
+			//System.out.println(comp);
+		}
+		//test = route.getSubPanel();
+		tabbedPane.addTab("Routenplaner", null, test, null);
 		
-		this.lbl_haltepunkte = new JLabel("Haltepunkte");
-		this.lbl_haltepunkte.setBounds(269, 11, 98, 14);
-		this.pnl_routenplaner.add(this.lbl_haltepunkte);
 		
-		this.ls_haltepunkte = new JList();
-		this.ls_haltepunkte.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Mosbach", "\u00D6hringen", "Oedheim", "Stuttgart", "Heilbronx"};
-			@Override
-			public int getSize() {
-				return values.length;
-			}
-			@Override
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		this.lbl_haltepunkte.setLabelFor(this.ls_haltepunkte);
-		this.ls_haltepunkte.setBounds(269, 36, 227, 217);
-		this.pnl_routenplaner.add(this.ls_haltepunkte);
+		fahrer = new View_Fahrer();
+		tabbedPane.addTab("Fahrerverwaltung", null, fahrer.getSubPanel(), null);
 		
-		this.txtAuftragsnummer = new JTextField();
-		this.txtAuftragsnummer.setText("Auftragsnummer");
-		this.txtAuftragsnummer.setBounds(109, 373, 112, 20);
-		this.pnl_routenplaner.add(this.txtAuftragsnummer);
-		this.txtAuftragsnummer.setColumns(10);
-		
-		this.txtFahrer = new JTextField();
-		this.txtFahrer.setText("Fahrer");
-		this.txtFahrer.setBounds(109, 404, 86, 20);
-		this.pnl_routenplaner.add(this.txtFahrer);
-		this.txtFahrer.setColumns(10);
-		
-		this.txtKm = new JTextField();
-		this.txtKm.setText("km");
-		this.txtKm.setBounds(109, 466, 86, 20);
-		this.pnl_routenplaner.add(this.txtKm);
-		this.txtKm.setColumns(10);
-		
-		this.txtDauer = new JTextField();
-		this.txtDauer.setText("dauer");
-		this.txtDauer.setBounds(109, 435, 86, 20);
-		this.pnl_routenplaner.add(this.txtDauer);
-		this.txtDauer.setColumns(10);
-		
-		this.ls_fahrer = new JList();
-		this.ls_fahrer.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Karl, M\u00FCller", "Heinz, Ketchup"};
-			@Override
-			public int getSize() {
-				return values.length;
-			}
-			@Override
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		this.ls_fahrer.setSelectedIndex(0);
-		this.ls_fahrer.setBounds(526, 36, 227, 217);
-		this.pnl_routenplaner.add(this.ls_fahrer);
-		
-		this.lblNewLabel = new JLabel("Fahrer");
-		this.lblNewLabel.setLabelFor(this.ls_fahrer);
-		this.lblNewLabel.setBounds(526, 11, 88, 14);
-		this.pnl_routenplaner.add(this.lblNewLabel);
-		
-		this.btnNeueRoute = new JButton("Neue Route");
-		this.btnNeueRoute.setBounds(10, 264, 94, 23);
-		this.pnl_routenplaner.add(this.btnNeueRoute);
-		
-		this.btnLschen = new JButton("L\u00F6schen");
-		this.btnLschen.setBounds(114, 264, 123, 23);
-		this.pnl_routenplaner.add(this.btnLschen);
-		
-		this.btnBearbeiten = new JButton("Bearbeiten");
-		this.btnBearbeiten.setBounds(10, 298, 94, 23);
-		this.pnl_routenplaner.add(this.btnBearbeiten);
-		
-		this.btnHinzufgen = new JButton("Hinzuf\u00FCgen");
-		this.btnHinzufgen.setBounds(269, 264, 89, 23);
-		this.pnl_routenplaner.add(this.btnHinzufgen);
-		
-		this.btnEntfernen = new JButton("Entfernen");
-		this.btnEntfernen.setBounds(368, 264, 89, 23);
-		this.pnl_routenplaner.add(this.btnEntfernen);
-		
-		this.btnZuweisen = new JButton("Zuweisen");
-		this.btnZuweisen.setBounds(526, 264, 89, 23);
-		this.pnl_routenplaner.add(this.btnZuweisen);
-		
-		this.lblAuftragsnummer = new JLabel("Auftragsnummer");
-		this.lblAuftragsnummer.setBounds(10, 373, 88, 14);
-		this.pnl_routenplaner.add(this.lblAuftragsnummer);
-		
-		this.lblFahrer = new JLabel("Fahrer");
-		this.lblFahrer.setBounds(10, 404, 88, 14);
-		this.pnl_routenplaner.add(this.lblFahrer);
-		
-		this.lblDauer = new JLabel("Dauer");
-		this.lblDauer.setBounds(10, 435, 88, 14);
-		this.pnl_routenplaner.add(this.lblDauer);
-		
-		this.lblDistanz = new JLabel("Distanz");
-		this.lblDistanz.setBounds(10, 466, 88, 14);
-		this.pnl_routenplaner.add(this.lblDistanz);
-		
-		this.lblInfos = new JLabel("Infos");
-		this.lblInfos.setBounds(10, 497, 88, 14);
-		this.pnl_routenplaner.add(this.lblInfos);
-		
-		this.lblInfos_1 = new JLabel("Infos");
-		this.lblInfos_1.setBounds(10, 528, 88, 14);
-		this.pnl_routenplaner.add(this.lblInfos_1);
-		
-		this.txtAbc = new JTextField();
-		this.txtAbc.setText("abc");
-		this.txtAbc.setColumns(10);
-		this.txtAbc.setBounds(109, 497, 86, 20);
-		this.pnl_routenplaner.add(this.txtAbc);
-		
-		this.txtZzz = new JTextField();
-		this.txtZzz.setText("zzz");
-		this.txtZzz.setColumns(10);
-		this.txtZzz.setBounds(109, 528, 86, 20);
-		this.pnl_routenplaner.add(this.txtZzz);
-		
-		this.lblZusatz = new JLabel("Zusatz");
-		this.lblZusatz.setBounds(10, 553, 88, 14);
-		this.pnl_routenplaner.add(this.lblZusatz);
-		
-		this.txtpnLoremIpsumOder = new JTextPane();
-		this.txtpnLoremIpsumOder.setText("Lorem Ipsum oder so");
-		this.txtpnLoremIpsumOder.setBounds(109, 559, 358, 118);
-		this.pnl_routenplaner.add(this.txtpnLoremIpsumOder);
-		
-		JButton btnRoutenGenerieren = new JButton("Routen generieren");
-		btnRoutenGenerieren.setBounds(114, 298, 123, 23);
-		pnl_routenplaner.add(btnRoutenGenerieren);
-		
-		pnl_fahrerverwaltung = new JPanel();
-		tabbedPane.addTab("Fahrerverwaltung", null, pnl_fahrerverwaltung, null);
-		this.pnl_fahrerverwaltung.setLayout(null);
-		
-		this.list = new JList();
-		this.list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Karl, M\u00FCller", "Heinz, Ketchup"};
-			@Override
-			public int getSize() {
-				return values.length;
-			}
-			@Override
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		this.list.setSelectedIndex(0);
-		this.list.setBounds(10, 45, 210, 367);
-		this.pnl_fahrerverwaltung.add(this.list);
-		
-		this.txtMller = new JTextField();
-		this.txtMller.setText("M\u00FCller");
-		this.txtMller.setBounds(338, 45, 119, 20);
-		this.pnl_fahrerverwaltung.add(this.txtMller);
-		this.txtMller.setColumns(10);
-		
-		this.textField_1 = new JTextField();
-		this.textField_1.setText("12346");
-		this.textField_1.setColumns(10);
-		this.textField_1.setBounds(338, 76, 73, 20);
-		this.pnl_fahrerverwaltung.add(this.textField_1);
-		
-		this.txtNestare = new JTextField();
-		this.txtNestare.setText("Nestar\u00DFe");
-		this.txtNestare.setColumns(10);
-		this.txtNestare.setBounds(338, 107, 195, 20);
-		this.pnl_fahrerverwaltung.add(this.txtNestare);
-		
-		this.textField_3 = new JTextField();
-		this.textField_3.setText("01234568");
-		this.textField_3.setColumns(10);
-		this.textField_3.setBounds(338, 138, 248, 20);
-		this.pnl_fahrerverwaltung.add(this.textField_3);
-		
-		this.textField_4 = new JTextField();
-		this.textField_4.setText("012345644");
-		this.textField_4.setColumns(10);
-		this.textField_4.setBounds(338, 169, 248, 20);
-		this.pnl_fahrerverwaltung.add(this.textField_4);
-		
-		this.lblNewLabel_1 = new JLabel("Name, Vorname");
-		this.lblNewLabel_1.setBounds(230, 46, 98, 14);
-		this.pnl_fahrerverwaltung.add(this.lblNewLabel_1);
-		
-		this.lblPlzOrt = new JLabel("PLZ, Ort");
-		this.lblPlzOrt.setBounds(230, 79, 98, 14);
-		this.pnl_fahrerverwaltung.add(this.lblPlzOrt);
-		
-		this.lblStrae = new JLabel("Stra\u00DFe, Nr.");
-		this.lblStrae.setBounds(230, 110, 98, 14);
-		this.pnl_fahrerverwaltung.add(this.lblStrae);
-		
-		this.lblTelefon = new JLabel("Telefon");
-		this.lblTelefon.setBounds(230, 141, 98, 14);
-		this.pnl_fahrerverwaltung.add(this.lblTelefon);
-		
-		this.lblMobil = new JLabel("Mobil");
-		this.lblMobil.setBounds(230, 172, 98, 14);
-		this.pnl_fahrerverwaltung.add(this.lblMobil);
-		
-		this.txtKarl = new JTextField();
-		this.txtKarl.setText("Karl");
-		this.txtKarl.setColumns(10);
-		this.txtKarl.setBounds(467, 45, 119, 20);
-		this.pnl_fahrerverwaltung.add(this.txtKarl);
-		
-		this.txtTesthausen = new JTextField();
-		this.txtTesthausen.setText("Testhausen");
-		this.txtTesthausen.setColumns(10);
-		this.txtTesthausen.setBounds(421, 76, 165, 20);
-		this.pnl_fahrerverwaltung.add(this.txtTesthausen);
-		
-		this.textField = new JTextField();
-		this.textField.setText("1");
-		this.textField.setColumns(10);
-		this.textField.setBounds(543, 107, 43, 20);
-		this.pnl_fahrerverwaltung.add(this.textField);
-		
-		this.lblAngestelltennummer = new JLabel("Angestelltennummer");
-		this.lblAngestelltennummer.setBounds(686, 48, 98, 14);
-		this.pnl_fahrerverwaltung.add(this.lblAngestelltennummer);
-		
-		this.txtA = new JTextField();
-		this.txtA.setText("A123");
-		this.txtA.setColumns(10);
-		this.txtA.setBounds(794, 45, 248, 20);
-		this.pnl_fahrerverwaltung.add(this.txtA);
-		
-		this.scrollPane = new JScrollPane();
-		this.scrollPane.setBounds(10, 435, 953, 307);
-		this.pnl_fahrerverwaltung.add(this.scrollPane);
-		
-		this.table = new JTable();
-		this.table.setFillsViewportHeight(true);
-		this.scrollPane.setViewportView(this.table);
-		this.table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"R123", "A123", "Mosbach", "Heilbronn", "123", "12.1.2019", "K100"},
-				{"R122", "A124", "Stuttgart", "Mosbach", "111", "20.2.2019", "K201"},
-				{"R22", "A45", "Heilbronn", "Stuttgart", "50", "1.1.2019", "K15"},
-			},
-			new String[] {
-				"Route", "Auftrag", "Start", "Ziel", "Distanz", "Datum", "Kunde"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, Object.class, String.class, Object.class, Object.class, Object.class, Object.class
-			};
-			@Override
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		this.table.getColumnModel().getColumn(6).setPreferredWidth(71);
-		
-		this.lblStatus = new JLabel("Status");
-		this.lblStatus.setBounds(686, 73, 98, 14);
-		this.pnl_fahrerverwaltung.add(this.lblStatus);
-		
-		this.rdbtnAktiv = new JRadioButton("Aktiv");
-		buttonGroup.add(this.rdbtnAktiv);
-		this.rdbtnAktiv.setBounds(794, 72, 64, 23);
-		this.pnl_fahrerverwaltung.add(this.rdbtnAktiv);
-		
-		this.rdbtnInaktiv = new JRadioButton("Inaktiv");
-		buttonGroup.add(this.rdbtnInaktiv);
-		this.rdbtnInaktiv.setBounds(860, 72, 64, 23);
-		this.pnl_fahrerverwaltung.add(this.rdbtnInaktiv);
-		
-		this.lblFahrer_1 = new JLabel("Fahrer");
-		this.lblFahrer_1.setBounds(10, 20, 46, 14);
-		this.pnl_fahrerverwaltung.add(this.lblFahrer_1);
-		
-		this.lblAnschrift = new JLabel("Anschrift");
-		this.lblAnschrift.setBounds(230, 20, 46, 14);
-		this.pnl_fahrerverwaltung.add(this.lblAnschrift);
-		
-		this.lblInformationen = new JLabel("Informationen");
-		this.lblInformationen.setBounds(686, 20, 98, 14);
-		this.pnl_fahrerverwaltung.add(this.lblInformationen);
-		
-		this.btnNeu = new JButton("Neuer Fahrer");
-		this.btnNeu.setBounds(230, 355, 104, 23);
-		this.pnl_fahrerverwaltung.add(this.btnNeu);
-		
-		this.btnLschen_1 = new JButton("L\u00F6schen");
-		this.btnLschen_1.setBounds(230, 389, 104, 23);
-		this.pnl_fahrerverwaltung.add(this.btnLschen_1);
-		
-		this.btnNewButton_1 = new JButton("\u00DCbernehmen");
-		this.btnNewButton_1.setBounds(710, 212, 104, 23);
-		this.pnl_fahrerverwaltung.add(this.btnNewButton_1);
-		
-		this.btnSpeichern = new JButton("Speichern");
-		this.btnSpeichern.setBounds(824, 212, 104, 23);
-		this.pnl_fahrerverwaltung.add(this.btnSpeichern);
-		
-		this.btnAbbrechen = new JButton("Abbrechen");
-		this.btnAbbrechen.setBounds(938, 212, 104, 23);
-		this.pnl_fahrerverwaltung.add(this.btnAbbrechen);
-		
-		this.separator = new JSeparator();
-		this.separator.setBounds(230, 200, 812, 1);
-		this.pnl_fahrerverwaltung.add(this.separator);
 		
 		pnl_auftragsverwaltung = new JPanel();
 		tabbedPane.addTab("Auftragsverwaltung", null, pnl_auftragsverwaltung, null);
@@ -944,16 +655,6 @@ public class View {
 		btnAbbrechen_2.setBounds(381, 226, 89, 23);
 		pnl_kundenverwaltung.add(btnAbbrechen_2);
 		
-		lblKrankenkasse = new JLabel("Krankenkasse");
-		lblKrankenkasse.setBounds(694, 73, 89, 14);
-		pnl_kundenverwaltung.add(lblKrankenkasse);
-		
-		txtAokKln = new JTextField();
-		txtAokKln.setText("AOK K\u00F6ln");
-		txtAokKln.setBounds(793, 70, 195, 20);
-		pnl_kundenverwaltung.add(txtAokKln);
-		txtAokKln.setColumns(10);
-		
 		lblKundennummer = new JLabel("Kundennummer");
 		lblKundennummer.setBounds(694, 39, 89, 14);
 		pnl_kundenverwaltung.add(lblKundennummer);
@@ -981,13 +682,26 @@ public class View {
 		scrollPane_1.setViewportView(table_1);
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"K135", "Tim", "Dude", "A112", "N\u00FCrnberg", "Berlin", "20.3.2019", "400", "1501,35"},
-				{"K135", "Tim", "Dude", "A155", "Berlin", "N\u00FCrnberg", "25.3.2019", "400", null},
+				{"A112", "Tim", "Dude", "K135", "N\u00FCrnberg", "Berlin", "20.3.2019", "400", "1501,35"},
+				{"A155", "Tim", "Dude", "K135", "Berlin", "N\u00FCrnberg", "25.3.2019", "400", "1522,00"},
 			},
 			new String[] {
-				"Kunde", "Name", "Vorname", "Auftrag", "Start", "Ziel", "Datum", "Distanz", "Betrag"
+				"Auftrag", "Name", "Vorname", "Kunde", "Start", "Ziel", "Datum", "Distanz", "Betrag"
 			}
 		));
+		
+		this.lblHandicap = new JLabel("Handicap");
+		this.lblHandicap.setBounds(694, 70, 89, 14);
+		this.pnl_kundenverwaltung.add(this.lblHandicap);
+		
+		this.rdbtnJa_1 = new JRadioButton("Ja");
+		this.rdbtnJa_1.setBounds(793, 66, 43, 23);
+		this.pnl_kundenverwaltung.add(this.rdbtnJa_1);
+		
+		this.rdbtnNein_1 = new JRadioButton("Nein");
+		this.rdbtnNein_1.setSelected(true);
+		this.rdbtnNein_1.setBounds(838, 66, 55, 23);
+		this.pnl_kundenverwaltung.add(this.rdbtnNein_1);
 		
 		JPanel pnl_fahrzeugverwaltung = new JPanel();
 		tabbedPane.addTab("Fahrzeuggverwaltung", null, pnl_fahrzeugverwaltung, null);
@@ -1000,7 +714,7 @@ public class View {
 		JList list_3 = new JList();
 		list_3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list_3.setModel(new AbstractListModel() {
-			String[] values = new String[] {"F12", "F1", "F5"};
+			String[] values = new String[] {"V12", "V1", "V5"};
 			public int getSize() {
 				return values.length;
 			}
@@ -1021,7 +735,7 @@ public class View {
 		pnl_fahrzeugverwaltung.add(lblMarke);
 		
 		JLabel lblVersicherungsnummer = new JLabel("Versicherungsnummer");
-		lblVersicherungsnummer.setBounds(217, 174, 145, 14);
+		lblVersicherungsnummer.setBounds(217, 149, 145, 14);
 		pnl_fahrzeugverwaltung.add(lblVersicherungsnummer);
 		
 		txtKnms = new JTextField();
@@ -1036,56 +750,35 @@ public class View {
 		pnl_fahrzeugverwaltung.add(txtMan);
 		
 		textField_22 = new JTextField();
-		textField_22.setText("K\u00DCN-MS-1993");
 		textField_22.setColumns(10);
-		textField_22.setBounds(371, 173, 136, 20);
+		textField_22.setBounds(371, 148, 136, 20);
 		pnl_fahrzeugverwaltung.add(textField_22);
 		
 		JLabel lblSitzpltze = new JLabel("Sitzpl\u00E4tze");
-		lblSitzpltze.setBounds(217, 202, 145, 14);
+		lblSitzpltze.setBounds(217, 177, 145, 14);
 		pnl_fahrzeugverwaltung.add(lblSitzpltze);
 		
-		JLabel lblMaxGewicht = new JLabel("Max. Gewicht");
-		lblMaxGewicht.setBounds(217, 227, 145, 14);
-		pnl_fahrzeugverwaltung.add(lblMaxGewicht);
-		
-		JLabel label_11 = new JLabel("Kennzeichen");
-		label_11.setBounds(217, 252, 145, 14);
-		pnl_fahrzeugverwaltung.add(label_11);
-		
 		textField_23 = new JTextField();
-		textField_23.setText("K\u00DCN-MS-1993");
+		textField_23.setText("5");
 		textField_23.setColumns(10);
-		textField_23.setBounds(372, 201, 136, 20);
+		textField_23.setBounds(372, 176, 136, 20);
 		pnl_fahrzeugverwaltung.add(textField_23);
-		
-		textField_24 = new JTextField();
-		textField_24.setText("K\u00DCN-MS-1993");
-		textField_24.setColumns(10);
-		textField_24.setBounds(371, 226, 136, 20);
-		pnl_fahrzeugverwaltung.add(textField_24);
-		
-		textField_25 = new JTextField();
-		textField_25.setText("K\u00DCN-MS-1993");
-		textField_25.setColumns(10);
-		textField_25.setBounds(371, 251, 136, 20);
-		pnl_fahrzeugverwaltung.add(textField_25);
 		
 		lblFahrzeuginformationen = new JLabel("Fahrzeuginformationen");
 		lblFahrzeuginformationen.setBounds(217, 11, 118, 14);
 		pnl_fahrzeugverwaltung.add(lblFahrzeuginformationen);
 		
 		lblBehindertenGerecht = new JLabel("Behindertengerecht");
-		lblBehindertenGerecht.setBounds(217, 277, 145, 14);
+		lblBehindertenGerecht.setBounds(217, 202, 145, 14);
 		pnl_fahrzeugverwaltung.add(lblBehindertenGerecht);
 		
 		JRadioButton rdbtnJa = new JRadioButton("ja");
-		rdbtnJa.setBounds(372, 278, 47, 23);
+		rdbtnJa.setBounds(372, 203, 47, 23);
 		pnl_fahrzeugverwaltung.add(rdbtnJa);
 		
 		JRadioButton rdbtnNein = new JRadioButton("Nein");
 		rdbtnNein.setSelected(true);
-		rdbtnNein.setBounds(421, 278, 58, 23);
+		rdbtnNein.setBounds(421, 203, 58, 23);
 		pnl_fahrzeugverwaltung.add(rdbtnNein);
 		
 		JLabel lblStandortdaten = new JLabel("Standortdaten");
@@ -1095,33 +788,33 @@ public class View {
 		textField_33 = new JTextField();
 		textField_33.setText("12346");
 		textField_33.setColumns(10);
-		textField_33.setBounds(670, 48, 73, 20);
+		textField_33.setBounds(670, 68, 73, 20);
 		pnl_fahrzeugverwaltung.add(textField_33);
 		
 		textField_34 = new JTextField();
 		textField_34.setText("Nestar\u00DFe");
 		textField_34.setColumns(10);
-		textField_34.setBounds(670, 79, 195, 20);
+		textField_34.setBounds(670, 99, 195, 20);
 		pnl_fahrzeugverwaltung.add(textField_34);
 		
 		JLabel label_7 = new JLabel("PLZ, Ort");
-		label_7.setBounds(562, 51, 98, 14);
+		label_7.setBounds(562, 71, 98, 14);
 		pnl_fahrzeugverwaltung.add(label_7);
 		
 		JLabel label_8 = new JLabel("Stra\u00DFe, Nr.");
-		label_8.setBounds(562, 82, 98, 14);
+		label_8.setBounds(562, 102, 98, 14);
 		pnl_fahrzeugverwaltung.add(label_8);
 		
 		textField_35 = new JTextField();
 		textField_35.setText("Testhausen");
 		textField_35.setColumns(10);
-		textField_35.setBounds(753, 48, 165, 20);
+		textField_35.setBounds(753, 68, 165, 20);
 		pnl_fahrzeugverwaltung.add(textField_35);
 		
 		textField_36 = new JTextField();
 		textField_36.setText("1");
 		textField_36.setColumns(10);
-		textField_36.setBounds(875, 79, 43, 20);
+		textField_36.setBounds(875, 99, 43, 20);
 		pnl_fahrzeugverwaltung.add(textField_36);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
@@ -1132,11 +825,11 @@ public class View {
 		table_2.setFillsViewportHeight(true);
 		table_2.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"A123", "R122", "K12", "\u00D6hringen", "Heilbronn", "2", "150", "12.12.2018", null},
-				{"A15", "R155", "K178", "Leipzig", "Jena", "5", "235", "10.01.2019", "20.12.2018"},
+				{"R122", "\u00D6hringen", "Heilbronn", "2", "150", "12.12.2018"},
+				{"R155", "Leipzig", "Jena", "5", "235", "10.01.2019"},
 			},
 			new String[] {
-				"Auftrag", "Route", "Kunde", "Start", "Ziel", "Anzahl Haltestellen", "Distanz", "Datum", "Auftragsdatum"
+				"Route", "Start-Standort", "Ziel-Standort", "Anzahl Haltestellen", "Distanz", "Datum"
 			}
 		));
 		scrollPane_2.setViewportView(table_2);
@@ -1161,16 +854,6 @@ public class View {
 		textField_21.setBounds(372, 122, 136, 20);
 		pnl_fahrzeugverwaltung.add(textField_21);
 		
-		JLabel label_9 = new JLabel("Kennzeichen");
-		label_9.setBounds(217, 149, 145, 14);
-		pnl_fahrzeugverwaltung.add(label_9);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"PKW", "BUS", "Limousine"}));
-		comboBox.setSelectedIndex(0);
-		comboBox.setBounds(372, 146, 136, 20);
-		pnl_fahrzeugverwaltung.add(comboBox);
-		
 		JButton btnNeu_2 = new JButton("Neu");
 		btnNeu_2.setBounds(10, 420, 89, 23);
 		pnl_fahrzeugverwaltung.add(btnNeu_2);
@@ -1180,19 +863,161 @@ public class View {
 		pnl_fahrzeugverwaltung.add(btnLschen_4);
 		
 		JSeparator separator_5 = new JSeparator();
-		separator_5.setBounds(217, 314, 840, 2);
+		separator_5.setBounds(217, 239, 840, 2);
 		pnl_fahrzeugverwaltung.add(separator_5);
 		
 		JButton btnNewButton_2 = new JButton("Speichern");
-		btnNewButton_2.setBounds(217, 327, 89, 23);
+		btnNewButton_2.setBounds(217, 252, 89, 23);
 		pnl_fahrzeugverwaltung.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Abbrechen");
-		btnNewButton_3.setBounds(316, 327, 89, 23);
+		btnNewButton_3.setBounds(316, 252, 89, 23);
 		pnl_fahrzeugverwaltung.add(btnNewButton_3);
 		
+		this.lblStandortId = new JLabel("Standort ID");
+		this.lblStandortId.setBounds(562, 43, 96, 14);
+		pnl_fahrzeugverwaltung.add(this.lblStandortId);
+		
+		this.txtS = new JTextField();
+		this.txtS.setText("S50");
+		this.txtS.setBounds(670, 34, 86, 20);
+		pnl_fahrzeugverwaltung.add(this.txtS);
+		this.txtS.setColumns(10);
+		
+		this.pnl_standortverwaltung = new JPanel();
+		this.tabbedPane.addTab("Standortverwaltung", null, this.pnl_standortverwaltung, null);
+		this.pnl_standortverwaltung.setLayout(null);
+		
+		this.list_standorte = new JList();
+		this.list_standorte.setModel(new AbstractListModel() {
+			String[] values = new String[] {"S15", "S55", "S01"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		this.list_standorte.setSelectedIndex(0);
+		this.list_standorte.setBounds(10, 38, 219, 377);
+		this.pnl_standortverwaltung.add(this.list_standorte);
+		
+		this.btnNeuerStandort = new JButton("Neu");
+		this.btnNeuerStandort.setBounds(10, 427, 89, 23);
+		this.pnl_standortverwaltung.add(this.btnNeuerStandort);
+		
+		this.list_4 = new JList();
+		this.list_4.setModel(new AbstractListModel() {
+			String[] values = new String[] {"V12", "V25"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		this.list_4.setBounds(239, 38, 242, 377);
+		this.pnl_standortverwaltung.add(this.list_4);
+		
+		this.lblStandorte = new JLabel("Standorte");
+		this.lblStandorte.setBounds(10, 13, 127, 14);
+		this.pnl_standortverwaltung.add(this.lblStandorte);
+		
+		this.lblFahrzeuge_1 = new JLabel("Fahrzeuge");
+		this.lblFahrzeuge_1.setBounds(239, 13, 82, 14);
+		this.pnl_standortverwaltung.add(this.lblFahrzeuge_1);
+		
+		this.list_5 = new JList();
+		this.list_5.setModel(new AbstractListModel() {
+			String[] values = new String[] {"F155", "F22", "F10"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		this.list_5.setBounds(491, 38, 242, 377);
+		this.pnl_standortverwaltung.add(this.list_5);
+		
+		this.lblFahrer_4 = new JLabel("Fahrer");
+		this.lblFahrer_4.setBounds(491, 13, 89, 14);
+		this.pnl_standortverwaltung.add(this.lblFahrer_4);
+		
+		this.btnLschen_5 = new JButton("L\u00F6schen");
+		this.btnLschen_5.setBounds(109, 426, 89, 23);
+		this.pnl_standortverwaltung.add(this.btnLschen_5);
+		
+		this.btnHinzufgen_1 = new JButton("Hinzuf\u00FCgen");
+		this.btnHinzufgen_1.setBounds(239, 427, 89, 23);
+		this.pnl_standortverwaltung.add(this.btnHinzufgen_1);
+		
+		this.btnEntfernen_1 = new JButton("Entfernen");
+		this.btnEntfernen_1.setBounds(338, 427, 89, 23);
+		this.pnl_standortverwaltung.add(this.btnEntfernen_1);
+		
+		this.btnHinzufgen_2 = new JButton("Hinzuf\u00FCgen");
+		this.btnHinzufgen_2.setBounds(491, 427, 89, 23);
+		this.pnl_standortverwaltung.add(this.btnHinzufgen_2);
+		
+		this.btnEntfernen_2 = new JButton("Entfernen");
+		this.btnEntfernen_2.setBounds(590, 427, 89, 23);
+		this.pnl_standortverwaltung.add(this.btnEntfernen_2);
+		
+		this.lblName = new JLabel("Name");
+		this.lblName.setBounds(10, 485, 89, 14);
+		this.pnl_standortverwaltung.add(this.lblName);
+		
+		this.lblStandortid = new JLabel("Standort-ID");
+		this.lblStandortid.setBounds(10, 510, 89, 14);
+		this.pnl_standortverwaltung.add(this.lblStandortid);
+		
+		this.textField_13 = new JTextField();
+		this.textField_13.setText("12346");
+		this.textField_13.setColumns(10);
+		this.textField_13.setBounds(118, 535, 73, 20);
+		this.pnl_standortverwaltung.add(this.textField_13);
+		
+		this.textField_18 = new JTextField();
+		this.textField_18.setText("Nestar\u00DFe");
+		this.textField_18.setColumns(10);
+		this.textField_18.setBounds(118, 566, 195, 20);
+		this.pnl_standortverwaltung.add(this.textField_18);
+		
+		this.label_9 = new JLabel("PLZ, Ort");
+		this.label_9.setBounds(10, 538, 98, 14);
+		this.pnl_standortverwaltung.add(this.label_9);
+		
+		this.label_10 = new JLabel("Stra\u00DFe, Nr.");
+		this.label_10.setBounds(10, 569, 98, 14);
+		this.pnl_standortverwaltung.add(this.label_10);
+		
+		this.textField_24 = new JTextField();
+		this.textField_24.setText("Testhausen");
+		this.textField_24.setColumns(10);
+		this.textField_24.setBounds(201, 535, 165, 20);
+		this.pnl_standortverwaltung.add(this.textField_24);
+		
+		this.textField_25 = new JTextField();
+		this.textField_25.setText("1");
+		this.textField_25.setColumns(10);
+		this.textField_25.setBounds(323, 566, 43, 20);
+		this.pnl_standortverwaltung.add(this.textField_25);
+		
+		this.txtS_1 = new JTextField();
+		this.txtS_1.setText("S15");
+		this.txtS_1.setBounds(118, 507, 73, 20);
+		this.pnl_standortverwaltung.add(this.txtS_1);
+		this.txtS_1.setColumns(10);
+		
+		this.txtMosbach = new JTextField();
+		this.txtMosbach.setText("Mosbach -1 ");
+		this.txtMosbach.setBounds(118, 482, 248, 20);
+		this.pnl_standortverwaltung.add(this.txtMosbach);
+		this.txtMosbach.setColumns(10);
+		
 		pnl_test = new JPanel();
-		tabbedPane.addTab("test", null, pnl_test, null);
+		//tabbedPane.addTab("test", null, pnl_test, null);
 		pnl_test.setLayout(null);
 		
 		btnNewButton = new JButton("New button");
@@ -1225,5 +1050,24 @@ public class View {
 	public void setVisible(boolean b) {
 		this.frmTourenverwaltung.setVisible(b);
 		
+	}
+	/**
+	 * @wbp.factory
+	 * @wbp.factory.parameter.source arg2 test
+	 * @wbp.factory.parameter.source arg2_1 fahrer.getSubPanel()
+	 * @wbp.factory.parameter.source arg2_2 pnl_auftragsverwaltung
+	 * @wbp.factory.parameter.source arg2_3 pnl_kundenverwaltung
+	 * @wbp.factory.parameter.source arg2_4 pnl_fahrzeugverwaltung
+	 * @wbp.factory.parameter.source arg2_5 this.pnl_standortverwaltung
+	 */
+	public static JTabbedPane createJTabbedPane(Component arg2, Component arg2_1, Component arg2_2, Component arg2_3, Component arg2_4, Component arg2_5) {
+		JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.TOP);
+		tabbedPane.addTab("Routenplaner", null, arg2, null);
+		tabbedPane.addTab("Fahrerverwaltung", null, arg2_1, null);
+		tabbedPane.addTab("Auftragsverwaltung", null, arg2_2, null);
+		tabbedPane.addTab("Kundenverwaltung", null, arg2_3, null);
+		tabbedPane.addTab("Fahrzeuggverwaltung", null, arg2_4, null);
+		tabbedPane.addTab("Standortverwaltung", null, arg2_5, null);
+		return tabbedPane;
 	}
 }
