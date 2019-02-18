@@ -224,14 +224,7 @@ public class View_Route{
 		this.pnl_routenplaner.add(this.btnRoutenGenerieren);
 	}
 	public JPanel getSubPanel()
-	{
-		
+	{	
 		return pnl_routenplaner;		
-	}
-	public Component[] getComp()
-	{
-		return pnl_routenplaner.getComponents();
-	}
-	
-	
+	}	
 }

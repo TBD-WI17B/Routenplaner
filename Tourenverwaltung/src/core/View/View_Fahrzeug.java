@@ -8,21 +8,17 @@ public class View_Fahrzeug {
 	
 	
 	
-	private JPanel pnl_fahrerverwaltung;
+	private JPanel pnl_fahrzeugverwaltung;
 	public View_Fahrzeug()
 	{
 		
 	}
 	private void initComp()
 	{
-		pnl_fahrerverwaltung = new JPanel();
+		pnl_fahrzeugverwaltung = new JPanel();
 	}
 	public JPanel getSubPanel()
 	{
-		return pnl_fahrerverwaltung;
-	}
-	public Component[] getComp()
-	{
-		return pnl_fahrerverwaltung.getComponents();
+		return pnl_fahrzeugverwaltung;
 	}
 }
