@@ -7,11 +7,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import core.Controller.JSONParser;
+
 public class View_Test {
 
 	private JPanel pnl_test;
 	private JButton btnNewButton;
 	private JTextArea txttest;
+	
 	public View_Test()
 	{
 		createComp();
