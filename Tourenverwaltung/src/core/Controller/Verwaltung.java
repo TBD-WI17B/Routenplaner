@@ -2,10 +2,8 @@ package core.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
@@ -15,7 +13,6 @@ import core.View.View;
 public class Verwaltung {
 
 	private View window;
-	private Model model;
 	private JSONParser parser;
 	//private Connector sql;
 	
@@ -24,9 +21,13 @@ public class Verwaltung {
 		View window = new View(model);	
 	
 		this.parser = new JSONParser();		
-		bindHandler();
+		//bindHandler();
 		
-		testSQL();
+		//testSQL();
+	
+		Controller c= new kundenController();
+		window.addTabbed("Kundenverwaltung",c.getView());
+		
 		window.setVisible(true);//Macht Fenster jetzt erst sichtbar, da es vorher initialisiert wird
 	}
 	

@@ -4,8 +4,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
 import core.Model.Model;
@@ -18,9 +16,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-import javax.swing.JTextPane;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
@@ -30,14 +26,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
 import javax.swing.ListSelectionModel;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import java.awt.Component;
 
 public class View {
@@ -59,7 +48,7 @@ public class View {
 
 	private JFrame frmTourenverwaltung;
 	
-	private JPanel pnl_test,pnl_kundenverwaltung, pnl_auftragsverwaltung, pnl_standortverwaltung, test;
+	private JPanel pnl_test, pnl_auftragsverwaltung, pnl_standortverwaltung, test;
 	
 	private JTextArea txttest;
 	private JMenuBar menuBar;
@@ -87,30 +76,6 @@ public class View {
 	private JTextField textField_12;
 	private JLabel lblZiel_1;
 	private JTextField textField_8;
-	private JTextField txtDude;
-	private JTextField textField_14;
-	private JTextField textField_15;
-	private JTextField textField_16;
-	private JTextField textField_17;
-	private JLabel label;
-	private JLabel label_1;
-	private JLabel label_3;
-	private JLabel label_4;
-	private JLabel label_5;
-	private JTextField txtTim;
-	private JTextField textField_19;
-	private JTextField textField_20;
-	private JLabel label_6;
-	private JLabel lblKunden;
-	private JButton btnNeu_1;
-	private JButton btnLschen_3;
-	private JSeparator separator_2;
-	private JButton btnSpeichern_2;
-	private JButton btnAbbrechen_2;
-	private JLabel lblKundennummer;
-	private JTextField txtK;
-	private JTable table_1;
-	private JScrollPane scrollPane_1;
 	private JTextField txtKnms;
 	private JTextField txtMan;
 	private JTextField textField_22;
@@ -191,19 +156,9 @@ public class View {
 		this.auftrag = new View_Auftrag();
 		this.fahrer = new View_Fahrer();
 		this.fahrzeug = new View_Fahrzeug();
-		this.kunde = new View_Kunde();
 		this.route = new View_Route();
 		
-		initialize();
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					initialize();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});		
+		initialize();	
 	}
 
 	public View() {
@@ -214,59 +169,23 @@ public class View {
 	 * Initialize the contents of the frame.
 	 * Wenn möglich hier kein Custom Code, da hier alles auto generiert wird.
 	 */
+
+	
+	public void addTabbed(String name,JPanel p) {
+		tabbedPane.addTab(name, null, p, null);
+	}
+	
 	private void initialize() {
 		frmTourenverwaltung = new JFrame();
 		frmTourenverwaltung.setIconImage(Toolkit.getDefaultToolkit().getImage(View.class.getResource("/images/72-200.png")));
 		frmTourenverwaltung.setTitle("Tourenverwaltung");
 		frmTourenverwaltung.setBounds(x, y, width, height);
 		frmTourenverwaltung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		
-		menuBar = new JMenuBar();
-		frmTourenverwaltung.setJMenuBar(menuBar);
-		
-		JMenu mnMenu = new JMenu("Menu");
-		menuBar.add(mnMenu);
-		
-		JMenuItem mntmSettings = new JMenuItem("settings");
-		mnMenu.add(mntmSettings);
-		
-		JMenu mnHelp = new JMenu("Help");
-		menuBar.add(mnHelp);
-		
-		JMenu mnMoreStuff = new JMenu("more stuff");
-		menuBar.add(mnMoreStuff);
+	
 		
 		tabbedPane = new JTabbedPane(SwingConstants.TOP);
-		this.tabbedPane.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				switch (tabbedPane.getSelectedIndex()) {
-				case 0:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width, height);
-					break;
-				case 1:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width-250, height);
-					break;
-				case 2:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width-150, height-220);
-					break;
-				case 3:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width-50, height);
-					break;
-				case 4:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width, height);
-					break;
-				default:
-					frmTourenverwaltung.setBounds(frmTourenverwaltung.getX(), frmTourenverwaltung.getY(), width, height);
-					break;
-				}
-			}
-		});
+		
 		frmTourenverwaltung.getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
-		
-		
 		
 		//Test ausgelagterte SubPanels
 		route = new View_Route();		
@@ -482,167 +401,8 @@ public class View {
 		btnRechnungErstellen.setBounds(1009, 289, 125, 23);
 		pnl_auftragsverwaltung.add(btnRechnungErstellen);
 		
-		pnl_kundenverwaltung = new JPanel();
-		tabbedPane.addTab("Kundenverwaltung", null, pnl_kundenverwaltung, null);
-		this.pnl_kundenverwaltung.setLayout(null);
 		
-		txtDude = new JTextField();
-		txtDude.setText("Dude");
-		txtDude.setColumns(10);
-		txtDude.setBounds(381, 36, 119, 20);
-		pnl_kundenverwaltung.add(txtDude);
 		
-		textField_14 = new JTextField();
-		textField_14.setText("12346");
-		textField_14.setColumns(10);
-		textField_14.setBounds(381, 67, 73, 20);
-		pnl_kundenverwaltung.add(textField_14);
-		
-		textField_15 = new JTextField();
-		textField_15.setText("Nestar\u00DFe");
-		textField_15.setColumns(10);
-		textField_15.setBounds(381, 98, 195, 20);
-		pnl_kundenverwaltung.add(textField_15);
-		
-		textField_16 = new JTextField();
-		textField_16.setText("01234568");
-		textField_16.setColumns(10);
-		textField_16.setBounds(381, 129, 248, 20);
-		pnl_kundenverwaltung.add(textField_16);
-		
-		textField_17 = new JTextField();
-		textField_17.setText("012345644");
-		textField_17.setColumns(10);
-		textField_17.setBounds(381, 160, 248, 20);
-		pnl_kundenverwaltung.add(textField_17);
-		
-		label = new JLabel("Name, Vorname");
-		label.setBounds(273, 37, 98, 14);
-		pnl_kundenverwaltung.add(label);
-		
-		label_1 = new JLabel("PLZ, Ort");
-		label_1.setBounds(273, 70, 98, 14);
-		pnl_kundenverwaltung.add(label_1);
-		
-		label_3 = new JLabel("Stra\u00DFe, Nr.");
-		label_3.setBounds(273, 101, 98, 14);
-		pnl_kundenverwaltung.add(label_3);
-		
-		label_4 = new JLabel("Telefon");
-		label_4.setBounds(273, 132, 98, 14);
-		pnl_kundenverwaltung.add(label_4);
-		
-		label_5 = new JLabel("Mobil");
-		label_5.setBounds(273, 163, 98, 14);
-		pnl_kundenverwaltung.add(label_5);
-		
-		txtTim = new JTextField();
-		txtTim.setText("Tim");
-		txtTim.setColumns(10);
-		txtTim.setBounds(510, 36, 119, 20);
-		pnl_kundenverwaltung.add(txtTim);
-		
-		textField_19 = new JTextField();
-		textField_19.setText("Testhausen");
-		textField_19.setColumns(10);
-		textField_19.setBounds(464, 67, 165, 20);
-		pnl_kundenverwaltung.add(textField_19);
-		
-		textField_20 = new JTextField();
-		textField_20.setText("1");
-		textField_20.setColumns(10);
-		textField_20.setBounds(586, 98, 43, 20);
-		pnl_kundenverwaltung.add(textField_20);
-		
-		label_6 = new JLabel("Anschrift");
-		label_6.setBounds(273, 11, 46, 14);
-		pnl_kundenverwaltung.add(label_6);
-		
-		JList list_2 = new JList();
-		list_2.setModel(new AbstractListModel() {
-			String[] values = new String[] {"K135", "K12"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		list_2.setSelectedIndex(0);
-		list_2.setBounds(10, 36, 253, 377);
-		pnl_kundenverwaltung.add(list_2);
-		
-		lblKunden = new JLabel("Kunden");
-		lblKunden.setBounds(10, 11, 46, 14);
-		pnl_kundenverwaltung.add(lblKunden);
-		
-		btnNeu_1 = new JButton("Neu");
-		btnNeu_1.setBounds(10, 424, 89, 23);
-		pnl_kundenverwaltung.add(btnNeu_1);
-		
-		btnLschen_3 = new JButton("L\u00F6schen");
-		btnLschen_3.setBounds(109, 424, 89, 23);
-		pnl_kundenverwaltung.add(btnLschen_3);
-		
-		separator_2 = new JSeparator();
-		separator_2.setBounds(273, 213, 689, 2);
-		pnl_kundenverwaltung.add(separator_2);
-		
-		btnSpeichern_2 = new JButton("Speichern");
-		btnSpeichern_2.setBounds(273, 226, 89, 23);
-		pnl_kundenverwaltung.add(btnSpeichern_2);
-		
-		btnAbbrechen_2 = new JButton("Abbrechen");
-		btnAbbrechen_2.setBounds(381, 226, 89, 23);
-		pnl_kundenverwaltung.add(btnAbbrechen_2);
-		
-		lblKundennummer = new JLabel("Kundennummer");
-		lblKundennummer.setBounds(694, 39, 89, 14);
-		pnl_kundenverwaltung.add(lblKundennummer);
-		
-		txtK = new JTextField();
-		txtK.setText("K135");
-		txtK.setColumns(10);
-		txtK.setBounds(793, 36, 195, 20);
-		pnl_kundenverwaltung.add(txtK);
-		
-		JLabel lblAuftrger = new JLabel("Auftr\u00E4ge");
-		lblAuftrger.setBounds(10, 496, 98, 14);
-		pnl_kundenverwaltung.add(lblAuftrger);
-		
-		JSeparator separator_3 = new JSeparator();
-		separator_3.setBounds(10, 458, 974, 2);
-		pnl_kundenverwaltung.add(separator_3);
-		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 521, 1233, 207);
-		pnl_kundenverwaltung.add(scrollPane_1);
-		
-		table_1 = new JTable();
-		table_1.setFillsViewportHeight(true);
-		scrollPane_1.setViewportView(table_1);
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"A112", "Tim", "Dude", "K135", "N\u00FCrnberg", "Berlin", "20.3.2019", "400", "1501,35"},
-				{"A155", "Tim", "Dude", "K135", "Berlin", "N\u00FCrnberg", "25.3.2019", "400", "1522,00"},
-			},
-			new String[] {
-				"Auftrag", "Name", "Vorname", "Kunde", "Start", "Ziel", "Datum", "Distanz", "Betrag"
-			}
-		));
-		
-		this.lblHandicap = new JLabel("Handicap");
-		this.lblHandicap.setBounds(694, 70, 89, 14);
-		this.pnl_kundenverwaltung.add(this.lblHandicap);
-		
-		this.rdbtnJa_1 = new JRadioButton("Ja");
-		this.rdbtnJa_1.setBounds(793, 66, 43, 23);
-		this.pnl_kundenverwaltung.add(this.rdbtnJa_1);
-		
-		this.rdbtnNein_1 = new JRadioButton("Nein");
-		this.rdbtnNein_1.setSelected(true);
-		this.rdbtnNein_1.setBounds(838, 66, 55, 23);
-		this.pnl_kundenverwaltung.add(this.rdbtnNein_1);
 		
 		JPanel pnl_fahrzeugverwaltung = new JPanel();
 		tabbedPane.addTab("Fahrzeuggverwaltung", null, pnl_fahrzeugverwaltung, null);
@@ -1011,4 +771,5 @@ public class View {
 		tabbedPane.addTab("Standortverwaltung", null, arg2_5, null);
 		return tabbedPane;
 	}
+	
 }
