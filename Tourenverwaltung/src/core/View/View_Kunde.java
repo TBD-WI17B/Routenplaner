@@ -137,6 +137,9 @@ public class View_Kunde {
 			public Object getElementAt(int index) {
 				return this.values[index];
 			}
+			public void setValues(String[] names) {
+				values = names;
+			}
 		});
 		this.list_2.setSelectedIndex(0);
 		this.list_2.setBounds(10, 36, 253, 377);
@@ -214,6 +217,24 @@ public class View_Kunde {
 		this.rdbtnNein_1.setBounds(838, 66, 55, 23);
 		this.pnl_kundenverwaltung.add(this.rdbtnNein_1);
 	}
+	
+	public void updateList(String[] names) {
+		this.list_2.setModel(new AbstractListModel() {
+			String[] values = names;
+			@Override
+			public int getSize() {
+				return this.values.length;
+			}
+			@Override
+			public Object getElementAt(int index) {
+				return this.values[index];
+			}
+			public void setValues(String[] names) {
+				values = names;
+			}
+		});
+	}
+	
 	public JPanel getSubPanel() {
 		return this.pnl_kundenverwaltung;		
 	}

@@ -12,6 +12,8 @@ public class Kunde {
 	public Kunde() {
 		this.view = new View_Kunde();
 		this.model = new Model_Kunde();
+		
+		this.view.updateList(this.model.getList());
 	}
 	public JPanel getPanel()
 	{
