@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import core.Model.Model_View;
@@ -160,6 +161,9 @@ public class View {
 		this.tabbedPane.addTab("Standortverwaltung", null, this.standort.getSubPanel(), null);
 		this.tabbedPane.addTab("test", null, this.test.getSubPanel(), null);
 		
+	}
+	public void addTabbedPaneTab(String name, JPanel p) {
+		this.tabbedPane.addTab(name, null, p, null);
 	}
 	public void bindTesthandler(ActionListener al) {
 		this.test.addTesthandler(al);

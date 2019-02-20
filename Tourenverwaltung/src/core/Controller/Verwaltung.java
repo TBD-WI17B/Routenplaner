@@ -17,14 +17,19 @@ public class Verwaltung {
 	private View window;
 	private Model_View model;
 	private JSONParser parser;
+	private Route route;
 	//private Connector sql;
 	
 	public Verwaltung() {
 		model = new Model_View();//Bis jetzt nicht benutzt??
 		window = new View(model);	
-	
+		
+		route = new Route();
+		
 		this.parser = new JSONParser();		
 		bindHandler();
+		
+		window.addTabbedPaneTab("test2", route.getPanel());
 		
 		//testSQL();
 		window.setVisible(true);//Macht Fenster jetzt erst sichtbar, da es vorher initialisiert wird
