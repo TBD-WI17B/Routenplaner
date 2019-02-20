@@ -16,6 +16,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
@@ -68,13 +70,13 @@ public class View {
 	 */
 	public View(Model_View m) {
 		this.model = m;
-		this.auftrag = new View_Auftrag();
-		this.fahrer = new View_Fahrer();
-		this.fahrzeug = new View_Fahrzeug();
-		this.kunde = new View_Kunde();
-		this.route = new View_Route();
-		this.standort = new View_Standort();
-		this.test = new View_Test();
+//		this.auftrag = new View_Auftrag();
+//		this.fahrer = new View_Fahrer();
+//		this.fahrzeug = new View_Fahrzeug();
+//		this.kunde = new View_Kunde();
+//		this.route = new View_Route();
+//		this.standort = new View_Standort();
+//		this.test = new View_Test();
 		
 		this.initialize();		
 	}
@@ -103,7 +105,21 @@ public class View {
 		this.frmTourenverwaltung.setBounds(this.x, this.y, this.width, this.height);
 		this.frmTourenverwaltung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		this.menuBar = new JMenuBar();
 		this.frmTourenverwaltung.setJMenuBar(this.menuBar);

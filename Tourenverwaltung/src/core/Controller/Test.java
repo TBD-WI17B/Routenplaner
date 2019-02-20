@@ -19,8 +19,10 @@ public class Test {
 		this.view = new View_Test();
 		this.model = new Model_Test();
 		
-		view.addTesthandler(new testHandler());
+		view.addTestListHandler(new testListHandler());
 	}
+	
+	
 	public JPanel getPanel()
 	{
 		return view.getSubPanel();
@@ -49,5 +51,14 @@ public class Test {
 				}				
 			}.execute();						
 		}
+	}
+	class testListHandler implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			view.addListElement("Hallo");
+			
+		}
+		
 	}
 }
