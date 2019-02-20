@@ -83,14 +83,12 @@ public class View {
 	 * Parameter Konstruktor für Testzwecke
 	 */
 	public View() {
-		this.auftrag = new View_Auftrag();
 		this.fahrer = new View_Fahrer();
 		this.fahrzeug = new View_Fahrzeug();
 		this.kunde = new View_Kunde();
-		this.route = new View_Route();
 		this.standort = new View_Standort();
 		this.test = new View_Test();
-		
+	
 		this.initialize();
 	}
 
@@ -149,17 +147,6 @@ public class View {
 			}
 		});
 		this.frmTourenverwaltung.getContentPane().add(this.tabbedPane, BorderLayout.CENTER);		
-		
-		/**
-		 * Ausgelagerte Klassen für die einzelenen Tabs
-		 */
-		this.tabbedPane.addTab("Routenplaner", null, this.route.getSubPanel(), null);
-		this.tabbedPane.addTab("Fahrerverwaltung", null, this.fahrer.getSubPanel(), null);
-		this.tabbedPane.addTab("Auftragsverwaltung", null, this.auftrag.getSubPanel(), null);
-		this.tabbedPane.addTab("Kundenverwaltung", null, this.kunde.getSubPanel(), null);
-		this.tabbedPane.addTab("Fahrzeuggverwaltung", null, this.fahrzeug.getSubPanel(), null);
-		this.tabbedPane.addTab("Standortverwaltung", null, this.standort.getSubPanel(), null);
-		this.tabbedPane.addTab("test", null, this.test.getSubPanel(), null);
 		
 	}
 	public void addTabbedPaneTab(String name, JPanel p) {

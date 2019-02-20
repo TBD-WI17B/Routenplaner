@@ -2,10 +2,8 @@ package core.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
@@ -18,20 +16,35 @@ public class Verwaltung {
 	private Model_View model;
 	private JSONParser parser;
 	private Route route;
-	//private Connector sql;
+	private Auftrag auftrag;
+	private Fahrer fahrer;
+	private Standort standort;
+	private Fahrzeug fahrzeug;
+	private Kunde kunde;
 	
 	public Verwaltung() {
 		model = new Model_View();//Bis jetzt nicht benutzt??
 		window = new View(model);	
 		
 		route = new Route();
+		auftrag = new Auftrag();
+		fahrer = new Fahrer();
+		standort = new Standort();
+		fahrzeug = new Fahrzeug();
+		kunde = new Kunde();
 		
 		this.parser = new JSONParser();		
 		bindHandler();
 		
-		window.addTabbedPaneTab("test2", route.getPanel());
 		
-		//testSQL();
+		window.addTabbedPaneTab("Routenverwaltung", route.getPanel());
+		window.addTabbedPaneTab("Auftragsverwaltung", auftrag.getPanel());
+		window.addTabbedPaneTab("Kundenverwaltung", kunde.getPanel());
+		window.addTabbedPaneTab("Fahrerverwaltung", fahrer.getPanel());
+		window.addTabbedPaneTab("Fahrzeugverwaltung", fahrzeug.getPanel());
+		window.addTabbedPaneTab("Standortverwaltung", standort.getPanel());
+		
+
 		window.setVisible(true);//Macht Fenster jetzt erst sichtbar, da es vorher initialisiert wird
 	}
 	
