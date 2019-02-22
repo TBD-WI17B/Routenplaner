@@ -68,13 +68,14 @@ public class Connector {
 			while(resultSet.next()) {
 				//Einzele ArrayList füllen
 				for(int i = 0;i<resultSet.getMetaData().getColumnCount();i++) {
-					String columnName = resultSet.getMetaData().getColumnName(i+1);
+					String columnName = resultSet.getMetaData().getColumnLabel(i+1);
+					System.out.println(columnName);
 					columnsContent[i].add(resultSet.getString(columnName));
 				}	
 			}
 			//ArrayList zu map und name umwandeln
 			for(int i = 0; i<columnsContent.length;i++) {
-				String columnName = resultSet.getMetaData().getColumnName(i+1);
+				String columnName = resultSet.getMetaData().getColumnLabel(i+1);
 				result.put(columnName, (String[]) columnsContent[i].toArray(new String[0]));
 			}
 			return result;

@@ -17,15 +17,10 @@ public class Model_Kunde {
 	
 	public String[] getList() {
 		try {
-			ResultSet rs = Connector.test("SELECT kundenId FROM Kunde");
-			ArrayList<String> list = new ArrayList();
-			int i=0;
-			while(rs.next()) {
-				list.add(rs.getString("kundenId"));
-				i++;
-			}
-			return list.toArray(new String[0]);
-		} catch (SQLException | ClassNotFoundException e) {
+			Map<String,String[]> result = Connector.getQueryResult("SELECT kundenId FROM Kunde");
+			String[] ids = result.get("kundenId");
+			return ids; 
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -33,19 +28,17 @@ public class Model_Kunde {
 	
 	public Map<String,String> getDataFromCustomer(int id) {
 		try {
-			Map<String,String[]> result = Connector.getQueryResult("SELECT * FROM kunde k, adresse a WHERE k.kundenId = "+id+" AND k.addresId=a.adressId");
-			System.out.println(result.get("name")[0]);
+			Map<String,String[]> result = Connector.getQueryResult("SELECT * FROM kunde k, adresse a WHERE k.kundenId = "+id+" AND k.adressId=a.adressId");
 			Map<String,String> mapResult = new HashMap<String, String>();
 			mapResult.put("name",result.get("name")[0]);
-			mapResult.put("vorname",result.get("name")[0]);
+			mapResult.put("vorname",result.get("vorname")[0]);
 			mapResult.put("plz",result.get("plz")[0]);
-			mapResult.put("ort",result.get("name")[0]);
-			mapResult.put("straﬂe",result.get("name")[0]);
-			mapResult.put("Hausnr",result.get("name")[0]);
-			mapResult.put("telefon",result.get("name")[0]);
-			mapResult.put("mobil",result.get("name")[0]);
-			mapResult.put("kundenid",result.get("name")[0]);
-			mapResult.put("handicap",result.get("name")[0]);
+			mapResult.put("ort",result.get("stadt")[0]);
+			mapResult.put("straﬂe",result.get("straﬂe")[0]);
+			mapResult.put("hausNr",result.get("hausnummer")[0]);
+			mapResult.put("telefon",result.get("telefon")[0]);
+			mapResult.put("kundenId",result.get("kundenId")[0]);
+			mapResult.put("handicap",result.get("handicap")[0]);
 			return mapResult;
 		} catch (Exception e) {
 			e.printStackTrace();

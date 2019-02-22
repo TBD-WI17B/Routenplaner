@@ -5,6 +5,8 @@ import java.awt.event.MouseListener;
 import java.util.Map;
 
 import javax.swing.AbstractListModel;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,37 +24,27 @@ import javax.swing.table.DefaultTableModel;
 public class View_Kunde {
 
 	private JPanel pnl_kundenverwaltung;
-	private JTextField plz;
-	private JTextField name;
-	private JTextField textField_15;
-	private JTextField textField_16;
-	private JTextField textField_17;
-	private JLabel label;
-	private JLabel label_1;
-	private JLabel label_3;
-	private JLabel label_4;
-	private JLabel label_5;
-	private JTextField txtTim;
-	private JTextField textField_19;
-	private JTextField textField_20;
-	private JLabel label_6;
-	private JLabel lblKunden;
+	
+	private JTextField plz, name,street,telefon,vorname,ort,hausNr,txtK;
+	
+	private JLabel labelName, labelOrt,labelStreet,labelTelefon,lblAnschrift,lblKunden,lblKundennummer,lblHandicap, lblAuftrger;
+	
 	private JButton btnNeu_1;
 	private JButton btnLschen_3;
-	private JSeparator separator_2;
 	private JButton btnSpeichern_2;
 	private JButton btnAbbrechen_2;
-	private JLabel lblKundennummer;
-	private JTextField txtK;
-	private JScrollPane scrollPane_1;
-	private JSeparator separator_3;
-	private JLabel lblAuftrger;
-	private DefaultListModel<String> kundenListenModel;
-	private JTable table_1;
-	private JLabel lblHandicap;
+	
 	private JRadioButton rdbtnJa_1;
 	private JRadioButton rdbtnNein_1;	
+	private ButtonGroup group;
+	
+	private JSeparator separator_2;
+	private JSeparator separator_3;
+	
+	private JScrollPane scrollPane_1;
+	private DefaultListModel<String> kundenListenModel;
 	private JList<String> kundenlist;
+	private JTable table_1;
 	
 	public View_Kunde() {
 		this.createComp();
@@ -63,76 +55,59 @@ public class View_Kunde {
 		this.pnl_kundenverwaltung.setLayout(null);
 		
 		this.name = new JTextField();
-		this.name.setText("Dude");
 		this.name.setColumns(10);
 		this.name.setBounds(381, 36, 119, 20);
 		this.pnl_kundenverwaltung.add(this.name);
 		
 		this.plz = new JTextField();
-		this.plz.setText("12346");
 		this.plz.setColumns(10);
 		this.plz.setBounds(381, 67, 73, 20);
 		this.pnl_kundenverwaltung.add(this.plz);
 		
-		this.textField_15 = new JTextField();
-		this.textField_15.setText("Nestar\u00DFe");
-		this.textField_15.setColumns(10);
-		this.textField_15.setBounds(381, 98, 195, 20);
-		this.pnl_kundenverwaltung.add(this.textField_15);
+		this.street = new JTextField();
+		this.street.setColumns(10);
+		this.street.setBounds(381, 98, 195, 20);
+		this.pnl_kundenverwaltung.add(this.street);
 		
-		this.textField_16 = new JTextField();
-		this.textField_16.setText("01234568");
-		this.textField_16.setColumns(10);
-		this.textField_16.setBounds(381, 129, 248, 20);
-		this.pnl_kundenverwaltung.add(this.textField_16);
+		this.telefon = new JTextField();
+		this.telefon.setColumns(10);
+		this.telefon.setBounds(381, 129, 248, 20);
+		this.pnl_kundenverwaltung.add(this.telefon);
 		
-		this.textField_17 = new JTextField();
-		this.textField_17.setText("012345644");
-		this.textField_17.setColumns(10);
-		this.textField_17.setBounds(381, 160, 248, 20);
-		this.pnl_kundenverwaltung.add(this.textField_17);
+		this.labelName = new JLabel("Name, Vorname");
+		this.labelName.setBounds(273, 37, 98, 14);
+		this.pnl_kundenverwaltung.add(this.labelName);
 		
-		this.label = new JLabel("Name, Vorname");
-		this.label.setBounds(273, 37, 98, 14);
-		this.pnl_kundenverwaltung.add(this.label);
+		this.labelOrt = new JLabel("PLZ, Ort");
+		this.labelOrt.setBounds(273, 70, 98, 14);
+		this.pnl_kundenverwaltung.add(this.labelOrt);
 		
-		this.label_1 = new JLabel("PLZ, Ort");
-		this.label_1.setBounds(273, 70, 98, 14);
-		this.pnl_kundenverwaltung.add(this.label_1);
+		this.labelStreet = new JLabel("Stra\u00DFe, Nr.");
+		this.labelStreet.setBounds(273, 101, 98, 14);
+		this.pnl_kundenverwaltung.add(this.labelStreet);
 		
-		this.label_3 = new JLabel("Stra\u00DFe, Nr.");
-		this.label_3.setBounds(273, 101, 98, 14);
-		this.pnl_kundenverwaltung.add(this.label_3);
+		this.labelTelefon = new JLabel("Telefon");
+		this.labelTelefon.setBounds(273, 132, 98, 14);
+		this.pnl_kundenverwaltung.add(this.labelTelefon);
 		
-		this.label_4 = new JLabel("Telefon");
-		this.label_4.setBounds(273, 132, 98, 14);
-		this.pnl_kundenverwaltung.add(this.label_4);
+		this.vorname = new JTextField();
+		this.vorname.setColumns(10);
+		this.vorname.setBounds(510, 36, 119, 20);
+		this.pnl_kundenverwaltung.add(this.vorname);
 		
-		this.label_5 = new JLabel("Mobil");
-		this.label_5.setBounds(273, 163, 98, 14);
-		this.pnl_kundenverwaltung.add(this.label_5);
+		this.ort = new JTextField();
+		this.ort.setColumns(10);
+		this.ort.setBounds(464, 67, 165, 20);
+		this.pnl_kundenverwaltung.add(this.ort);
 		
-		this.txtTim = new JTextField();
-		this.txtTim.setText("Tim");
-		this.txtTim.setColumns(10);
-		this.txtTim.setBounds(510, 36, 119, 20);
-		this.pnl_kundenverwaltung.add(this.txtTim);
+		this.hausNr = new JTextField();
+		this.hausNr.setColumns(10);
+		this.hausNr.setBounds(586, 98, 43, 20);
+		this.pnl_kundenverwaltung.add(this.hausNr);
 		
-		this.textField_19 = new JTextField();
-		this.textField_19.setText("Testhausen");
-		this.textField_19.setColumns(10);
-		this.textField_19.setBounds(464, 67, 165, 20);
-		this.pnl_kundenverwaltung.add(this.textField_19);
-		
-		this.textField_20 = new JTextField();
-		this.textField_20.setText("1");
-		this.textField_20.setColumns(10);
-		this.textField_20.setBounds(586, 98, 43, 20);
-		this.pnl_kundenverwaltung.add(this.textField_20);
-		
-		this.label_6 = new JLabel("Anschrift");
-		this.label_6.setBounds(273, 11, 46, 14);
-		this.pnl_kundenverwaltung.add(this.label_6);
+		this.lblAnschrift = new JLabel("Anschrift");
+		this.lblAnschrift.setBounds(273, 11, 46, 14);
+		this.pnl_kundenverwaltung.add(this.lblAnschrift);
 		
 		kundenListenModel = new DefaultListModel<>();
 		this.kundenlist = new JList<String>(kundenListenModel);
@@ -169,7 +144,6 @@ public class View_Kunde {
 		this.pnl_kundenverwaltung.add(this.lblKundennummer);
 		
 		this.txtK = new JTextField();
-		this.txtK.setText("K135");
 		this.txtK.setColumns(10);
 		this.txtK.setBounds(793, 36, 195, 20);
 		this.pnl_kundenverwaltung.add(this.txtK);
@@ -203,6 +177,8 @@ public class View_Kunde {
 		this.lblHandicap.setBounds(694, 70, 89, 14);
 		this.pnl_kundenverwaltung.add(this.lblHandicap);
 		
+		
+		
 		this.rdbtnJa_1 = new JRadioButton("Ja");
 		this.rdbtnJa_1.setBounds(793, 66, 43, 23);
 		this.pnl_kundenverwaltung.add(this.rdbtnJa_1);
@@ -211,6 +187,10 @@ public class View_Kunde {
 		this.rdbtnNein_1.setSelected(true);
 		this.rdbtnNein_1.setBounds(838, 66, 55, 23);
 		this.pnl_kundenverwaltung.add(this.rdbtnNein_1);
+		
+		this.group = new ButtonGroup();
+		group.add(this.rdbtnJa_1);
+		group.add(this.rdbtnNein_1);
 	}
 	
 	public JPanel getSubPanel() {
@@ -219,6 +199,7 @@ public class View_Kunde {
 	
 	//Updaten der GUI
 	public void updateList(String[] names) {
+		this.kundenListenModel.clear();
 		for(int i = 0;i<names.length;i++) {
 			this.kundenListenModel.addElement(names[i]);
 		}
@@ -226,7 +207,20 @@ public class View_Kunde {
 	
 	public void updateGUIFromCustomer(Map<String,String> map) {
 		this.name.setText(map.get("name"));
+		this.vorname.setText(map.get("vorname"));
 		this.plz.setText(map.get("plz"));
+		this.ort.setText(map.get("ort"));
+		this.street.setText(map.get("straﬂe"));
+		this.hausNr.setText(map.get("hausNr"));
+		this.telefon.setText(map.get("telefon"));
+		this.txtK.setText(map.get("kundenId"));
+		
+		int handicap = Integer.parseInt(map.get("handicap"));
+		if(handicap==1) {
+			this.rdbtnJa_1.setSelected(true);
+		}else {
+			this.rdbtnNein_1.setSelected(true);
+		}
 	}
 	
 	//Bind Handler

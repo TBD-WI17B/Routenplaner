@@ -16,6 +16,7 @@ public class Kunde {
 	public Kunde() {
 		this.view = new View_Kunde();
 		this.model = new Model_Kunde();
+		
 		view.addListHandler(new ListSelectionHandler(model,view));
 		this.view.updateList(this.model.getList());
 	}
