@@ -1,7 +1,3 @@
 # Routenplaner
 
-## Test
-
-## Test 2
-
-### Testeee 4
+Die SQL-Datei beinhaltet DROP TABLE und ist zum Hardreset gedacht
