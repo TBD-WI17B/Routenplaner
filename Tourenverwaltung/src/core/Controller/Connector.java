@@ -3,6 +3,7 @@ package core.Controller;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,38 @@ public class Connector {
 		return null;
 		
 	}
+	
+	public static Map<String,String[]> getQueryResult(String query) throws Exception{
+		try {
+			if(connect == null)connect = DriverManager.getConnection(connectionURL);
+			if(statement == null)statement = connect.createStatement();
+			resultSet = statement.executeQuery(query);	
+			Map<String,String[]> result = new HashMap<String,String[]>();
+			ArrayList[] columnsContent = new ArrayList[resultSet.getMetaData().getColumnCount()];
+			//Ist ein Array welches ArrayList hat um die Verschiedene Columns parallel zu bekommen
+			for(int i = 0; i<columnsContent.length;i++) {
+				columnsContent[i] = new ArrayList<String>();
+			}
+			while(resultSet.next()) {
+				//Einzele ArrayList füllen
+				for(int i = 0;i<resultSet.getMetaData().getColumnCount();i++) {
+					String columnName = resultSet.getMetaData().getColumnName(i+1);
+					columnsContent[i].add(resultSet.getString(columnName));
+				}	
+			}
+			//ArrayList zu map und name umwandeln
+			for(int i = 0; i<columnsContent.length;i++) {
+				String columnName = resultSet.getMetaData().getColumnName(i+1);
+				result.put(columnName, (String[]) columnsContent[i].toArray(new String[0]));
+			}
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Fehler beim Aufrufen der SQl Query: " + query);
+		}
+		throw new Exception("Fehler beim Aufrufen der SQl Query: " + query);
+	}
+	
 	public void close()
 	{
 		this.close();

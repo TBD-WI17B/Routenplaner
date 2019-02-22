@@ -1,6 +1,11 @@
 package core.View;
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.util.Map;
+
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -10,13 +15,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class View_Kunde {
 
 	private JPanel pnl_kundenverwaltung;
-	private JTextField textField_14;
-	private JTextField txtDude;
+	private JTextField plz;
+	private JTextField name;
 	private JTextField textField_15;
 	private JTextField textField_16;
 	private JTextField textField_17;
@@ -40,11 +47,12 @@ public class View_Kunde {
 	private JScrollPane scrollPane_1;
 	private JSeparator separator_3;
 	private JLabel lblAuftrger;
-	private JList list_2;
+	private DefaultListModel<String> kundenListenModel;
 	private JTable table_1;
 	private JLabel lblHandicap;
 	private JRadioButton rdbtnJa_1;
 	private JRadioButton rdbtnNein_1;	
+	private JList<String> kundenlist;
 	
 	public View_Kunde() {
 		this.createComp();
@@ -54,17 +62,17 @@ public class View_Kunde {
 		this.pnl_kundenverwaltung = new JPanel();		
 		this.pnl_kundenverwaltung.setLayout(null);
 		
-		this.txtDude = new JTextField();
-		this.txtDude.setText("Dude");
-		this.txtDude.setColumns(10);
-		this.txtDude.setBounds(381, 36, 119, 20);
-		this.pnl_kundenverwaltung.add(this.txtDude);
+		this.name = new JTextField();
+		this.name.setText("Dude");
+		this.name.setColumns(10);
+		this.name.setBounds(381, 36, 119, 20);
+		this.pnl_kundenverwaltung.add(this.name);
 		
-		this.textField_14 = new JTextField();
-		this.textField_14.setText("12346");
-		this.textField_14.setColumns(10);
-		this.textField_14.setBounds(381, 67, 73, 20);
-		this.pnl_kundenverwaltung.add(this.textField_14);
+		this.plz = new JTextField();
+		this.plz.setText("12346");
+		this.plz.setColumns(10);
+		this.plz.setBounds(381, 67, 73, 20);
+		this.pnl_kundenverwaltung.add(this.plz);
 		
 		this.textField_15 = new JTextField();
 		this.textField_15.setText("Nestar\u00DFe");
@@ -126,24 +134,11 @@ public class View_Kunde {
 		this.label_6.setBounds(273, 11, 46, 14);
 		this.pnl_kundenverwaltung.add(this.label_6);
 		
-		this.list_2 = new JList();
-		this.list_2.setModel(new AbstractListModel() {
-			String[] values = new String[] {"K135", "K12"};
-			@Override
-			public int getSize() {
-				return this.values.length;
-			}
-			@Override
-			public Object getElementAt(int index) {
-				return this.values[index];
-			}
-			public void setValues(String[] names) {
-				values = names;
-			}
-		});
-		this.list_2.setSelectedIndex(0);
-		this.list_2.setBounds(10, 36, 253, 377);
-		this.pnl_kundenverwaltung.add(this.list_2);
+		kundenListenModel = new DefaultListModel<>();
+		this.kundenlist = new JList<String>(kundenListenModel);
+		this.kundenlist.setBounds(10, 36, 253, 377);
+		this.kundenlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.pnl_kundenverwaltung.add(this.kundenlist);
 		
 		this.lblKunden = new JLabel("Kunden");
 		this.lblKunden.setBounds(10, 11, 46, 14);
@@ -218,24 +213,25 @@ public class View_Kunde {
 		this.pnl_kundenverwaltung.add(this.rdbtnNein_1);
 	}
 	
-	public void updateList(String[] names) {
-		this.list_2.setModel(new AbstractListModel() {
-			String[] values = names;
-			@Override
-			public int getSize() {
-				return this.values.length;
-			}
-			@Override
-			public Object getElementAt(int index) {
-				return this.values[index];
-			}
-			public void setValues(String[] names) {
-				values = names;
-			}
-		});
-	}
-	
 	public JPanel getSubPanel() {
 		return this.pnl_kundenverwaltung;		
+	}
+	
+	//Updaten der GUI
+	public void updateList(String[] names) {
+		for(int i = 0;i<names.length;i++) {
+			this.kundenListenModel.addElement(names[i]);
+		}
+	}
+	
+	public void updateGUIFromCustomer(Map<String,String> map) {
+		this.name.setText(map.get("name"));
+		this.plz.setText(map.get("plz"));
+	}
+	
+	//Bind Handler
+	public void addListHandler(MouseListener mouse)
+	{
+		this.kundenlist.addMouseListener(mouse);
 	}
 }

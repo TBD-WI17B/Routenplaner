@@ -137,31 +137,7 @@ public class View {
 		this.menuBar.add(mnMoreStuff);
 		
 		this.tabbedPane = new JTabbedPane(SwingConstants.TOP);
-		this.tabbedPane.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				switch (View.this.tabbedPane.getSelectedIndex()) {
-				case 0:
-					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width, View.this.height);
-					break;
-				case 1:
-					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width-250, View.this.height);
-					break;
-				case 2:
-					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width-150, View.this.height-220);
-					break;
-				case 3:
-					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width-50, View.this.height);
-					break;
-				case 4:
-					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width, View.this.height);
-					break;
-				default:
-					View.this.frmTourenverwaltung.setBounds(View.this.frmTourenverwaltung.getX(), View.this.frmTourenverwaltung.getY(), View.this.width, View.this.height);
-					break;
-				}
-			}
-		});
+		
 		this.frmTourenverwaltung.getContentPane().add(this.tabbedPane, BorderLayout.CENTER);		
 		
 	}
