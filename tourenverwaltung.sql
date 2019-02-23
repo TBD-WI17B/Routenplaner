@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 22. Feb 2019 um 18:43
+-- Erstellungszeit: 23. Feb 2019 um 15:56
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.2
 
@@ -31,10 +31,10 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `adresse`;
 CREATE TABLE `adresse` (
   `adressId` int(11) NOT NULL,
-  `plz` int(11) NOT NULL,
+  `plz` varchar(5) NOT NULL,
   `stadt` varchar(255) NOT NULL,
   `straße` varchar(255) NOT NULL,
-  `hausnummer` int(11) NOT NULL,
+  `hausnummer` varchar(4) NOT NULL,
   `adresszusatz` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -43,10 +43,9 @@ CREATE TABLE `adresse` (
 --
 
 INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adresszusatz`) VALUES
-(1, 7392, 'Routenbach', 'Hauptstraße', 42, ''),
-(2, 74821, 'Mosbach', 'Lohrtalweg', 11, ''),
-(3, 12345, 'Test', 'Muster', 5, ''),
-(4, 54321, 'Muster', 'Test', 2, '');
+(1, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
+(2, '74821', 'Mosbach', 'Lohrtalweg', '11', ''),
+(3, '12345', 'Test', 'Muster', '5', '');
 
 -- --------------------------------------------------------
 
@@ -60,15 +59,16 @@ CREATE TABLE `auftrag` (
   `zielAdressId` int(11) NOT NULL,
   `kundenId` int(11) NOT NULL,
   `entfernung` float NOT NULL,
-  `datum` datetime NOT NULL
+  `datumDerFahrt` timestamp NULL DEFAULT NULL,
+  `letztesÄnderungsDatum` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `auftrag`
 --
 
-INSERT INTO `auftrag` (`auftragId`, `zielAdressId`, `kundenId`, `entfernung`, `datum`) VALUES
-(1, 2, 2, 0, '2019-02-22 00:00:00');
+INSERT INTO `auftrag` (`auftragId`, `zielAdressId`, `kundenId`, `entfernung`, `datumDerFahrt`, `letztesÄnderungsDatum`) VALUES
+(1, 2, 2, 0, '2019-02-23 23:00:00', '2019-02-23 14:49:56');
 
 -- --------------------------------------------------------
 
@@ -152,8 +152,8 @@ CREATE TABLE `kunde` (
 --
 
 INSERT INTO `kunde` (`kundenId`, `name`, `vorname`, `telefon`, `handicap`, `adressId`) VALUES
-(1, 'Müller', 'Andrea', '0764224521', 0, 3),
-(2, 'Jimek', 'Paul', '0664321527', 0, 4),
+(1, 'Müllers', 'Andrea', '0764224521', 0, 3),
+(2, 'Jimek', 'Paul', '0664321527', 0, 2),
 (3, 'Müller', 'Heinz', '0464222521', 1, 3);
 
 -- --------------------------------------------------------
@@ -250,7 +250,7 @@ ALTER TABLE `standort`
 -- AUTO_INCREMENT für Tabelle `adresse`
 --
 ALTER TABLE `adresse`
-  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `auftrag`
