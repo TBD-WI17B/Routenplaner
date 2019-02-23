@@ -2,6 +2,7 @@ package core.View;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.AbstractListModel;
@@ -146,6 +147,7 @@ public class View_Kunde {
 		this.txtK = new JTextField();
 		this.txtK.setColumns(10);
 		this.txtK.setBounds(793, 36, 195, 20);
+		this.txtK.setEnabled(false);
 		this.pnl_kundenverwaltung.add(this.txtK);
 		
 		this.lblAuftrger = new JLabel("Auftr\u00E4ge");
@@ -193,8 +195,36 @@ public class View_Kunde {
 		group.add(this.rdbtnNein_1);
 	}
 	
+	//Getter
 	public JPanel getSubPanel() {
 		return this.pnl_kundenverwaltung;		
+	}
+	
+	public int getCurrentSelectedCustomerId() {
+		if(this.txtK.getText()==""||this.txtK.getText()==null)return -1;
+		try {
+		int id = Integer.parseInt(this.txtK.getText());
+		return id;
+		}catch(NumberFormatException e) {
+			System.out.println("Es muss erst ein Datensatz ausgewählt werden");
+		}
+		return -1;
+	}
+	
+	public Map<String,String> getData() {
+		Map<String,String> data = new HashMap<String,String>();
+		
+		data.put("name", this.name.getText());
+		data.put("vorname", this.vorname.getText());
+		data.put("plz", this.plz.getText());
+		data.put("ort", this.ort.getText());
+		data.put("street", this.street.getText());
+		data.put("hausNr", this.hausNr.getText());
+		data.put("telefon", this.telefon.getText());
+		
+		if(this.rdbtnJa_1.isSelected())data.put("handicap", "true");
+		else data.put("handicap", "false");
+		return data;
 	}
 	
 	//Updaten der GUI
@@ -223,9 +253,29 @@ public class View_Kunde {
 		}
 	}
 	
+	public void setListSelectionOn(int id) {
+		this.kundenlist.setSelectedIndex(id);
+	}
+	
 	//Bind Handler
 	public void addListHandler(MouseListener mouse)
 	{
 		this.kundenlist.addMouseListener(mouse);
+	}
+	public void addSavingListener(ActionListener al)
+	{
+		btnSpeichern_2.addActionListener(al);
+	}
+	public void addDeletingListener(ActionListener al)
+	{
+		btnLschen_3.addActionListener(al);
+	}
+	public void addAddingListener(ActionListener al)
+	{
+		btnNeu_1.addActionListener(al);
+	}
+	public void addResetListener(ActionListener al)
+	{
+		btnAbbrechen_2.addActionListener(al);
 	}
 }

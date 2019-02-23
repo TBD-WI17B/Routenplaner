@@ -1,6 +1,7 @@
 package core.View;
 
 import java.awt.Component;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.Map;
 
@@ -255,23 +256,24 @@ public class View_Auftrag {
 	}
 	
 	//Updaten der GUI
-		public void updateList(String[] names) {
-			this.auftragListenModel.clear();
-			for(int i = 0;i<names.length;i++) {
-				this.auftragListenModel.addElement(names[i]);
-			}
+	public void updateList(String[] names) {
+		this.auftragListenModel.clear();
+		for(int i = 0;i<names.length;i++) {
+			this.auftragListenModel.addElement(names[i]);
 		}
+	}
 		
-		public void updateGUIFromCustomer(Map<String,String> map) {
-			this.auftrag.setText(map.get("auftragsnummer"));
-			this.kunde.setText(map.get("kunde"));
-			this.start.setText(map.get("start"));
-			this.ziel.setText(map.get("ziel"));
-		}
+	public void updateGUIFromCustomer(Map<String,String> map) {
+		this.auftrag.setText(map.get("auftragsnummer"));
+		this.kunde.setText(map.get("kunde"));
+		this.start.setText(map.get("start"));
+		this.ziel.setText(map.get("ziel"));
+	}
 		
-		//Bind Handler
-		public void addListHandler(MouseListener mouse)
-		{
-			this.auftragListe.addMouseListener(mouse);
-		}
+	//Bind Handler
+	public void addListHandler(MouseListener mouse)
+	{
+		this.auftragListe.addMouseListener(mouse);
+	}
+	
 }

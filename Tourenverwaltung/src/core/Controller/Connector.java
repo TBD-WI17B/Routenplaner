@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
+
 public class Connector {
 	private final static String connectionURL = "jdbc:mysql://localhost:3306/tourenverwaltung?serverTimezone=Europe/Berlin&user=root";
 	private static Connection connect = null;
@@ -69,7 +71,6 @@ public class Connector {
 				//Einzele ArrayList füllen
 				for(int i = 0;i<resultSet.getMetaData().getColumnCount();i++) {
 					String columnName = resultSet.getMetaData().getColumnLabel(i+1);
-					System.out.println(columnName);
 					columnsContent[i].add(resultSet.getString(columnName));
 				}	
 			}
@@ -86,8 +87,37 @@ public class Connector {
 		throw new Exception("Fehler beim Aufrufen der SQl Query: " + query);
 	}
 	
+	public static void updateTable(String query) throws SQLException{
+		if(connect == null)connect = DriverManager.getConnection(connectionURL);
+		if(statement == null)statement = connect.createStatement();
+		statement.executeUpdate(query);
+	}
+	
 	public void close()
 	{
 		this.close();
 	}
+	public static int insertIntoTable(String query)throws SQLException {
+		if(connect == null)connect = DriverManager.getConnection(connectionURL);
+		if(statement == null)statement = connect.createStatement();
+		
+		PreparedStatement ps = connect.prepareStatement(query,statement.RETURN_GENERATED_KEYS);
+		try {
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+			int generatedKey = 0;
+			rs.next();
+			return rs.getInt(1);
+		}catch(MysqlDataTruncation e) {
+			System.out.println("Länge eines Feldes ist zu lang bitte überprüfen");
+		}
+		return -1;
+	}
+	
+	public static void deleteRecordFromTable(String query) throws SQLException{
+		if(connect == null)connect = DriverManager.getConnection(connectionURL);
+		if(statement == null)statement = connect.createStatement();
+		statement.executeUpdate(query);
+	}
+	
 }
