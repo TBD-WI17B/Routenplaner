@@ -56,7 +56,8 @@ public class Test {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			view.addListElement("Hallo");
+			//view.addListElement("Hallo");
+			
 			
 		}
 		

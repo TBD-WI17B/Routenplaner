@@ -6,7 +6,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
+
 import core.Controller.Connector;
+import core.Controller.Requesthandler;
 
 public class Model_Auftrag {
 
@@ -103,7 +106,7 @@ public class Model_Auftrag {
 			Map<String,String[]> auftrag = Connector.getQueryResult("SELECT auftrag.auftragId,auftrag.entfernung,auftrag.datumDerFahrt,auftrag.letztesÄnderungsDatum,auftrag.entfernung,auftrag.startAdresseId,auftrag.zielAdresseId, "
 					+ "ziel.plz as zielPlz,ziel.stadt as zielOrt,ziel.straße as zielStreet,ziel.hausnummer as zielHausNr,ziel.adresszusatz as zielAdresszusatz, "
 					+ "startAdresse.plz as startPlz,startAdresse.stadt as startOrt,startAdresse.straße as startStreet,startAdresse.hausnummer as startHausNr,startAdresse.adresszusatz as startAdresszusatz, "
-					+ "kunde.name, kunde.vorname, kunde.kundenId as kId "
+					+ "kunde.name, kunde.vorname, kunde.kundenId as kId, startAdresse.lat as startLAT, startAdresse.lon as startLON, ziel.lat as zielLAT, ziel.lon as zielLON "
 					+ "FROM `auftrag` "
 					+ "LEFT JOIN adresse ziel on auftrag.zielAdresseId = ziel.adressId "
 					+ "LEFT JOIN kunde on auftrag.kundenId=kunde.kundenId "
@@ -115,25 +118,47 @@ public class Model_Auftrag {
 			int idPosStart = kundenString.indexOf("(ID :")+5;
 			int idPosEnd = kundenString.indexOf(")");	
 			int kundenId = Integer.parseInt(kundenString.substring(idPosStart, idPosEnd));
+			double startLAT = Double.parseDouble(auftrag.get("startLAT")[0]);
+			double startLON = Double.parseDouble(auftrag.get("startLON")[0]);
+			double zielLAT = Double.parseDouble(auftrag.get("zielLAT")[0]);
+			double zielLON = Double.parseDouble(auftrag.get("zielLON")[0]);
+			double entfernung = Double.parseDouble(auftrag.get("entfernung")[0]);
+			boolean startChanged = false;
+			boolean zielChanged = false;
 			
 			//Adresse nur speichern wenn Ändererung(start)
 			int startAdressId = Integer.parseInt(auftrag.get("startAdresseId")[0]);
 			if(hasChanged(data, auftrag, "startPlz")||hasChanged(data, auftrag, "startOrt")||hasChanged(data, auftrag, "startStreet")||hasChanged(data, auftrag, "startHausNr")) {
-				startAdressId = Connector.insertIntoTable("INSERT INTO `adresse`(`plz`, `stadt`, `straße`, `hausnummer`,`adresszusatz`) "
-						+ "VALUES('"+data.get("startPlz")+"','"+data.get("startOrt")+"','"+data.get("startStreet")+"','"+data.get("startHausNr")+"','')");
+				startChanged=true;
+				
+				JSONArray coords = Requesthandler.getGeocoding(data.get("startHausNr")+ " " + data.get("startStreet") + ", " + data.get("startOrt"));
+				startLAT = coords.getDouble(0);
+				startLON = coords.getDouble(1);
+				
+				startAdressId = Connector.insertIntoTable("INSERT INTO `adresse`(`plz`, `stadt`, `straße`, `hausnummer`,`lat`,`lon`) "
+						+ "VALUES('"+data.get("startPlz")+"','"+data.get("startOrt")+"','"+data.get("startStreet")+"','"+data.get("startHausNr")+"','"+Double.toString(startLAT)+"','"+Double.toString(startLON)+"')");
 				if(startAdressId==-1)startAdressId = Integer.parseInt(auftrag.get("startAdresseId")[0]);
 			}
 			
 			//Adresse nur speichern wenn Ändererung(ziel)
 			int zielAdressId = Integer.parseInt(auftrag.get("zielAdresseId")[0]);
 			if(hasChanged(data, auftrag, "zielPlz")||hasChanged(data, auftrag, "zielOrt")||hasChanged(data, auftrag, "zielStreet")||hasChanged(data, auftrag, "zielHausNr")) {
-				zielAdressId = Connector.insertIntoTable("INSERT INTO `adresse`(`plz`, `stadt`, `straße`, `hausnummer`,`adresszusatz`) "
-						+ "VALUES('"+data.get("zielPlz")+"','"+data.get("zielOrt")+"','"+data.get("zielStreet")+"','"+data.get("zielHausNr")+"','')");
+				zielChanged=true;
+				
+				JSONArray coords = Requesthandler.getGeocoding(data.get("zielHausNr")+ " " + data.get("zielStreet") + ", " + data.get("zielOrt"));
+				zielLAT = coords.getDouble(0);
+				zielLON = coords.getDouble(1);
+				
+				zielAdressId = Connector.insertIntoTable("INSERT INTO `adresse`(`plz`, `stadt`, `straße`, `hausnummer`,`lat`,`lon`) "
+						+ "VALUES('"+data.get("zielPlz")+"','"+data.get("zielOrt")+"','"+data.get("zielStreet")+"','"+data.get("zielHausNr")+"','"+Double.toString(zielLAT)+"','"+Double.toString(zielLON)+"')");
 				if(zielAdressId==-1)zielAdressId = Integer.parseInt(auftrag.get("zielAdresseId")[0]);
 			}
 			
 			//TODO Gecoding für entfernung benutzen
-			float entfernung = 0;
+			if (zielChanged || startChanged) {
+				entfernung = Requesthandler.getDistance(startLAT, startLON, zielLAT, zielLON);			
+			}
+			
 			
 			//speicher alles auf dem Auftrag
 			Connector.updateTable("UPDATE auftrag a SET "

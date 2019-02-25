@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 25. Feb 2019 um 08:10
--- Server-Version: 10.1.38-MariaDB
--- PHP-Version: 7.3.2
+-- Erstellungszeit: 25. Feb 2019 um 12:21
+-- Server-Version: 10.1.35-MariaDB
+-- PHP-Version: 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,36 +28,49 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `adresse`
 --
 
-DROP TABLE IF EXISTS `adresse`;
 CREATE TABLE `adresse` (
   `adressId` int(11) NOT NULL,
   `plz` varchar(5) NOT NULL,
   `stadt` varchar(255) NOT NULL,
   `straße` varchar(255) NOT NULL,
   `hausnummer` varchar(4) NOT NULL,
-  `adresszusatz` varchar(255) NOT NULL
+  `adresszusatz` varchar(255) DEFAULT NULL,
+  `lat` varchar(20) DEFAULT NULL,
+  `lon` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `adresse`
 --
 
-INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adresszusatz`) VALUES
-(1, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
-(2, '74821', 'Mosbach', 'Lohrtalweg', '11', ''),
-(3, '12345', 'Test', 'Muster', '5', ''),
-(17, '', '', '', '', ''),
-(18, '7392', 'Routenbach', 'null', '42', ''),
-(19, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
-(20, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
-(21, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
-(22, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
-(23, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
-(24, '07392', 'Routenbacher', 'Hauptweg', '14', ''),
-(25, '08254', 'Mosbach', 'Lohrtalstraße', '12', ''),
-(26, '07392', 'Routenbacher', 'Hauptweg', '14', ''),
-(27, '07392', 'Routenbacher', 'Hauptweg', '14', ''),
-(28, '07392', 'Routenbach', 'Hauptweg', '14', '');
+INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adresszusatz`, `lat`, `lon`) VALUES
+(1, '74613', 'Öhringen', 'Ehrenpreisweg', '3', '', NULL, NULL),
+(2, '74821', 'Mosbach', 'Lohrtalweg', '11', '', NULL, NULL),
+(3, '12345', 'Test', 'Muster', '5', '', NULL, NULL),
+(17, '', '', '', '', '', NULL, NULL),
+(18, '7392', 'Routenbach', 'null', '42', '', NULL, NULL),
+(19, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
+(20, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
+(21, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
+(22, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
+(23, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
+(24, '07392', 'Routenbacher', 'Hauptweg', '14', '', NULL, NULL),
+(25, '08254', 'Mosbach', 'Lohrtalstraße', '12', '', NULL, NULL),
+(26, '07392', 'Routenbacher', 'Hauptweg', '14', '', NULL, NULL),
+(27, '07392', 'Routenbacher', 'Hauptweg', '14', '', NULL, NULL),
+(28, '07392', 'Routenbach', 'Hauptweg', '14', '', NULL, NULL),
+(29, '74821', 'Mosbach', 'Lohrtalweg', '12', '', NULL, NULL),
+(30, '74821', 'Mosbach', 'Lohrtalweg', '11', '', NULL, NULL),
+(31, '74821', 'Mosbach', 'Lohrtalweg', '12', '', NULL, NULL),
+(32, '74821', 'Mosbach', 'Lohrtalweg', '11', '', NULL, NULL),
+(33, '74821', 'Mosbach', 'Lohrtalweg', '12', '', '49.351393', ''),
+(34, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679'),
+(35, '74821', 'Mosbach', 'Lohrtalweg', '12', NULL, '9.156615', '49.351393'),
+(36, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679'),
+(37, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679'),
+(38, '74613', 'Öhringen', 'Ehrenpreisweg', '1', NULL, '9.490089', '49.211523'),
+(39, '74821', 'Mosbach', 'Lohrtalweg', '12', NULL, '9.156615', '49.351393'),
+(40, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679');
 
 -- --------------------------------------------------------
 
@@ -65,7 +78,6 @@ INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adr
 -- Tabellenstruktur für Tabelle `auftrag`
 --
 
-DROP TABLE IF EXISTS `auftrag`;
 CREATE TABLE `auftrag` (
   `auftragId` int(11) NOT NULL,
   `zielAdresseId` int(11) DEFAULT NULL,
@@ -81,7 +93,7 @@ CREATE TABLE `auftrag` (
 --
 
 INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId`, `entfernung`, `datumDerFahrt`, `letztesÄnderungsDatum`) VALUES
-(1, 25, 28, 1, 0, '2019-02-26 14:00:00', '2019-02-24 09:37:44'),
+(1, 38, 40, 1, 43402.6, '2019-02-26 14:00:00', '2019-02-25 10:55:37'),
 (2, 2, 3, 13, 0, '2019-02-25 23:00:00', '2019-02-23 19:38:39'),
 (7, NULL, NULL, NULL, 0, NULL, '2019-02-24 20:51:12');
 
@@ -91,7 +103,6 @@ INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId
 -- Tabellenstruktur für Tabelle `auftragzuroute`
 --
 
-DROP TABLE IF EXISTS `auftragzuroute`;
 CREATE TABLE `auftragzuroute` (
   `id` int(11) NOT NULL,
   `routenId` int(11) NOT NULL,
@@ -105,7 +116,6 @@ CREATE TABLE `auftragzuroute` (
 -- Tabellenstruktur für Tabelle `fahrer`
 --
 
-DROP TABLE IF EXISTS `fahrer`;
 CREATE TABLE `fahrer` (
   `fahrerId` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -128,7 +138,6 @@ INSERT INTO `fahrer` (`fahrerId`, `name`, `status`, `standortId`) VALUES
 -- Tabellenstruktur für Tabelle `fahrzeug`
 --
 
-DROP TABLE IF EXISTS `fahrzeug`;
 CREATE TABLE `fahrzeug` (
   `fahrzuegId` int(11) NOT NULL,
   `anzahlSitze` int(11) NOT NULL,
@@ -153,7 +162,6 @@ INSERT INTO `fahrzeug` (`fahrzuegId`, `anzahlSitze`, `status`, `rollstuhltauglic
 -- Tabellenstruktur für Tabelle `kunde`
 --
 
-DROP TABLE IF EXISTS `kunde`;
 CREATE TABLE `kunde` (
   `kundenId` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -179,7 +187,6 @@ INSERT INTO `kunde` (`kundenId`, `name`, `vorname`, `telefon`, `handicap`, `adre
 -- Tabellenstruktur für Tabelle `route`
 --
 
-DROP TABLE IF EXISTS `route`;
 CREATE TABLE `route` (
   `routenId` int(11) NOT NULL,
   `farherId` int(11) NOT NULL,
@@ -192,7 +199,6 @@ CREATE TABLE `route` (
 -- Tabellenstruktur für Tabelle `standort`
 --
 
-DROP TABLE IF EXISTS `standort`;
 CREATE TABLE `standort` (
   `standortId` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -267,13 +273,13 @@ ALTER TABLE `standort`
 -- AUTO_INCREMENT für Tabelle `adresse`
 --
 ALTER TABLE `adresse`
-  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT für Tabelle `auftrag`
 --
 ALTER TABLE `auftrag`
-  MODIFY `auftragId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `auftragId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT für Tabelle `auftragzuroute`
