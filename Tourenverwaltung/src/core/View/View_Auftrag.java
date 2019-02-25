@@ -373,7 +373,7 @@ public class View_Auftrag {
 		this.zielStreet.setText(map.get("zielStraﬂe"));
 		this.zielHausNr.setText(map.get("zielHausNr"));
 		
-		//TODO//Ausrechnen
+		//TODO Ausrechnen
 		this.pauschale.setText("1Ä pro km netto");
 		float price = Float.parseFloat(map.get("distance"))*1;
 		float bruttoPrice = price*0.19f;

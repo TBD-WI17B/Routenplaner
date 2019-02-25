@@ -160,7 +160,6 @@ public class Model_Auftrag {
 				if(zielAdressId==-1)zielAdressId = Integer.parseInt(auftrag.get("zielAdresseId")[0]);
 			}
 			
-			//TODO Gecoding für entfernung benutzen
 			if (zielChanged || startChanged) {
 				entfernung = Requesthandler.getDistance(startLAT, startLON, zielLAT, zielLON);			
 			}
@@ -191,7 +190,6 @@ public class Model_Auftrag {
 			data.put("hausNr", kunde.get("hausnummer")[0]);
 			return data;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -200,7 +198,6 @@ public class Model_Auftrag {
 		try {
 			return Connector.insertIntoTable("INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId`, `entfernung`, `datumDerFahrt`) VALUES (NULL, NULL, NULL, NULL, 0, NULL)");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;
@@ -222,7 +219,6 @@ public class Model_Auftrag {
 			}
 			Connector.deleteRecordFromTable("DELETE FROM `auftrag` WHERE auftragId = "+id);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

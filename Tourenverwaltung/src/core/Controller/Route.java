@@ -19,11 +19,27 @@ public class Route {
 		
 		//Preload
 		view.updateListeRoute(model.getRoutenList());
-		view.updateListeAuftraege(model.getAuftraegeList());
+		view.updateListeAuftraege(model.getAuftraegeList("1"));
 		view.updateListeFahrer(model.getFahrerList());
 	}
 	public JPanel getPanel()
 	{
 		return view.getSubPanel();
 	}
+	
+	
+	//Handler
+	//TODO Neue Route anlegen
+	
+	//TODO Route löschen
+	
+	//TODO Route generieren
+	
+	//TODO Route selektiert
+	
+	//TODO Aufträge hinzufügen
+	
+	//TODO Auftrag entfernen
+	
+	//TODO Fahrer zuweisen
 }

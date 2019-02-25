@@ -22,18 +22,28 @@ public class Model_Route {
 	public String[] getFahrerList() {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT name FROM fahrer");
-			String[] ids = result.get("name");
+			String[] namen = result.get("name");
+			return namen; 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public String[] getAuftraegeList(String routenId) {
+		try {
+			Map<String,String[]> result = Connector.getQueryResult("SELECT auftragId FROM routenplan WHERE routenId = "+routenId+";");
+			String[] ids = result.get("auftragId");
 			return ids; 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	public String[] getAuftraegeList() {
+	public String getFahrer(String routenId) {
 		try {
-			Map<String,String[]> result = Connector.getQueryResult("SELECT auftragId FROM auftrag");
-			String[] ids = result.get("auftragId");
-			return ids; 
+			Map<String,String[]> result = Connector.getQueryResult("SELECT fahrerId FROM route WHERE routenId = "+routenId+";");
+			String id = result.get("fahrerId")[0];
+			return id; 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

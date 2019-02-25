@@ -221,4 +221,23 @@ public class View_Route{
 			this.lsFahrerModel.addElement(names[i]);
 		}
 	}
+	//TODO richtigen Fahrer selektieren
+	
+	//TODO Details der Route updaten
+	
+	// Handler
+	
+	//TODO Neue Route anlegen
+	
+	//TODO Route löschen
+	
+	//TODO Route generieren
+	
+	//TODO Route selektiert
+	
+	//TODO Aufträge hinzufügen
+	
+	//TODO Auftrag entfernen
+	
+	//TODO Fahrer zuweisen
 }
