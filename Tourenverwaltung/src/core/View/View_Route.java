@@ -3,6 +3,7 @@ package core.View;
 import java.awt.Component;
 
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -46,6 +47,9 @@ public class View_Route{
 	private JButton btnRoutenGenerieren;
 	private JLabel lblInfoRoutenID;
 	private JLabel lbl_auftraege;
+	private DefaultListModel lsFahrerModel;
+	private DefaultListModel lsAuftraegeModel;
+	private DefaultListModel lsRoutenModel;
 	
 	public View_Route()
 	{
@@ -64,21 +68,10 @@ public class View_Route{
 		this.lbl_map.setBounds(795, 11, 508, 684);
 		this.pnl_routenplaner.add(this.lbl_map);
 		
-		this.lsRouten = new JList();
+		lsRoutenModel = new DefaultListModel();
+		this.lsRouten = new JList<String>(lsRoutenModel);
 		this.lsRouten.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.lsRouten.setValueIsAdjusting(true);
-		this.lsRouten.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Route 1", "Route 2", "Route 3", "Route 4"};
-			@Override
-			public int getSize() {
-				return values.length;
-			}
-			@Override
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		this.lsRouten.setSelectedIndex(0);
 		this.lsRouten.setBounds(10, 36, 227, 217);
 		this.pnl_routenplaner.add(this.lsRouten);
 		
@@ -91,19 +84,9 @@ public class View_Route{
 		this.lbl_auftraege.setBounds(269, 11, 98, 14);
 		this.pnl_routenplaner.add(this.lbl_auftraege);
 		
-		this.lsAuftraege = new JList();
+		lsAuftraegeModel = new DefaultListModel();
+		this.lsAuftraege = new JList<String>(lsAuftraegeModel);
 		this.lsAuftraege.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		this.lsAuftraege.setModel(new AbstractListModel() {
-			String[] values = new String[] {"A125 Mosbach", "A251 \u00D6hringen", "A21 Oedheim", "A54 Stuttgart", "A12 Heilbronn"};
-			@Override
-			public int getSize() {
-				return values.length;
-			}
-			@Override
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
 		this.lbl_auftraege.setLabelFor(this.lsAuftraege);
 		this.lsAuftraege.setBounds(269, 36, 227, 217);
 		this.pnl_routenplaner.add(this.lsAuftraege);
@@ -132,20 +115,9 @@ public class View_Route{
 		this.pnl_routenplaner.add(this.txtInfoDauer);
 		this.txtInfoDauer.setColumns(10);
 		
-		this.lsFahrer = new JList();
+		lsFahrerModel = new DefaultListModel();
+		this.lsFahrer = new JList<String>(lsFahrerModel);
 		this.lsFahrer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		this.lsFahrer.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Karl, M\u00FCller", "Heinz, Ketchup"};
-			@Override
-			public int getSize() {
-				return values.length;
-			}
-			@Override
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		this.lsFahrer.setSelectedIndex(0);
 		this.lsFahrer.setBounds(526, 36, 227, 217);
 		this.pnl_routenplaner.add(this.lsFahrer);
 		
@@ -231,4 +203,22 @@ public class View_Route{
 	{	
 		return pnl_routenplaner;		
 	}	
+	public void updateListeRoute(String[] names) {
+		this.lsRoutenModel.clear();
+		for(int i = 0;i<names.length;i++) {
+			this.lsRoutenModel.addElement(names[i]);
+		}
+	}
+	public void updateListeAuftraege(String[] names) {
+		this.lsAuftraegeModel.clear();
+		for(int i = 0;i<names.length;i++) {
+			this.lsAuftraegeModel.addElement(names[i]);
+		}
+	}
+	public void updateListeFahrer(String[] names) {
+		this.lsFahrerModel.clear();
+		for(int i = 0;i<names.length;i++) {
+			this.lsFahrerModel.addElement(names[i]);
+		}
+	}
 }
