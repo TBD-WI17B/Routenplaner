@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 23. Feb 2019 um 15:56
+-- Erstellungszeit: 25. Feb 2019 um 08:10
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.2
 
@@ -45,7 +45,19 @@ CREATE TABLE `adresse` (
 INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adresszusatz`) VALUES
 (1, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
 (2, '74821', 'Mosbach', 'Lohrtalweg', '11', ''),
-(3, '12345', 'Test', 'Muster', '5', '');
+(3, '12345', 'Test', 'Muster', '5', ''),
+(17, '', '', '', '', ''),
+(18, '7392', 'Routenbach', 'null', '42', ''),
+(19, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
+(20, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
+(21, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
+(22, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
+(23, '7392', 'Routenbach', 'Hauptstraße', '42', ''),
+(24, '07392', 'Routenbacher', 'Hauptweg', '14', ''),
+(25, '08254', 'Mosbach', 'Lohrtalstraße', '12', ''),
+(26, '07392', 'Routenbacher', 'Hauptweg', '14', ''),
+(27, '07392', 'Routenbacher', 'Hauptweg', '14', ''),
+(28, '07392', 'Routenbach', 'Hauptweg', '14', '');
 
 -- --------------------------------------------------------
 
@@ -56,9 +68,10 @@ INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adr
 DROP TABLE IF EXISTS `auftrag`;
 CREATE TABLE `auftrag` (
   `auftragId` int(11) NOT NULL,
-  `zielAdressId` int(11) NOT NULL,
-  `kundenId` int(11) NOT NULL,
-  `entfernung` float NOT NULL,
+  `zielAdresseId` int(11) DEFAULT NULL,
+  `startAdresseId` int(11) DEFAULT NULL,
+  `kundenId` int(11) DEFAULT NULL,
+  `entfernung` float NOT NULL DEFAULT '0',
   `datumDerFahrt` timestamp NULL DEFAULT NULL,
   `letztesÄnderungsDatum` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -67,8 +80,10 @@ CREATE TABLE `auftrag` (
 -- Daten für Tabelle `auftrag`
 --
 
-INSERT INTO `auftrag` (`auftragId`, `zielAdressId`, `kundenId`, `entfernung`, `datumDerFahrt`, `letztesÄnderungsDatum`) VALUES
-(1, 2, 2, 0, '2019-02-23 23:00:00', '2019-02-23 14:49:56');
+INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId`, `entfernung`, `datumDerFahrt`, `letztesÄnderungsDatum`) VALUES
+(1, 25, 28, 1, 0, '2019-02-26 14:00:00', '2019-02-24 09:37:44'),
+(2, 2, 3, 13, 0, '2019-02-25 23:00:00', '2019-02-23 19:38:39'),
+(7, NULL, NULL, NULL, 0, NULL, '2019-02-24 20:51:12');
 
 -- --------------------------------------------------------
 
@@ -80,7 +95,8 @@ DROP TABLE IF EXISTS `auftragzuroute`;
 CREATE TABLE `auftragzuroute` (
   `id` int(11) NOT NULL,
   `routenId` int(11) NOT NULL,
-  `auftragId` int(11) NOT NULL
+  `auftragId` int(11) NOT NULL,
+  `position` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -152,9 +168,10 @@ CREATE TABLE `kunde` (
 --
 
 INSERT INTO `kunde` (`kundenId`, `name`, `vorname`, `telefon`, `handicap`, `adressId`) VALUES
-(1, 'Müllers', 'Andrea', '0764224521', 0, 3),
+(1, 'Müller', 'Andrea', '0764224521', 0, 3),
 (2, 'Jimek', 'Paul', '0664321527', 0, 2),
-(3, 'Müller', 'Heinz', '0464222521', 1, 3);
+(3, 'Müller', 'Heinz', '0464222521', 1, 3),
+(13, 'Peterson', 'Klaus', '', 0, 17);
 
 -- --------------------------------------------------------
 
@@ -250,13 +267,13 @@ ALTER TABLE `standort`
 -- AUTO_INCREMENT für Tabelle `adresse`
 --
 ALTER TABLE `adresse`
-  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT für Tabelle `auftrag`
 --
 ALTER TABLE `auftrag`
-  MODIFY `auftragId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `auftragId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT für Tabelle `auftragzuroute`
@@ -280,7 +297,7 @@ ALTER TABLE `fahrzeug`
 -- AUTO_INCREMENT für Tabelle `kunde`
 --
 ALTER TABLE `kunde`
-  MODIFY `kundenId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kundenId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT für Tabelle `route`
