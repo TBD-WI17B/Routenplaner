@@ -1,17 +1,10 @@
 package core.Controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.swing.SwingWorker;
-
 import core.Model.Model_View;
 import core.View.View;
 
 public class Verwaltung {
-
+	//TODO beim Wechsel vom Tab muss ein Preload von den Tabs gemacht werden
 	private View window;
 	private Model_View model;
 	private Route route;

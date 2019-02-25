@@ -31,8 +31,7 @@ public class Kunde {
 		this.view.updateList(list);
 		if(list.length>0) {
 			this.view.setListSelectionOn(0);
-//			int newIndex = Integer.parseInt((String) list.getSelectedValue());
-//			view.updateGUIFromCustomer(model.getDataFromCustomer(newIndex));
+			this.view.updateGUIFromCustomer(this.model.getDataFromCustomer(Integer.parseInt(list[0])));
 		} 
 	}
 	
@@ -94,7 +93,6 @@ class deleteAction implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//TODO DELETE Funktion in Model und im Connect DELETE Funktion am besten eine Flag und schauen ob noch Aufträge offen sind
 		int id = view.getCurrentSelectedCustomerId();
 		if(id==-1) {
 			System.out.println("Es gibt keine Daten die Zurückgesetzt werden müssen");
