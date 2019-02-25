@@ -118,10 +118,16 @@ public class Model_Auftrag {
 			int idPosStart = kundenString.indexOf("(ID :")+5;
 			int idPosEnd = kundenString.indexOf(")");	
 			int kundenId = Integer.parseInt(kundenString.substring(idPosStart, idPosEnd));
-			double startLAT = Double.parseDouble(auftrag.get("startLAT")[0]);
-			double startLON = Double.parseDouble(auftrag.get("startLON")[0]);
-			double zielLAT = Double.parseDouble(auftrag.get("zielLAT")[0]);
-			double zielLON = Double.parseDouble(auftrag.get("zielLON")[0]);
+			double startLAT=0;
+			double startLON =0;
+			double zielLAT=0;
+			double zielLON=0;
+			if(!(auftrag.get("startLAT")[0]==null))startLAT = Double.parseDouble(auftrag.get("startLAT")[0]);
+			if(!(auftrag.get("startLON")[0]==null)) startLON = Double.parseDouble(auftrag.get("startLON")[0]);
+			if(!(auftrag.get("zielLAT")[0]==null)) zielLAT = Double.parseDouble(auftrag.get("zielLAT")[0]);
+			if(!(auftrag.get("zielLON")[0]==null)) zielLON = Double.parseDouble(auftrag.get("zielLON")[0]);
+			
+			
 			double entfernung = Double.parseDouble(auftrag.get("entfernung")[0]);
 			boolean startChanged = false;
 			boolean zielChanged = false;
