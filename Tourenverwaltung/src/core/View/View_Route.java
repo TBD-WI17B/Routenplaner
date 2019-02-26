@@ -11,39 +11,40 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import javax.swing.ListSelectionModel;
 
 public class View_Route{
 
 	private JPanel pnl_routenplaner;
 	private JLabel lbl_map;
-	private JList ls_routen;
+	private JList lsRouten;
 	private JLabel lbl_routen;
 	private JLabel lbl_haltepunkte;
-	private JList ls_haltepunkte;
-	private JTextField txtAuftragsnummer;
-	private JTextField txtFahrer;
-	private JTextField txtKm;
-	private JTextField txtDauer;
-	private JList ls_fahrer;
-	private JLabel lblNewLabel;
+	private JList lsAuftraege;
+	private JTextField txtInfoAuftragsnummer;
+	private JTextField txtInfoFahrer;
+	private JTextField txtInfoKm;
+	private JTextField txtInfoDauer;
+	private JList lsFahrer;
+	private JLabel lbl_fahrer;
 	private JButton btnNeueRoute;
-	private JButton btnLschen;
+	private JButton btnRouteLoeschen;
 	private JButton btnBearbeiten;
-	private JButton btnHinzufgen;
-	private JButton btnEntfernen;
-	private JButton btnZuweisen;
+	private JButton btnAuftragHinzufuegen;
+	private JButton btnAuftragEntfernen;
+	private JButton btnFahrerZuweisen;
 	private JLabel lblAuftragsnummer;
-	private JLabel lblFahrer;
-	private JLabel lblDauer;
-	private JLabel lblDistanz;
+	private JLabel lblInfoFahrer;
+	private JLabel lblInfoDauer;
+	private JLabel lblInfoDistanz;
 	private JLabel lblInfos;
 	private JLabel lblInfos_1;
 	private JTextField txtAbc;
 	private JTextField txtZzz;
-	private JLabel lblZusatz;
-	private JTextPane txtpnLoremIpsumOder;
+	private JLabel lblInfoZusatz;
+	private JTextPane txtInfoZusatz;
 	private JButton btnRoutenGenerieren;
-	private JLabel lblRoutenID;
+	private JLabel lblInfoRoutenID;
 	private JLabel lbl_auftraege;
 	
 	public View_Route()
@@ -63,9 +64,10 @@ public class View_Route{
 		this.lbl_map.setBounds(795, 11, 508, 684);
 		this.pnl_routenplaner.add(this.lbl_map);
 		
-		this.ls_routen = new JList();
-		this.ls_routen.setValueIsAdjusting(true);
-		this.ls_routen.setModel(new AbstractListModel() {
+		this.lsRouten = new JList();
+		this.lsRouten.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.lsRouten.setValueIsAdjusting(true);
+		this.lsRouten.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Route 1", "Route 2", "Route 3", "Route 4"};
 			@Override
 			public int getSize() {
@@ -76,12 +78,12 @@ public class View_Route{
 				return values[index];
 			}
 		});
-		this.ls_routen.setSelectedIndex(0);
-		this.ls_routen.setBounds(10, 36, 227, 217);
-		this.pnl_routenplaner.add(this.ls_routen);
+		this.lsRouten.setSelectedIndex(0);
+		this.lsRouten.setBounds(10, 36, 227, 217);
+		this.pnl_routenplaner.add(this.lsRouten);
 		
 		this.lbl_routen = new JLabel("Routen");
-		this.lbl_routen.setLabelFor(this.ls_routen);
+		this.lbl_routen.setLabelFor(this.lsRouten);
 		this.lbl_routen.setBounds(10, 11, 88, 14);
 		this.pnl_routenplaner.add(this.lbl_routen);
 		
@@ -89,8 +91,9 @@ public class View_Route{
 		this.lbl_auftraege.setBounds(269, 11, 98, 14);
 		this.pnl_routenplaner.add(this.lbl_auftraege);
 		
-		this.ls_haltepunkte = new JList();
-		this.ls_haltepunkte.setModel(new AbstractListModel() {
+		this.lsAuftraege = new JList();
+		this.lsAuftraege.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.lsAuftraege.setModel(new AbstractListModel() {
 			String[] values = new String[] {"A125 Mosbach", "A251 \u00D6hringen", "A21 Oedheim", "A54 Stuttgart", "A12 Heilbronn"};
 			@Override
 			public int getSize() {
@@ -101,36 +104,37 @@ public class View_Route{
 				return values[index];
 			}
 		});
-		this.lbl_auftraege.setLabelFor(this.ls_haltepunkte);
-		this.ls_haltepunkte.setBounds(269, 36, 227, 217);
-		this.pnl_routenplaner.add(this.ls_haltepunkte);
+		this.lbl_auftraege.setLabelFor(this.lsAuftraege);
+		this.lsAuftraege.setBounds(269, 36, 227, 217);
+		this.pnl_routenplaner.add(this.lsAuftraege);
 		
-		this.txtAuftragsnummer = new JTextField();
-		this.txtAuftragsnummer.setText("Auftragsnummer");
-		this.txtAuftragsnummer.setBounds(109, 373, 112, 20);
-		this.pnl_routenplaner.add(this.txtAuftragsnummer);
-		this.txtAuftragsnummer.setColumns(10);
+		this.txtInfoAuftragsnummer = new JTextField();
+		this.txtInfoAuftragsnummer.setText("Auftragsnummer");
+		this.txtInfoAuftragsnummer.setBounds(109, 373, 112, 20);
+		this.pnl_routenplaner.add(this.txtInfoAuftragsnummer);
+		this.txtInfoAuftragsnummer.setColumns(10);
 		
-		this.txtFahrer = new JTextField();
-		this.txtFahrer.setText("Fahrer");
-		this.txtFahrer.setBounds(109, 404, 86, 20);
-		this.pnl_routenplaner.add(this.txtFahrer);
-		this.txtFahrer.setColumns(10);
+		this.txtInfoFahrer = new JTextField();
+		this.txtInfoFahrer.setText("Fahrer");
+		this.txtInfoFahrer.setBounds(109, 404, 86, 20);
+		this.pnl_routenplaner.add(this.txtInfoFahrer);
+		this.txtInfoFahrer.setColumns(10);
 		
-		this.txtKm = new JTextField();
-		this.txtKm.setText("km");
-		this.txtKm.setBounds(109, 466, 86, 20);
-		this.pnl_routenplaner.add(this.txtKm);
-		this.txtKm.setColumns(10);
+		this.txtInfoKm = new JTextField();
+		this.txtInfoKm.setText("km");
+		this.txtInfoKm.setBounds(109, 466, 86, 20);
+		this.pnl_routenplaner.add(this.txtInfoKm);
+		this.txtInfoKm.setColumns(10);
 		
-		this.txtDauer = new JTextField();
-		this.txtDauer.setText("dauer");
-		this.txtDauer.setBounds(109, 435, 86, 20);
-		this.pnl_routenplaner.add(this.txtDauer);
-		this.txtDauer.setColumns(10);
+		this.txtInfoDauer = new JTextField();
+		this.txtInfoDauer.setText("dauer");
+		this.txtInfoDauer.setBounds(109, 435, 86, 20);
+		this.pnl_routenplaner.add(this.txtInfoDauer);
+		this.txtInfoDauer.setColumns(10);
 		
-		this.ls_fahrer = new JList();
-		this.ls_fahrer.setModel(new AbstractListModel() {
+		this.lsFahrer = new JList();
+		this.lsFahrer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.lsFahrer.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Karl, M\u00FCller", "Heinz, Ketchup"};
 			@Override
 			public int getSize() {
@@ -141,54 +145,54 @@ public class View_Route{
 				return values[index];
 			}
 		});
-		this.ls_fahrer.setSelectedIndex(0);
-		this.ls_fahrer.setBounds(526, 36, 227, 217);
-		this.pnl_routenplaner.add(this.ls_fahrer);
+		this.lsFahrer.setSelectedIndex(0);
+		this.lsFahrer.setBounds(526, 36, 227, 217);
+		this.pnl_routenplaner.add(this.lsFahrer);
 		
-		this.lblNewLabel = new JLabel("Fahrer");
-		this.lblNewLabel.setLabelFor(this.ls_fahrer);
-		this.lblNewLabel.setBounds(526, 11, 88, 14);
-		this.pnl_routenplaner.add(this.lblNewLabel);
+		this.lbl_fahrer = new JLabel("Fahrer");
+		this.lbl_fahrer.setLabelFor(this.lsFahrer);
+		this.lbl_fahrer.setBounds(526, 11, 88, 14);
+		this.pnl_routenplaner.add(this.lbl_fahrer);
 		
 		this.btnNeueRoute = new JButton("Neue Route");
 		this.btnNeueRoute.setBounds(10, 264, 94, 23);
 		this.pnl_routenplaner.add(this.btnNeueRoute);
 		
-		this.btnLschen = new JButton("L\u00F6schen");
-		this.btnLschen.setBounds(114, 264, 123, 23);
-		this.pnl_routenplaner.add(this.btnLschen);
+		this.btnRouteLoeschen = new JButton("L\u00F6schen");
+		this.btnRouteLoeschen.setBounds(114, 264, 123, 23);
+		this.pnl_routenplaner.add(this.btnRouteLoeschen);
 		
 //		this.btnBearbeiten = new JButton("Bearbeiten");
 //		this.btnBearbeiten.setBounds(10, 298, 94, 23);
 //		this.pnl_routenplaner.add(this.btnBearbeiten);
 		
-		this.btnHinzufgen = new JButton("Hinzuf\u00FCgen");
-		this.btnHinzufgen.setBounds(269, 264, 89, 23);
-		this.pnl_routenplaner.add(this.btnHinzufgen);
+		this.btnAuftragHinzufuegen = new JButton("Hinzuf\u00FCgen");
+		this.btnAuftragHinzufuegen.setBounds(269, 264, 89, 23);
+		this.pnl_routenplaner.add(this.btnAuftragHinzufuegen);
 		
-		this.btnEntfernen = new JButton("Entfernen");
-		this.btnEntfernen.setBounds(368, 264, 89, 23);
-		this.pnl_routenplaner.add(this.btnEntfernen);
+		this.btnAuftragEntfernen = new JButton("Entfernen");
+		this.btnAuftragEntfernen.setBounds(368, 264, 89, 23);
+		this.pnl_routenplaner.add(this.btnAuftragEntfernen);
 		
-		this.btnZuweisen = new JButton("Zuweisen");
-		this.btnZuweisen.setBounds(526, 264, 89, 23);
-		this.pnl_routenplaner.add(this.btnZuweisen);
+		this.btnFahrerZuweisen = new JButton("Zuweisen");
+		this.btnFahrerZuweisen.setBounds(526, 264, 89, 23);
+		this.pnl_routenplaner.add(this.btnFahrerZuweisen);
 		
-		this.lblRoutenID = new JLabel("Routen-ID");
-		this.lblRoutenID.setBounds(10, 373, 88, 14);
-		this.pnl_routenplaner.add(this.lblRoutenID);
+		this.lblInfoRoutenID = new JLabel("Routen-ID");
+		this.lblInfoRoutenID.setBounds(10, 373, 88, 14);
+		this.pnl_routenplaner.add(this.lblInfoRoutenID);
 		
-		this.lblFahrer = new JLabel("Fahrer");
-		this.lblFahrer.setBounds(10, 404, 88, 14);
-		this.pnl_routenplaner.add(this.lblFahrer);
+		this.lblInfoFahrer = new JLabel("Fahrer");
+		this.lblInfoFahrer.setBounds(10, 404, 88, 14);
+		this.pnl_routenplaner.add(this.lblInfoFahrer);
 		
-		this.lblDauer = new JLabel("Dauer");
-		this.lblDauer.setBounds(10, 435, 88, 14);
-		this.pnl_routenplaner.add(this.lblDauer);
+		this.lblInfoDauer = new JLabel("Dauer");
+		this.lblInfoDauer.setBounds(10, 435, 88, 14);
+		this.pnl_routenplaner.add(this.lblInfoDauer);
 		
-		this.lblDistanz = new JLabel("Distanz");
-		this.lblDistanz.setBounds(10, 466, 88, 14);
-		this.pnl_routenplaner.add(this.lblDistanz);
+		this.lblInfoDistanz = new JLabel("Distanz");
+		this.lblInfoDistanz.setBounds(10, 466, 88, 14);
+		this.pnl_routenplaner.add(this.lblInfoDistanz);
 		
 //		this.lblInfos = new JLabel("Infos");
 //		this.lblInfos.setBounds(10, 497, 88, 14);
@@ -210,14 +214,14 @@ public class View_Route{
 //		this.txtZzz.setBounds(109, 528, 86, 20);
 //		this.pnl_routenplaner.add(this.txtZzz);
 		
-		this.lblZusatz = new JLabel("Zusatz");
-		this.lblZusatz.setBounds(10, 553, 88, 14);
-		this.pnl_routenplaner.add(this.lblZusatz);
+		this.lblInfoZusatz = new JLabel("Zusatz");
+		this.lblInfoZusatz.setBounds(10, 491, 88, 14);
+		this.pnl_routenplaner.add(this.lblInfoZusatz);
 		
-		this.txtpnLoremIpsumOder = new JTextPane();
-		this.txtpnLoremIpsumOder.setText("Lorem Ipsum oder so");
-		this.txtpnLoremIpsumOder.setBounds(109, 559, 358, 118);
-		this.pnl_routenplaner.add(this.txtpnLoremIpsumOder);
+		this.txtInfoZusatz = new JTextPane();
+		this.txtInfoZusatz.setText("Lorem Ipsum oder so");
+		this.txtInfoZusatz.setBounds(109, 497, 358, 118);
+		this.pnl_routenplaner.add(this.txtInfoZusatz);
 		
 		this.btnRoutenGenerieren = new JButton("Routen generieren");
 		this.btnRoutenGenerieren.setBounds(114, 298, 123, 23);
