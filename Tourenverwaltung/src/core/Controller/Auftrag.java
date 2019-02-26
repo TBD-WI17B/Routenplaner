@@ -9,8 +9,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import com.sun.crypto.provider.JceKeyStore;
-
 import core.Model.Model_Auftrag;
 import core.View.View_Auftrag;
 
@@ -33,6 +31,10 @@ public class Auftrag {
 		//view.createBill(new billingAction(model,view));		//TODO Klasse billingAction und Funktion
 		
 		//Preload
+		this.reload();
+	}
+	
+	public void reload() {
 		String[] list = this.model.getList();
 		this.view.loadCombobox(this.model.getCustomers());
 		this.view.updateList(list);
@@ -40,8 +42,8 @@ public class Auftrag {
 			this.view.setListSelectionOn(0);
 			this.view.updateGUIFromCustomer(this.model.getDataFromAuftrag(Integer.parseInt(list[0])));
 		} 
-		
 	}
+	
 	public JPanel getPanel()
 	{
 		return view.getSubPanel();

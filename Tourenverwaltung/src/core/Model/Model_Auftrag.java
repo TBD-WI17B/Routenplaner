@@ -9,18 +9,12 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 import core.Controller.Connector;
 import core.Controller.Requesthandler;
 
 public class Model_Auftrag {
 
 	String fehlermeldung = "";
-
-	public Model_Auftrag() {
-
-	}
 
 	public String[] getList() {
 		try {
@@ -220,13 +214,12 @@ public class Model_Auftrag {
 				entfernung = Requesthandler.getDistance(startLAT, startLON, zielLAT, zielLON);
 			}
 
-			// TODO Datum anpassen
+			//Datum anpassen
 			String datum = "Null";
 			if (data.get("fahrtDatum").isEmpty() || data.get("fahrtDatum") == null) {
 				this.fehlermeldung = "Es muss ein FahrtDatum angegeben werden";
 				return false;
 			}
-			//TODO
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Date date = sdf.parse(data.get("fahrtDatum"));
@@ -271,7 +264,6 @@ public class Model_Auftrag {
 			return Connector.insertIntoTable(
 					"INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId`, `entfernung`, `datumDerFahrt`) VALUES (NULL, NULL, NULL, NULL, 0, NULL)");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return -1;

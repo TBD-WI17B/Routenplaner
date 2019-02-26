@@ -48,7 +48,7 @@ public class Verwaltung {
 		/*Tab fuer Testzwecke */
 		window.addTabbedPaneTab("Test", test.getPanel());
 	}
-
+		
 }
 
 
