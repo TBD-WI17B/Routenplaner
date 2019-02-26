@@ -56,7 +56,7 @@ public class Connector {
 		
 	}
 	
-	public static Map<String,String[]> getQueryResult(String query) throws Exception{
+	public static Map<String,String[]> getQueryResult(String query) throws SQLException{
 		try {
 			if(connect == null)connect = DriverManager.getConnection(connectionURL);
 			if(statement == null)statement = connect.createStatement();
@@ -84,7 +84,7 @@ public class Connector {
 			e.printStackTrace();
 			System.out.println("Fehler beim Aufrufen der SQl Query: " + query);
 		}
-		throw new Exception("Fehler beim Aufrufen der SQl Query: " + query);
+		throw new SQLException("Fehler beim Aufrufen der SQl Query: " + query);
 	}
 	
 	public static void updateTable(String query) throws SQLException{

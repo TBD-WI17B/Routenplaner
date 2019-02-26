@@ -18,10 +18,16 @@ import javax.swing.ListSelectionModel;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
 
 public class View_Auftrag {
 	
+	
 	private JPanel pnl_auftragsverwaltung;
+	private JDialog pnl_popup;
 	
 	private JLabel lblAuftrge;
 	private JLabel lblAuftragsnummer_1;
@@ -37,6 +43,7 @@ public class View_Auftrag {
 	private JLabel lblPauschale;
 	private JLabel lblRechnungsinformation;
 	private JLabel lblGesamt;
+	private JLabel lblpopupDescription;
 	
 	private JTextField fahrtDatum;
 	private JTextField route;
@@ -55,6 +62,8 @@ public class View_Auftrag {
 	private JTextField zielOrt;
 	private JTextField zielStreet;
 	private JTextField zielHausNr;
+	
+	
 	private JComboBox kunde;
 	
 	private JCheckBox startUseKundenadresse;
@@ -65,6 +74,7 @@ public class View_Auftrag {
 	private JButton btnSpeichern_1;
 	private JButton btnAbbrechen_1;
 	private JButton btnRechnungErstellen;
+	private JButton popUpButton;
 	
 	private JSeparator separator_1;
 	private JSeparator separator_4;
@@ -294,6 +304,30 @@ public class View_Auftrag {
 		lblZielStreet.setBounds(581, 193, 81, 14);
 		pnl_auftragsverwaltung.add(lblZielStreet);
 		
+		this.pnl_popup = new JDialog();
+		this.pnl_popup.setTitle("Fehlermeldung");
+		this.pnl_popup.setLayout(null);
+		this.pnl_popup.setBounds(468, 130, 349, 153);
+		this.pnl_popup.setLocationRelativeTo(this.pnl_auftragsverwaltung);
+		this.pnl_popup.setLocation((int)this.pnl_popup.getLocation().getX()-this.pnl_popup.getWidth()/2, (int)this.pnl_popup.getLocation().getY()-this.pnl_popup.getHeight()/2);
+		this.pnl_popup.setBackground(Color.WHITE);
+		
+		this.lblpopupDescription = new JLabel("popUpDescrition");
+		this.lblpopupDescription.setBounds(47, 29, 246, 46);
+		this.pnl_popup.add(this.lblpopupDescription);
+		
+		popUpButton = new JButton("Verstanden");
+		this.popUpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		this.popUpButton.setBounds(102, 80, 128, 23);
+		this.pnl_popup.add(this.popUpButton);
+		this.pnl_popup.setAlwaysOnTop(true);
+		this.pnl_popup.setModal(true);
+		
+		
+		
 	}
 	
 	//Load Customer in Combobox
@@ -341,7 +375,18 @@ public class View_Auftrag {
 		return data;
 	}
 	
+	
 	//Updaten der GUI
+	public void openPopup(String desc) {
+		this.lblpopupDescription.setText(desc);
+		this.pnl_popup.setVisible(true);
+		System.out.println("Show Popup with Message"+desc);
+	}
+	
+	public void closePopUp() {
+		this.pnl_popup.setVisible(false);
+	}
+	
 	public void updateList(String[] names) {
 		this.auftragListenModel.clear();
 		for(int i = 0;i<names.length;i++) {
@@ -432,4 +477,9 @@ public class View_Auftrag {
 		startUseKundenadresse.addActionListener(al);
 		zielUseKundeAdresse.addActionListener(al);
 	}
+	
+	public void hidePopUp(ActionListener al) {
+		this.popUpButton.addActionListener(al);
+	}
+	
 }
