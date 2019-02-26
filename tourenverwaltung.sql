@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 25. Feb 2019 um 12:21
+-- Erstellungszeit: 26. Feb 2019 um 15:19
 -- Server-Version: 10.1.35-MariaDB
 -- PHP-Version: 7.2.9
 
@@ -104,11 +104,19 @@ INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId
 --
 
 CREATE TABLE `auftragzuroute` (
-  `id` int(11) NOT NULL,
   `routenId` int(11) NOT NULL,
   `auftragId` int(11) NOT NULL,
-  `position` int(11) NOT NULL
+  `position` int(11) NOT NULL,
+  `entfernung` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `auftragzuroute`
+--
+
+INSERT INTO `auftragzuroute` (`routenId`, `auftragId`, `position`, `entfernung`) VALUES
+(1, 1, 1, '50'),
+(1, 2, 2, '22');
 
 -- --------------------------------------------------------
 
@@ -189,9 +197,19 @@ INSERT INTO `kunde` (`kundenId`, `name`, `vorname`, `telefon`, `handicap`, `adre
 
 CREATE TABLE `route` (
   `routenId` int(11) NOT NULL,
-  `farherId` int(11) NOT NULL,
-  `fahrzeugId` int(11) NOT NULL
+  `farherId` int(11) DEFAULT NULL,
+  `fahrzeugId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `route`
+--
+
+INSERT INTO `route` (`routenId`, `farherId`, `fahrzeugId`) VALUES
+(1, 1, 1),
+(2, 2, 3),
+(3, 1, 1),
+(4, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -233,7 +251,7 @@ ALTER TABLE `auftrag`
 -- Indizes für die Tabelle `auftragzuroute`
 --
 ALTER TABLE `auftragzuroute`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`routenId`,`auftragId`);
 
 --
 -- Indizes für die Tabelle `fahrer`
@@ -279,13 +297,7 @@ ALTER TABLE `adresse`
 -- AUTO_INCREMENT für Tabelle `auftrag`
 --
 ALTER TABLE `auftrag`
-  MODIFY `auftragId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT für Tabelle `auftragzuroute`
---
-ALTER TABLE `auftragzuroute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `auftragId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT für Tabelle `fahrer`
@@ -309,7 +321,7 @@ ALTER TABLE `kunde`
 -- AUTO_INCREMENT für Tabelle `route`
 --
 ALTER TABLE `route`
-  MODIFY `routenId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `routenId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT für Tabelle `standort`
