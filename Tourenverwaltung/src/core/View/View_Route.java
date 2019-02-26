@@ -1,6 +1,9 @@
 package core.View;
 
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.util.Map;
 
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
@@ -13,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.ListSelectionModel;
+import javax.swing.JComboBox;
 
 public class View_Route{
 
@@ -40,16 +44,14 @@ public class View_Route{
 	private JLabel lblInfoDistanz;
 	private JLabel lblInfos;
 	private JLabel lblInfos_1;
-	private JTextField txtAbc;
-	private JTextField txtZzz;
-	private JLabel lblInfoZusatz;
-	private JTextPane txtInfoZusatz;
 	private JButton btnRoutenGenerieren;
 	private JLabel lblInfoRoutenID;
 	private JLabel lbl_auftraege;
 	private DefaultListModel lsFahrerModel;
 	private DefaultListModel lsAuftraegeModel;
 	private DefaultListModel lsRoutenModel;
+	private JLabel lblFahrzeug;
+	private JComboBox comboBoxFahrzeug;
 	
 	public View_Route()
 	{
@@ -92,26 +94,34 @@ public class View_Route{
 		this.pnl_routenplaner.add(this.lsAuftraege);
 		
 		this.txtInfoAuftragsnummer = new JTextField();
+		txtInfoAuftragsnummer.setEditable(false);
+		txtInfoAuftragsnummer.setEnabled(false);
 		this.txtInfoAuftragsnummer.setText("Auftragsnummer");
 		this.txtInfoAuftragsnummer.setBounds(109, 373, 112, 20);
 		this.pnl_routenplaner.add(this.txtInfoAuftragsnummer);
 		this.txtInfoAuftragsnummer.setColumns(10);
 		
 		this.txtInfoFahrer = new JTextField();
+		txtInfoFahrer.setEnabled(false);
+		txtInfoFahrer.setEditable(false);
 		this.txtInfoFahrer.setText("Fahrer");
-		this.txtInfoFahrer.setBounds(109, 404, 86, 20);
+		this.txtInfoFahrer.setBounds(109, 404, 112, 20);
 		this.pnl_routenplaner.add(this.txtInfoFahrer);
 		this.txtInfoFahrer.setColumns(10);
 		
 		this.txtInfoKm = new JTextField();
+		txtInfoKm.setEditable(false);
+		txtInfoKm.setEnabled(false);
 		this.txtInfoKm.setText("km");
-		this.txtInfoKm.setBounds(109, 466, 86, 20);
+		this.txtInfoKm.setBounds(109, 466, 112, 20);
 		this.pnl_routenplaner.add(this.txtInfoKm);
 		this.txtInfoKm.setColumns(10);
 		
 		this.txtInfoDauer = new JTextField();
+		txtInfoDauer.setEditable(false);
+		txtInfoDauer.setEnabled(false);
 		this.txtInfoDauer.setText("dauer");
-		this.txtInfoDauer.setBounds(109, 435, 86, 20);
+		this.txtInfoDauer.setBounds(109, 435, 112, 20);
 		this.pnl_routenplaner.add(this.txtInfoDauer);
 		this.txtInfoDauer.setColumns(10);
 		
@@ -166,53 +176,34 @@ public class View_Route{
 		this.lblInfoDistanz.setBounds(10, 466, 88, 14);
 		this.pnl_routenplaner.add(this.lblInfoDistanz);
 		
-//		this.lblInfos = new JLabel("Infos");
-//		this.lblInfos.setBounds(10, 497, 88, 14);
-//		this.pnl_routenplaner.add(this.lblInfos);
-//		
-//		this.lblInfos_1 = new JLabel("Infos");
-//		this.lblInfos_1.setBounds(10, 528, 88, 14);
-//		this.pnl_routenplaner.add(this.lblInfos_1);
-		
-//		this.txtAbc = new JTextField();
-//		this.txtAbc.setText("abc");
-//		this.txtAbc.setColumns(10);
-//		this.txtAbc.setBounds(109, 497, 86, 20);
-//		this.pnl_routenplaner.add(this.txtAbc);
-//		
-//		this.txtZzz = new JTextField();
-//		this.txtZzz.setText("zzz");
-//		this.txtZzz.setColumns(10);
-//		this.txtZzz.setBounds(109, 528, 86, 20);
-//		this.pnl_routenplaner.add(this.txtZzz);
-		
-		this.lblInfoZusatz = new JLabel("Zusatz");
-		this.lblInfoZusatz.setBounds(10, 491, 88, 14);
-		this.pnl_routenplaner.add(this.lblInfoZusatz);
-		
-		this.txtInfoZusatz = new JTextPane();
-		this.txtInfoZusatz.setText("Lorem Ipsum oder so");
-		this.txtInfoZusatz.setBounds(109, 497, 358, 118);
-		this.pnl_routenplaner.add(this.txtInfoZusatz);
-		
 		this.btnRoutenGenerieren = new JButton("Routen generieren");
 		this.btnRoutenGenerieren.setBounds(114, 298, 123, 23);
 		this.pnl_routenplaner.add(this.btnRoutenGenerieren);
+		
+		lblFahrzeug = new JLabel("Fahrzeug");
+		lblFahrzeug.setBounds(10, 501, 88, 14);
+		pnl_routenplaner.add(lblFahrzeug);
+		
+		comboBoxFahrzeug = new JComboBox();
+		comboBoxFahrzeug.setBounds(109, 498, 112, 20);
+		pnl_routenplaner.add(comboBoxFahrzeug);
 	}
 	public JPanel getSubPanel()
 	{	
 		return pnl_routenplaner;		
 	}	
-	public void updateListeRoute(String[] names) {
+	
+	//
+	public void updateListeRoute(String[] ids) {
 		this.lsRoutenModel.clear();
-		for(int i = 0;i<names.length;i++) {
-			this.lsRoutenModel.addElement(names[i]);
+		for(int i = 0;i<ids.length;i++) {
+			this.lsRoutenModel.addElement(ids[i]);
 		}
 	}
-	public void updateListeAuftraege(String[] names) {
+	public void updateListeAuftraege(String[] ids) {
 		this.lsAuftraegeModel.clear();
-		for(int i = 0;i<names.length;i++) {
-			this.lsAuftraegeModel.addElement(names[i]);
+		for(int i = 0;i<ids.length;i++) {
+			this.lsAuftraegeModel.addElement(ids[i]);
 		}
 	}
 	public void updateListeFahrer(String[] names) {
@@ -221,23 +212,54 @@ public class View_Route{
 			this.lsFahrerModel.addElement(names[i]);
 		}
 	}
-	//TODO richtigen Fahrer selektieren
+	public void updateFahrzeuge(String[] fahrzeuge) {
+		this.comboBoxFahrzeug.removeAllItems();
+		for(int i = 0; i<fahrzeuge.length;i++) {
+			this.comboBoxFahrzeug.addItem(fahrzeuge[i]);
+		}
+	}
 	
-	//TODO Details der Route updaten
+	public void setFahrzeug(int fahrzeug) {
+		this.comboBoxFahrzeug.setSelectedItem(fahrzeug);
+	}
+	public void updateInfo(Map<String,String> data) {
+		this.txtInfoAuftragsnummer.setText(data.get("auftragId"));
+		this.txtInfoFahrer.setText(data.get("fahrerId"));
+		this.txtInfoDauer.setText(data.get("duration"));
+		this.txtInfoKm.setText(data.get("distance"));
+		this.comboBoxFahrzeug.setSelectedItem(data.get("fahrzeug"));
+	}
 	
-	// Handler
 	
-	//TODO Neue Route anlegen
-	
-	//TODO Route löschen
-	
-	//TODO Route generieren
-	
-	//TODO Route selektiert
-	
-	//TODO Aufträge hinzufügen
-	
-	//TODO Auftrag entfernen
-	
-	//TODO Fahrer zuweisen
+	//Handler
+	public void addNewRouteListener(ActionListener al) {
+		this.btnNeueRoute.addActionListener(al);
+	}
+	public void addDeleteRouteListener(ActionListener al) {
+		this.btnRouteLoeschen.addActionListener(al);
+	}
+	public void addRouteGenListener(ActionListener al) {
+		this.btnRoutenGenerieren.addActionListener(al);
+	}
+	public void addAddingListener(ActionListener al) {
+		this.btnAuftragHinzufuegen.addActionListener(al);
+	}
+	public void addRemoveListener(ActionListener al) {
+		this.btnAuftragEntfernen.addActionListener(al);
+	}
+	public void addAssignListener(ActionListener al) {
+		this.btnFahrerZuweisen.addActionListener(al);
+	}
+	public void addFahzeugChangeListener(ActionListener al) {
+		this.comboBoxFahrzeug.addActionListener(al);
+	}
+	public void addRoutenListListener(MouseListener mouse) {
+		this.lsRouten.addMouseListener(mouse);
+	}
+	public void addAuftraegeListListener(MouseListener mouse) {
+		this.lsAuftraege.addMouseListener(mouse);
+	}
+	public void addFahrerListListener(MouseListener mouse) {
+		this.lsFahrer.addMouseListener(mouse);
+	}
 }

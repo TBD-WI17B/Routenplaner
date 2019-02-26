@@ -31,7 +31,7 @@ public class Model_Route {
 	}
 	public String[] getAuftraegeList(String routenId) {
 		try {
-			Map<String,String[]> result = Connector.getQueryResult("SELECT auftragId FROM routenplan WHERE routenId = "+routenId+";");
+			Map<String,String[]> result = Connector.getQueryResult("SELECT auftragId FROM auftragzuroute WHERE routenId = "+routenId+";");
 			String[] ids = result.get("auftragId");
 			return ids; 
 		} catch (Exception e) {
@@ -44,6 +44,16 @@ public class Model_Route {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT fahrerId FROM route WHERE routenId = "+routenId+";");
 			String id = result.get("fahrerId")[0];
 			return id; 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public String[] getFahrzeuge() {
+		try {
+			Map<String,String[]> result = Connector.getQueryResult("SELECT fahrzuegId FROM fahrzeug");
+			String[] ids = result.get("fahrzuegId");
+			return ids; 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -21,6 +21,7 @@ public class Route {
 		view.updateListeRoute(model.getRoutenList());
 		view.updateListeAuftraege(model.getAuftraegeList("1"));
 		view.updateListeFahrer(model.getFahrerList());
+		view.updateFahrzeuge(model.getFahrzeuge());
 	}
 	public JPanel getPanel()
 	{
