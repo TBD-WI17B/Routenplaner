@@ -29,6 +29,7 @@ public class Auftrag {
 		view.addDeletingListener(new deleteAction(model,view));
 		view.addResetListener(new abbruchAction(model,view));
 		view.checkboxListener(new checkboxListener(model,view));
+		view.hidePopUp(new popUpListener(model, view));
 		//view.createBill(new billingAction(model,view));		//TODO Klasse billingAction und Funktion
 		
 		//Preload
@@ -58,7 +59,7 @@ public class Auftrag {
 		public void actionPerformed(ActionEvent e) {
 			int id = view.getCurrentSelectedAuftragId();
 			if(id==-1)return;
-			model.saveAuftrag(id,view.getData());
+			if(!model.saveAuftrag(id,view.getData()))this.view.openPopup(this.model.getFehlermeldung());
 		}
 		
 	}
@@ -171,6 +172,19 @@ public class Auftrag {
 			else if(box.getLabel().equals("Kunden Adresse für Ziel"))this.view.updateZielAdresse(this.model.getCustomerAdress(this.view.getCurrentSelectedAuftragId()));
 		}
 		
+	}
+	class popUpListener implements ActionListener{
+		View_Auftrag view;
+		Model_Auftrag model;
+		public popUpListener(Model_Auftrag model, View_Auftrag view) {
+			this.view = view;
+			this.model = model;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			this.view.closePopUp();
+		}
 	}
 	
 }
