@@ -9,8 +9,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import core.Model.Model_View;
-
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
@@ -25,7 +23,6 @@ public class View {
 	//TODO Bennen die Variablen bitte mit Sinn Manu ^^ (TextField_2)
 	
 	//Models
-	private Model_View model;
 	private View_Auftrag auftrag;
 	private View_Fahrer fahrer;
 	private View_Fahrzeug fahrzeug;
@@ -47,50 +44,9 @@ public class View {
 
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					final View window = new View();
-					window.frmTourenverwaltung.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-	}
-
-	/**
 	 * Create the application.
 	 */
-	public View(Model_View m) {
-		this.model = m;
-//		this.auftrag = new View_Auftrag();
-//		this.fahrer = new View_Fahrer();
-//		this.fahrzeug = new View_Fahrzeug();
-//		this.kunde = new View_Kunde();
-//		this.route = new View_Route();
-//		this.standort = new View_Standort();
-//		this.test = new View_Test();
-		
-		this.initialize();		
-	}
-
-	/**
-	 * Parameter Konstruktor für Testzwecke
-	 */
 	public View() {
-		this.fahrer = new View_Fahrer();
-		this.fahrzeug = new View_Fahrzeug();
-		this.kunde = new View_Kunde();
-		this.standort = new View_Standort();
-		this.test = new View_Test();
-	
 		this.initialize();
 	}
 
@@ -143,9 +99,6 @@ public class View {
 	}
 	public void addTabbedPaneTab(String name, JPanel p) {
 		this.tabbedPane.addTab(name, null, p, null);
-	}
-	public void bindTesthandler(ActionListener al) {
-		this.test.addTesthandler(al);
 	}
 	public void setTest(String txt) 
 	{

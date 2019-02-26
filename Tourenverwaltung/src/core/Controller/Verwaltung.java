@@ -1,12 +1,10 @@
 package core.Controller;
 
-import core.Model.Model_View;
 import core.View.View;
 
 public class Verwaltung {
 	//TODO beim Wechsel vom Tab muss ein Preload von den Tabs gemacht werden
 	private View window;
-	private Model_View model;
 	private Route route;
 	private Auftrag auftrag;
 	private Fahrer fahrer;
@@ -16,8 +14,7 @@ public class Verwaltung {
 	private Test test;
 	
 	public Verwaltung() {
-		model = new Model_View();//Bis jetzt nicht benutzt??
-		window = new View(model);
+		window = new View();
 		
 		initController();	
 
