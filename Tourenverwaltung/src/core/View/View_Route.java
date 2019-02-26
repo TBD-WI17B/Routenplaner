@@ -3,8 +3,10 @@ package core.View;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.PreDestroy;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -188,40 +190,62 @@ public class View_Route{
 		comboBoxFahrzeug.setBounds(109, 498, 112, 20);
 		pnl_routenplaner.add(comboBoxFahrzeug);
 	}
-	public JPanel getSubPanel()
-	{	
+	public JPanel getSubPanel()	{	
 		return pnl_routenplaner;		
 	}	
 	
-	//
+	//Setter
+	/**
+	 * Füllt die Liste mit allen vorhanden Routen. Noch keine Auswahl!
+	 * @param ids String Array mit Auftrags ID
+	 */
 	public void updateListeRoute(String[] ids) {
 		this.lsRoutenModel.clear();
 		for(int i = 0;i<ids.length;i++) {
 			this.lsRoutenModel.addElement(ids[i]);
 		}
 	}
+	/**
+	 * Füllt die Liste mit Auträgen.
+	 * @param ids String Array mit Auftrags ID
+	 */
 	public void updateListeAuftraege(String[] ids) {
 		this.lsAuftraegeModel.clear();
 		for(int i = 0;i<ids.length;i++) {
 			this.lsAuftraegeModel.addElement(ids[i]);
 		}
 	}
+	/**
+	 * Füllt die Liste mit allen Fahrern. Wählt noch keinen Fahrer aus!
+	 * @param names String Array mit den Namen der Fahrer.
+	 */
 	public void updateListeFahrer(String[] names) {
 		this.lsFahrerModel.clear();
 		for(int i = 0;i<names.length;i++) {
 			this.lsFahrerModel.addElement(names[i]);
 		}
 	}
+	/**
+	 * Füllt die die ComboBox mit den Fahrzeugen. Entfernt alle vorherigen Einträgen
+	 * @param fahrzeuge String Array mit den Fahrzeug IDs
+	 */
 	public void updateFahrzeuge(String[] fahrzeuge) {
 		this.comboBoxFahrzeug.removeAllItems();
 		for(int i = 0; i<fahrzeuge.length;i++) {
 			this.comboBoxFahrzeug.addItem(fahrzeuge[i]);
 		}
 	}
-	
+	/**
+	 * Setzt ein Fahrzeug als ausgewählt aus
+	 * @param fahrzeug 
+	 */
 	public void setFahrzeug(int fahrzeug) {
 		this.comboBoxFahrzeug.setSelectedItem(fahrzeug);
 	}
+	/**
+	 * Update der angezeigten Informationen
+	 * @param data Map der Daten (auftragId, fahrerId, duration, distance, fahrzeug)
+	 */
 	public void updateInfo(Map<String,String> data) {
 		this.txtInfoAuftragsnummer.setText(data.get("auftragId"));
 		this.txtInfoFahrer.setText(data.get("fahrerId"));
@@ -230,6 +254,23 @@ public class View_Route{
 		this.comboBoxFahrzeug.setSelectedItem(data.get("fahrzeug"));
 	}
 	
+	//Getter
+	public String getSelectedFahrzeug()
+	{
+		return this.comboBoxFahrzeug.getSelectedObjects().toString();
+	}
+	public String getSelectedRoute()
+	{
+		return this.lsRouten.getSelectedValue().toString();
+	}
+	public String getSelectedAuftrag()
+	{
+		return this.lsAuftraege.getSelectedValue().toString();
+	}
+	public String getSelectedFahrer()
+	{
+		return this.lsFahrer.getSelectedValue().toString();
+	}
 	
 	//Handler
 	public void addNewRouteListener(ActionListener al) {

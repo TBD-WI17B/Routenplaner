@@ -1,5 +1,6 @@
 package core.Model;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import core.Controller.Connector;
@@ -59,6 +60,37 @@ public class Model_Route {
 		}
 		return null;
 	}
+	public int addRoute() {
+		try {
+			return Connector.insertIntoTable(
+					"INSERT INTO `route` (`routenId`, `fahrerId`, `fahrzeugId`) VALUES (NULL, NULL, NULL)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int deleteRoute() {
+		return -1;
+	}
+	public int addAuftrag(int routenId, int auftragId, int pos) {
+		try {
+			return Connector.insertIntoTable(
+					"INSERT INTO `auftragzuroute` (`routenId`, `auftragId`, `position`,`entfernung`) VALUES (`"+routenId+"`, `"+auftragId+"`, "+pos+", NULL)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int removeAuftrag() {
+		return -1;
+	}
+	public int updateFahrer() {
+		return -1;
+	}
+	public void getRouteData() {
+		
+	}
+	
 	
 	
 	
