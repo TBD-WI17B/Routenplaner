@@ -30,14 +30,14 @@ public class View_Auftrag {
 	private JDialog pnl_popup;
 	
 	private JLabel lblAuftrge;
-	private JLabel lblAuftragsnummer_1;
+	private JLabel lblAuftragsnummer;
 	private JLabel lblAusfhrfahrtDatum;
-	private JLabel lblFahrer_2;
+	private JLabel lblFahrer;
+	private JLabel lblLastChange;
 	private JLabel lblRoute;
-	private JLabel lblRoute_1;
+	private JLabel lblStart;
 	private JLabel lblZiel;
-	private JLabel lblZiel_1;
-	private JLabel lblDistanz_1;
+	private JLabel lblDistanz;
 	private JLabel lblNetto;
 	private JLabel lblBrutto;
 	private JLabel lblPauschale;
@@ -63,21 +63,20 @@ public class View_Auftrag {
 	private JTextField zielStreet;
 	private JTextField zielHausNr;
 	
-	
 	private JComboBox kunde;
 	
-	private JCheckBox startUseKundenadresse;
-	private JCheckBox zielUseKundeAdresse;
+	private JCheckBox startUseKundenAdresse;
+	private JCheckBox zielUseKundenAdresse;
 	
-	private JButton btnLschen_2;
+	private JButton btnDelete;
 	private JButton btnNeuerAuftrag;
-	private JButton btnSpeichern_1;
-	private JButton btnAbbrechen_1;
+	private JButton btnSpeichern;
+	private JButton btnAbbrechen;
 	private JButton btnRechnungErstellen;
 	private JButton popUpButton;
 	
-	private JSeparator separator_1;
-	private JSeparator separator_4;
+	private JSeparator separator;
+	private JSeparator separator2;
 	
 	private DefaultListModel<String> auftragListenModel;
 	private JList<String> auftragListe;
@@ -103,21 +102,21 @@ public class View_Auftrag {
 		this.btnNeuerAuftrag.setBounds(10, 457, 101, 23);
 		this.pnl_auftragsverwaltung.add(this.btnNeuerAuftrag);
 		
-		this.btnLschen_2 = new JButton("L\u00F6schen");
-		this.btnLschen_2.setBounds(115, 457, 101, 23);
-		this.pnl_auftragsverwaltung.add(this.btnLschen_2);
+		this.btnDelete = new JButton("L\u00F6schen");
+		this.btnDelete.setBounds(115, 457, 101, 23);
+		this.pnl_auftragsverwaltung.add(this.btnDelete);
 		
-		this.lblAuftragsnummer_1 = new JLabel("Auftragsnummer");
-		this.lblAuftragsnummer_1.setBounds(244, 57, 101, 14);
-		this.pnl_auftragsverwaltung.add(this.lblAuftragsnummer_1);
+		this.lblAuftragsnummer = new JLabel("Auftragsnummer");
+		this.lblAuftragsnummer.setBounds(244, 57, 101, 14);
+		this.pnl_auftragsverwaltung.add(this.lblAuftragsnummer);
 		
-		this.lblFahrer_2 = new JLabel("Kunde");
-		this.lblFahrer_2.setBounds(244, 82, 101, 14);
-		this.pnl_auftragsverwaltung.add(this.lblFahrer_2);
+		this.lblFahrer = new JLabel("Kunde");
+		this.lblFahrer.setBounds(244, 82, 101, 14);
+		this.pnl_auftragsverwaltung.add(this.lblFahrer);
 		
-		this.lblRoute = new JLabel("Letzte Änderung");
-		this.lblRoute.setBounds(244, 107, 101, 14);
-		this.pnl_auftragsverwaltung.add(this.lblRoute);
+		this.lblLastChange = new JLabel("Letzte Änderung");
+		this.lblLastChange.setBounds(244, 107, 101, 14);
+		this.pnl_auftragsverwaltung.add(this.lblLastChange);
 		
 		this.auftrag = new JTextField();
 		this.auftrag.setBounds(355, 54, 151, 20);
@@ -139,13 +138,13 @@ public class View_Auftrag {
 		this.lblAusfhrfahrtDatum.setBounds(581, 57, 101, 14);
 		this.pnl_auftragsverwaltung.add(this.lblAusfhrfahrtDatum);
 		
-		this.lblRoute_1 = new JLabel("Route");
-		this.lblRoute_1.setBounds(581, 82, 101, 14);
-		this.pnl_auftragsverwaltung.add(this.lblRoute_1);
+		this.lblRoute = new JLabel("Route");
+		this.lblRoute.setBounds(581, 82, 101, 14);
+		this.pnl_auftragsverwaltung.add(this.lblRoute);
 		
-		this.lblZiel = new JLabel("Start");
-		this.lblZiel.setBounds(244, 134, 101, 14);
-		this.pnl_auftragsverwaltung.add(this.lblZiel);
+		this.lblStart = new JLabel("Start");
+		this.lblStart.setBounds(244, 134, 101, 14);
+		this.pnl_auftragsverwaltung.add(this.lblStart);
 		
 		this.fahrtDatum = new JTextField();
 		this.fahrtDatum.setColumns(10);
@@ -163,30 +162,30 @@ public class View_Auftrag {
 		this.startPlz.setBounds(355, 159, 46, 20);
 		this.pnl_auftragsverwaltung.add(this.startPlz);
 		
-		this.lblZiel_1 = new JLabel("Ziel");
-		this.lblZiel_1.setBounds(581, 134, 101, 14);
-		this.pnl_auftragsverwaltung.add(this.lblZiel_1);
+		this.lblZiel = new JLabel("Ziel");
+		this.lblZiel.setBounds(581, 134, 101, 14);
+		this.pnl_auftragsverwaltung.add(this.lblZiel);
 		
 		this.zielPlz = new JTextField();
 		this.zielPlz.setColumns(10);
 		this.zielPlz.setBounds(692, 159, 46, 20);
 		this.pnl_auftragsverwaltung.add(this.zielPlz);
 		
-		this.separator_1 = new JSeparator();
-		this.separator_1.setBounds(245, 276, 889, 2);
-		this.pnl_auftragsverwaltung.add(this.separator_1);
+		this.separator = new JSeparator();
+		this.separator.setBounds(245, 276, 889, 2);
+		this.pnl_auftragsverwaltung.add(this.separator);
 		
-		this.btnSpeichern_1 = new JButton("Speichern");
-		this.btnSpeichern_1.setBounds(245, 289, 89, 23);
-		this.pnl_auftragsverwaltung.add(this.btnSpeichern_1);
+		this.btnSpeichern = new JButton("Speichern");
+		this.btnSpeichern.setBounds(245, 289, 89, 23);
+		this.pnl_auftragsverwaltung.add(this.btnSpeichern);
 		
-		this.btnAbbrechen_1 = new JButton("Abbrechen");
-		this.btnAbbrechen_1.setBounds(344, 289, 89, 23);
-		this.pnl_auftragsverwaltung.add(this.btnAbbrechen_1);
+		this.btnAbbrechen = new JButton("Abbrechen");
+		this.btnAbbrechen.setBounds(344, 289, 89, 23);
+		this.pnl_auftragsverwaltung.add(this.btnAbbrechen);
 		
-		this.lblDistanz_1 = new JLabel("Distanz");
-		this.lblDistanz_1.setBounds(581, 107, 101, 14);
-		this.pnl_auftragsverwaltung.add(this.lblDistanz_1);
+		this.lblDistanz = new JLabel("Distanz");
+		this.lblDistanz.setBounds(581, 107, 101, 14);
+		this.pnl_auftragsverwaltung.add(this.lblDistanz);
 		
 		this.distance = new JTextField();
 		this.distance.setColumns(10);
@@ -238,21 +237,21 @@ public class View_Auftrag {
 		this.gesamt.setEnabled(false);
 		this.pnl_auftragsverwaltung.add(this.gesamt);
 		
-		this.separator_4 = new JSeparator();
-		this.separator_4.setBounds(886, 134, 248, 2);
-		this.pnl_auftragsverwaltung.add(this.separator_4);
+		this.separator2 = new JSeparator();
+		this.separator2.setBounds(886, 134, 248, 2);
+		this.pnl_auftragsverwaltung.add(this.separator2);
 		
 		this.btnRechnungErstellen = new JButton("Rechnung erstellen");
 		this.btnRechnungErstellen.setBounds(1009, 289, 125, 23);
 		this.pnl_auftragsverwaltung.add(this.btnRechnungErstellen);
 		
-		startUseKundenadresse = new JCheckBox("Kunden Adresse für Start");
-		startUseKundenadresse.setBounds(355, 130, 163, 23);
-		pnl_auftragsverwaltung.add(startUseKundenadresse);
+		startUseKundenAdresse = new JCheckBox("Kunden Adresse für Start");
+		startUseKundenAdresse.setBounds(355, 130, 163, 23);
+		pnl_auftragsverwaltung.add(startUseKundenAdresse);
 		
-		zielUseKundeAdresse = new JCheckBox("Kunden Adresse für Ziel");
-		zielUseKundeAdresse.setBounds(692, 130, 151, 23);
-		pnl_auftragsverwaltung.add(zielUseKundeAdresse);
+		zielUseKundenAdresse = new JCheckBox("Kunden Adresse für Ziel");
+		zielUseKundenAdresse.setBounds(692, 130, 151, 23);
+		pnl_auftragsverwaltung.add(zielUseKundenAdresse);
 		
 		startOrt = new JTextField();
 		startOrt.setBounds(411, 159, 95, 20);
@@ -400,8 +399,8 @@ public class View_Auftrag {
 		
 	public void updateGUIFromCustomer(Map<String,String> map) {
 		
-		this.startUseKundenadresse.setSelected(false);
-		this.zielUseKundeAdresse.setSelected(false);
+		this.startUseKundenAdresse.setSelected(false);
+		this.zielUseKundenAdresse.setSelected(false);
 		
 		this.auftrag.setText(map.get("auftragsnummer"));
 		this.route.setText(map.get("route"));
@@ -459,11 +458,11 @@ public class View_Auftrag {
 	}
 	public void addSavingListener(ActionListener al)
 	{
-		btnSpeichern_1.addActionListener(al);
+		btnSpeichern.addActionListener(al);
 	}
 	public void addDeletingListener(ActionListener al)
 	{
-		btnLschen_2.addActionListener(al);
+		btnDelete.addActionListener(al);
 	}
 	public void addAddingListener(ActionListener al)
 	{
@@ -471,7 +470,7 @@ public class View_Auftrag {
 	}
 	public void addResetListener(ActionListener al)
 	{
-		btnAbbrechen_1.addActionListener(al);
+		btnAbbrechen.addActionListener(al);
 	}
 	
 	public void createBill(ActionListener al) {
@@ -479,8 +478,8 @@ public class View_Auftrag {
 	}
 	
 	public void checkboxListener(ActionListener al) {
-		startUseKundenadresse.addActionListener(al);
-		zielUseKundeAdresse.addActionListener(al);
+		startUseKundenAdresse.addActionListener(al);
+		zielUseKundenAdresse.addActionListener(al);
 	}
 	
 	public void hidePopUp(ActionListener al) {
