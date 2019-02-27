@@ -1,6 +1,7 @@
 package core.Model;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import core.Controller.Connector;
@@ -55,9 +56,9 @@ public class Model_Route {
 	}
 	public String getFahrer(int routenId) {
 		try {
-			Map<String,String[]> result = Connector.getQueryResult("SELECT name FROM fahrer LEFT JOIN route on fahrer.fahrerId = route.fahrerId WHERE routenId = " +routenId);
-			String name = result.get("name")[0];
-			return name; 
+			Map<String,String[]> result = Connector.getQueryResult("SELECT * FROM fahrer LEFT JOIN route on fahrer.fahrerId = route.fahrerId WHERE routenId = " +routenId);
+			return new String(result.get("fahrerId")[0]+", "+result.get("name")[0]);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -111,31 +112,37 @@ public class Model_Route {
 			e.printStackTrace();
 		}
 	}
-	public int updateFahrer(int fahrerId) {
+	public void updateFahrer(int fahrerId, int routenId) {
 		try {
-			return Connector.insertIntoTable(
-					"INSERT INTO `auftragzuroute` (`fahrerId`) VALUES ("+fahrerId+")");
+			Connector.updateTable(
+					"UPDATE `route` SET `fahrerId` = "+fahrerId+" WHERE `routenId`="+routenId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return -1;
 	}
-	public int updateFahrzeug(int fahrzeugId) {
+	public void updateFahrzeug(int fahrzeugId, int routenId) {
 		try {
-			return Connector.insertIntoTable(
-					"INSERT INTO `auftragzuroute` (`fahrzeugId`) VALUES ("+fahrzeugId+")");
+			Connector.updateTable(
+					"UPDATE  `route` SET `fahrzeugId` = "+fahrzeugId+" WHERE `routenId`="+routenId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	public Map<String,String> getRouteData(int routenId) {
+		Map<String,String> data = new HashMap<String,String>();
+		data.put("routenId", ""+routenId);
+		data.put("fahrerId", this.getFahrer(routenId));
+		data.put("duration", ""+this.berechneDauer(routenId));
+		data.put("distance", ""+this.berechneEntfernungen(routenId));
+		data.put("fahrzeug", ""+this.getFahrzeug(routenId));
+		return null;
+	}
+	public int berechneEntfernungen(int routenId) {
 		return -1;
 	}
-	public void getRouteData() {
-		
+	public double berechneDauer(int routenId) {
+		return -1;
 	}
-	public void berechneEntfernungen(int routeId) {
-		
-	}
-	
 	
 	
 	

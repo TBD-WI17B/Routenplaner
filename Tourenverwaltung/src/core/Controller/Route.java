@@ -19,11 +19,13 @@ public class Route {
 	public Route() {
 		this.view = new View_Route();
 		this.model = new Model_Route();
+		
 		//Preload
 		view.updateListeRoute(model.getRoutenList());
 		view.updateListeAuftraege(model.getAuftraegeList(1));
 		view.updateListeFahrer(model.getFahrerList());
 		view.updateFahrzeuge(model.getFahrzeugeList());
+		
 		//bind Handler
 		this.view.addRoutenListListener(new RouteListSelectionHandler(model, view));
 		this.view.addNewRouteListener(new NewRouteAction(model, view));
@@ -111,6 +113,7 @@ public class Route {
 			this.view.updateListeAuftraege(this.model.getAuftraegeList(newIndex));
 			this.view.setFahrzeug(this.model.getFahrzeug(newIndex));
 			this.view.setFahrer(this.model.getFahrer(newIndex));
+			this.view.updateInfo(this.model.getRouteData(newIndex));
 			lastIndex = newIndex;
 		}
 		@Override
@@ -172,9 +175,11 @@ public class Route {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int fahrerId = Integer.parseInt(this.view.getSelectedFahrer());
+			String fahrer = this.view.getSelectedFahrer().split(",")[0];
+			int fahrerId = Integer.parseInt(fahrer);
+			int routenId = Integer.parseInt(this.view.getSelectedRoute());
 			
-			this.model.updateFahrer(fahrerId);
+			this.model.updateFahrer(fahrerId, routenId);
 			
 		}
 		
@@ -190,8 +195,9 @@ public class Route {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int fahrzeugId = Integer.parseInt(this.view.getSelectedFahrzeug());
+			int routenId = Integer.parseInt(this.view.getSelectedRoute());
 			
-			this.model.updateFahrzeug(fahrzeugId);
+			this.model.updateFahrzeug(fahrzeugId, routenId);
 			
 		}
 		

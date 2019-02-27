@@ -252,7 +252,7 @@ public class View_Route{
 	 * @param data Map der Daten (auftragId, fahrerId, duration, distance, fahrzeug)
 	 */
 	public void updateInfo(Map<String,String> data) {
-		this.txtInfoAuftragsnummer.setText(data.get("auftragId"));
+		this.txtInfoAuftragsnummer.setText(data.get("routenId"));
 		this.txtInfoFahrer.setText(data.get("fahrerId"));
 		this.txtInfoDauer.setText(data.get("duration"));
 		this.txtInfoKm.setText(data.get("distance"));
@@ -262,7 +262,7 @@ public class View_Route{
 	//Getter
 	public String getSelectedFahrzeug()
 	{
-		return this.comboBoxFahrzeug.getSelectedObjects().toString();
+		return this.comboBoxFahrzeug.getSelectedItem().toString();
 	}
 	public String getSelectedRoute()
 	{
