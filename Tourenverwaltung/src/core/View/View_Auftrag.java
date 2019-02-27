@@ -359,7 +359,11 @@ public class View_Auftrag {
 		
 		Map<String,String> data = new HashMap<String,String>();
 		data.put("id", String.valueOf(this.getCurrentSelectedAuftragId()));
+		if(this.kunde.getSelectedItem()==null) {
+			data.put("kunde",null);
+		}else {
 		data.put("kunde", this.kunde.getSelectedItem().toString());
+		}
 		data.put("fahrtDatum", this.fahrtDatum.getText());
 		
 		data.put("startPlz", this.startPlz.getText());
@@ -396,13 +400,15 @@ public class View_Auftrag {
 		
 	public void updateGUIFromCustomer(Map<String,String> map) {
 		
+		this.startUseKundenadresse.setSelected(false);
+		this.zielUseKundeAdresse.setSelected(false);
+		
 		this.auftrag.setText(map.get("auftragsnummer"));
 		this.route.setText(map.get("route"));
 		this.lastChange.setText(map.get("lastChange"));
 		this.distance.setText(map.get("distance"));
 		this.fahrtDatum.setText(map.get("fahrtDatum"));
-		
-		if(map.get("kunde").isEmpty()) {
+		if(map.get("kunde")==null) {
 			this.kunde.setSelectedIndex(this.kunde.getItemCount()-1);
 			
 		}
@@ -418,7 +424,6 @@ public class View_Auftrag {
 		this.zielStreet.setText(map.get("zielStraﬂe"));
 		this.zielHausNr.setText(map.get("zielHausNr"));
 		
-		//TODO Ausrechnen
 		this.pauschale.setText("1Ä pro km netto");
 		float price = Float.parseFloat(map.get("distance"))*1;
 		float bruttoPrice = price*0.19f;

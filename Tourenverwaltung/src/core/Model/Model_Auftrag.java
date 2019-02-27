@@ -9,18 +9,12 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 import core.Controller.Connector;
 import core.Controller.Requesthandler;
 
 public class Model_Auftrag {
 
 	String fehlermeldung = "";
-
-	public Model_Auftrag() {
-
-	}
 
 	public String[] getList() {
 		try {
@@ -50,8 +44,12 @@ public class Model_Auftrag {
 			try {
 				Map<String, String> mapResult = new HashMap<String, String>();
 				mapResult.put("auftragsnummer", auftrag.get("auftragId")[0]);
-				mapResult.put("kunde", auftrag.get("name")[0] + ", " + auftrag.get("vorname")[0] + " (ID :"
-						+ auftrag.get("kId")[0] + ")");
+				if(auftrag.get("kId")[0]==null) {
+					mapResult.put("kunde",null);
+				}else {
+					mapResult.put("kunde", auftrag.get("name")[0] + ", " + auftrag.get("vorname")[0] + " (ID :"
+							+ auftrag.get("kId")[0] + ")");
+				}
 				mapResult.put("lastChange", auftrag.get("letztesÄnderungsDatum")[0]);
 				mapResult.put("fahrtDatum", auftrag.get("datumDerFahrt")[0]);
 				mapResult.put("distance", auftrag.get("entfernung")[0]);
@@ -101,11 +99,13 @@ public class Model_Auftrag {
 	public String[] getCustomers() {
 		try {
 			Map<String, String[]> kunden = Connector.getQueryResult("SELECT * FROM kunde GROUP BY name,vorname");
-			String[] kundenList = new String[kunden.get("kundenId").length];
-			for (int i = 0; i < kundenList.length; i++) {
-				kundenList[i] = kunden.get("name")[i] + ", " + kunden.get("vorname")[i] + " (ID :"
-						+ kunden.get("kundenId")[i] + ")";
-			}
+			String[] kundenList;
+			kundenList = new String[kunden.get("kundenId").length+1];
+				kundenList[0]=" ";
+				for (int i = 1; i < kundenList.length; i++) {
+					kundenList[i-1] = kunden.get("name")[i-1] + ", " + kunden.get("vorname")[i-1] + " (ID :"
+							+ kunden.get("kundenId")[i-1] + ")";
+				}
 			return kundenList;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,9 +127,9 @@ public class Model_Auftrag {
 
 			// getKunden
 			String kundenString = data.get("kunde");
-			int idPosStart = kundenString.indexOf("(ID :") + 5;
-			int idPosEnd = kundenString.indexOf(")");
-			int kundenId = Integer.parseInt(kundenString.substring(idPosStart, idPosEnd));
+			int kundenId= this.getKundenId(kundenString);
+			
+			
 			double startLAT = 0;
 			double startLON = 0;
 			double zielLAT = 0;
@@ -215,26 +215,25 @@ public class Model_Auftrag {
 					zielAdressId = zielAdressIdTmp;
 			}
 
+			// Gecoding für entfernung benutzen
 			if (zielChanged || startChanged) {
 				entfernung = Requesthandler.getDistance(startLAT, startLON, zielLAT, zielLON);
 			}
 
-			// TODO Datum anpassen
+			//Datum anpassen //2019-02-27 12:36:07
 			String datum = "Null";
 			if (data.get("fahrtDatum").isEmpty() || data.get("fahrtDatum") == null) {
 				this.fehlermeldung = "Es muss ein FahrtDatum angegeben werden";
 				return false;
 			}
-			//TODO
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Date date = sdf.parse(data.get("fahrtDatum"));
-				
+				datum = data.get("fahrtDatum");
 			}catch(java.text.ParseException e) {
 				this.fehlermeldung = "Falsches Datums Format(yyyy-MM-dd HH:mm:ss)";
 				return false;
 			}
-			
 			
 			// speicher alles auf dem Auftrag
 			Connector.updateTable("UPDATE auftrag a SET " + "`zielAdresseId`='" + zielAdressId + "',"
@@ -243,15 +242,14 @@ public class Model_Auftrag {
 			return true;
 		} catch (SQLException | JSONException e) {
 			e.printStackTrace();
-			System.out.println("Es war nicht möglich den Auftrag zu speichern");
+			this.fehlermeldung="Es war nicht möglich den Auftrag zu speichern";
 		}
 		return false;
 	}
 
 	public Map<String, String> getCustomerAdress(int id) {
 		try {
-			Map<String, String[]> kunde = Connector.getQueryResult(
-					"SELECT * FROM kunde k, adresse a WHERE k.kundenId = " + id + " AND k.adressId=a.adressId");
+			Map<String, String[]> kunde = Connector.getQueryResult("SELECT * FROM kunde k, adresse a WHERE k.kundenId = " + id + " AND k.adressId=a.adressId");
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("plz", kunde.get("plz")[0]);
 			data.put("ort", kunde.get("stadt")[0]);
@@ -259,6 +257,7 @@ public class Model_Auftrag {
 			data.put("hausNr", kunde.get("hausnummer")[0]);
 			return data;
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -279,7 +278,6 @@ public class Model_Auftrag {
 		try {
 			Map<String, String[]> result = Connector
 					.getQueryResult("SELECT datumDerFahrt FROM auftrag WHERE auftragId=" + id);
-			// System.out.println(result.get("datumDerFahrt")[0]);
 			if (result.get("datumDerFahrt")[0] == null) {
 				Connector.deleteRecordFromTable("DELETE FROM `auftrag` WHERE auftragId = " + id);
 				return;
@@ -292,6 +290,7 @@ public class Model_Auftrag {
 			}
 			Connector.deleteRecordFromTable("DELETE FROM `auftrag` WHERE auftragId = " + id);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -305,5 +304,14 @@ public class Model_Auftrag {
 		String tmpFehlermeldung = this.fehlermeldung;
 		this.fehlermeldung = "";
 		return tmpFehlermeldung;
+	}
+	public int getKundenId(String kundenString) {
+		if(kundenString==null) {
+			this.fehlermeldung="Zuerst einen Kunden auswählen";
+			return -1;
+		}
+		int idPosStart = kundenString.indexOf("(ID :") + 5;
+		int idPosEnd = kundenString.indexOf(")");
+		return Integer.parseInt(kundenString.substring(idPosStart, idPosEnd));
 	}
 }
