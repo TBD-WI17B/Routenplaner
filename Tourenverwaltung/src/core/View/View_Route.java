@@ -240,7 +240,12 @@ public class View_Route{
 	 * @param fahrzeug 
 	 */
 	public void setFahrzeug(int fahrzeug) {
-		this.comboBoxFahrzeug.setSelectedItem(fahrzeug);
+		if(fahrzeug != -1)this.comboBoxFahrzeug.setSelectedItem(""+ fahrzeug);
+		else this.comboBoxFahrzeug.setSelectedIndex(0);
+	}
+	public void setFahrer(String fahrer) {
+		if(fahrer != null) this.lsFahrer.setSelectedValue(fahrer, true);
+		else this.lsFahrer.clearSelection();
 	}
 	/**
 	 * Update der angezeigten Informationen
