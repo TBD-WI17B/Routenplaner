@@ -64,7 +64,7 @@ public class Requesthandler {
 	  public static JSONArray getGeocoding(String adr) {
 		  try {
 			  String request = URL + "geocode/search" + "?api_key=" + token + "&text=" + URLEncoder.encode(adr, "UTF-8") ;
-			  System.out.println("Requesent send: "+request);			  
+			  //System.out.println("Requesent send: "+request);			  
 			 return sendRequest(request).getJSONArray("features").getJSONObject(0).getJSONObject("geometry").getJSONArray("coordinates");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -84,8 +84,8 @@ public class Requesthandler {
 	  public static double getDistance(double startLAT, double startLON, double zielLAT, double zielLON) {
 		  try {
 			  String request = URL + "directions" + "?api_key=" + token + "&coordinates=" + startLAT + "," + startLON + "%7C" + zielLAT + "," + zielLON + "&profile=driving-car&language=de&geometry=false&instructions=false";
-			  System.out.println("Requesent send: "+request);	
-			  System.out.println(sendRequest(request).getJSONArray("routes").getJSONObject(0).getJSONObject("summary").getDouble("distance"));
+			 // System.out.println("Requesent send: "+request);	
+			  //System.out.println(sendRequest(request).getJSONArray("routes").getJSONObject(0).getJSONObject("summary").getDouble("distance"));
 			  return sendRequest(request).getJSONArray("routes").getJSONObject(0).getJSONObject("summary").getDouble("distance");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -79,8 +79,8 @@ public class Auftrag {
 		public void mouseClicked(MouseEvent e) {
 			JList list = (JList) e.getSource();
 			int newIndex = Integer.parseInt((String) list.getSelectedValue());
-			this.view.loadCombobox(this.model.getCustomers());
 			if(lastIndex==newIndex)return;
+			this.view.loadCombobox(this.model.getCustomers());
 			view.updateGUIFromCustomer(model.getDataFromAuftrag(newIndex));
 			lastIndex = newIndex;
 		}
@@ -132,6 +132,7 @@ public class Auftrag {
 		public void actionPerformed(ActionEvent e) {
 			int id = model.addAuftrag();
 			String[] list = this.model.getList();
+			
 			this.view.loadCombobox(this.model.getCustomers());
 			view.updateList(list);
 			view.setListSelectionOn(list.length-1);
@@ -169,11 +170,26 @@ public class Auftrag {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JCheckBox box = (JCheckBox) e.getSource();
-			//TODO besere Entscheidungsfunktion finden
-			if(box.getLabel().equals("Kunden Adresse für Start"))this.view.updateStartAdresse(this.model.getCustomerAdress(this.view.getCurrentSelectedAuftragId()));
-			else if(box.getLabel().equals("Kunden Adresse für Ziel"))this.view.updateZielAdresse(this.model.getCustomerAdress(this.view.getCurrentSelectedAuftragId()));
-		}
+			
+			if(box.isSelected()) {
+				int kundenId = this.model.getKundenId(this.view.getData().get("kunde"));
+				if(kundenId==-1) {
+					this.view.openPopup(this.model.getFehlermeldung());
+					return;
+				}
+				if(box.getLabel().equals("Kunden Adresse für Start"))this.view.updateStartAdresse(this.model.getCustomerAdress(kundenId));
+				else if(box.getLabel().equals("Kunden Adresse für Ziel"))this.view.updateZielAdresse(this.model.getCustomerAdress(kundenId));
+			}else {
+				String kundenIdString = this.model.getDataFromAuftrag(this.view.getCurrentSelectedAuftragId()).get("kunde");
+				int kundenId;
+				if(kundenIdString!=null) {
+					kundenId = this.model.getKundenId(kundenIdString);
+					if(box.getLabel().equals("Kunden Adresse für Start"))this.view.updateStartAdresse(this.model.getCustomerAdress(kundenId));
+					else if(box.getLabel().equals("Kunden Adresse für Ziel"))this.view.updateZielAdresse(this.model.getCustomerAdress(kundenId));
+				}
+			}
 		
+		}
 	}
 	class popUpListener implements ActionListener{
 		View_Auftrag view;
