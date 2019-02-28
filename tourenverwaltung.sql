@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 26. Feb 2019 um 15:19
--- Server-Version: 10.1.35-MariaDB
--- PHP-Version: 7.2.9
+-- Erstellungszeit: 28. Feb 2019 um 23:11
+-- Server-Version: 10.1.36-MariaDB
+-- PHP-Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `tourenverwaltung`
 --
+CREATE DATABASE IF NOT EXISTS `tourenverwaltung` DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci;
+USE `tourenverwaltung`;
 
 -- --------------------------------------------------------
 
@@ -28,6 +30,7 @@ SET time_zone = "+00:00";
 -- Tabellenstruktur für Tabelle `adresse`
 --
 
+DROP TABLE IF EXISTS `adresse`;
 CREATE TABLE `adresse` (
   `adressId` int(11) NOT NULL,
   `plz` varchar(5) NOT NULL,
@@ -40,6 +43,11 @@ CREATE TABLE `adresse` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- TRUNCATE Tabelle vor dem Einfügen `adresse`
+--
+
+TRUNCATE TABLE `adresse`;
+--
 -- Daten für Tabelle `adresse`
 --
 
@@ -47,7 +55,9 @@ INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adr
 (1, '74613', 'Öhringen', 'Ehrenpreisweg', '3', '', NULL, NULL),
 (2, '74821', 'Mosbach', 'Lohrtalweg', '11', '', NULL, NULL),
 (3, '12345', 'Test', 'Muster', '5', '', NULL, NULL),
-(17, '', '', '', '', '', NULL, NULL),
+(4, '74613', 'Öhringen', 'Kastellstraße', '4', NULL, ' 9.498805', '49.205309'),
+(5, '74821', 'Mosbach', 'Knopfweg', '1', NULL, '9.152894', '49.355755'),
+(6, '74924', 'Neckarbischofsheim', 'Alexandergasse', '2', NULL, '8.961527', '49.292141'),
 (18, '7392', 'Routenbach', 'null', '42', '', NULL, NULL),
 (19, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
 (20, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
@@ -70,7 +80,29 @@ INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adr
 (37, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679'),
 (38, '74613', 'Öhringen', 'Ehrenpreisweg', '1', NULL, '9.490089', '49.211523'),
 (39, '74821', 'Mosbach', 'Lohrtalweg', '12', NULL, '9.156615', '49.351393'),
-(40, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679');
+(40, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679'),
+(41, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
+(42, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
+(43, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
+(44, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
+(45, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
+(46, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
+(47, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
+(48, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
+(49, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
+(50, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
+(51, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
+(52, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
+(53, '74229', 'Oedheim', 'Uhlandstraße', '16', NULL, '9.246089', '49.241895'),
+(54, '74177', 'Bad Friedrichshall', 'Kreßbacher Str.', '3', NULL, '9.216365', '49.222457'),
+(55, '74229', 'Oedheim', 'Uhlandstraße', '16', NULL, '9.246089', '49.241895'),
+(56, '74177', 'Bad Friedrichshall', 'Kreßbacher Str.', '3', NULL, '9.216365', '49.222457'),
+(57, '74229', 'Oedheim', 'Uhlandstraße', '16', NULL, '9.246089', '49.241895'),
+(58, '74177', 'Bad Friedrichshall', 'Kreßbacher Str.', '3', NULL, '9.216365', '49.222457'),
+(59, '74177', 'Bad Friedrichshall', 'Obere Dorfstraße', '12', NULL, '9.216365', '49.222457'),
+(60, '74821', 'Mosbach', 'Alte Bergsteige', '7', NULL, '9.149863', '49.353233'),
+(61, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
+(62, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148');
 
 -- --------------------------------------------------------
 
@@ -78,6 +110,7 @@ INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adr
 -- Tabellenstruktur für Tabelle `auftrag`
 --
 
+DROP TABLE IF EXISTS `auftrag`;
 CREATE TABLE `auftrag` (
   `auftragId` int(11) NOT NULL,
   `zielAdresseId` int(11) DEFAULT NULL,
@@ -85,17 +118,25 @@ CREATE TABLE `auftrag` (
   `kundenId` int(11) DEFAULT NULL,
   `entfernung` float NOT NULL DEFAULT '0',
   `datumDerFahrt` timestamp NULL DEFAULT NULL,
-  `letztesÄnderungsDatum` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `letztesÄnderungsDatum` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dauer` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- TRUNCATE Tabelle vor dem Einfügen `auftrag`
+--
+
+TRUNCATE TABLE `auftrag`;
 --
 -- Daten für Tabelle `auftrag`
 --
 
-INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId`, `entfernung`, `datumDerFahrt`, `letztesÄnderungsDatum`) VALUES
-(1, 38, 40, 1, 43402.6, '2019-02-26 14:00:00', '2019-02-25 10:55:37'),
-(2, 2, 3, 13, 0, '2019-02-25 23:00:00', '2019-02-23 19:38:39'),
-(7, NULL, NULL, NULL, 0, NULL, '2019-02-24 20:51:12');
+INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId`, `entfernung`, `datumDerFahrt`, `letztesÄnderungsDatum`, `dauer`) VALUES
+(1, 62, 40, 1, 43413, '2019-02-26 14:00:00', '2019-02-28 15:03:31', 2837.7),
+(2, 2, 3, 13, 0, '2019-02-25 23:00:00', '2019-02-23 19:38:39', NULL),
+(9, 52, 51, 13, 19172.2, '2020-12-20 11:00:00', '2019-02-28 14:18:39', NULL),
+(10, 58, 57, 13, 4246.3, '2020-12-20 11:30:00', '2019-02-28 21:44:13', NULL),
+(11, 60, 59, 2, 22004.8, '2020-12-20 12:00:00', '2019-02-28 14:23:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,6 +144,7 @@ INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId
 -- Tabellenstruktur für Tabelle `auftragzuroute`
 --
 
+DROP TABLE IF EXISTS `auftragzuroute`;
 CREATE TABLE `auftragzuroute` (
   `routenId` int(11) NOT NULL,
   `auftragId` int(11) NOT NULL,
@@ -111,12 +153,20 @@ CREATE TABLE `auftragzuroute` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- TRUNCATE Tabelle vor dem Einfügen `auftragzuroute`
+--
+
+TRUNCATE TABLE `auftragzuroute`;
+--
 -- Daten für Tabelle `auftragzuroute`
 --
 
 INSERT INTO `auftragzuroute` (`routenId`, `auftragId`, `position`, `entfernung`) VALUES
 (1, 1, 1, '50'),
-(1, 2, 2, '22');
+(1, 2, 2, '22'),
+(29, 9, 0, NULL),
+(29, 10, 1, NULL),
+(29, 11, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -124,6 +174,7 @@ INSERT INTO `auftragzuroute` (`routenId`, `auftragId`, `position`, `entfernung`)
 -- Tabellenstruktur für Tabelle `fahrer`
 --
 
+DROP TABLE IF EXISTS `fahrer`;
 CREATE TABLE `fahrer` (
   `fahrerId` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -131,6 +182,11 @@ CREATE TABLE `fahrer` (
   `standortId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- TRUNCATE Tabelle vor dem Einfügen `fahrer`
+--
+
+TRUNCATE TABLE `fahrer`;
 --
 -- Daten für Tabelle `fahrer`
 --
@@ -146,6 +202,7 @@ INSERT INTO `fahrer` (`fahrerId`, `name`, `status`, `standortId`) VALUES
 -- Tabellenstruktur für Tabelle `fahrzeug`
 --
 
+DROP TABLE IF EXISTS `fahrzeug`;
 CREATE TABLE `fahrzeug` (
   `fahrzuegId` int(11) NOT NULL,
   `anzahlSitze` int(11) NOT NULL,
@@ -154,6 +211,11 @@ CREATE TABLE `fahrzeug` (
   `standortId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- TRUNCATE Tabelle vor dem Einfügen `fahrzeug`
+--
+
+TRUNCATE TABLE `fahrzeug`;
 --
 -- Daten für Tabelle `fahrzeug`
 --
@@ -170,6 +232,7 @@ INSERT INTO `fahrzeug` (`fahrzuegId`, `anzahlSitze`, `status`, `rollstuhltauglic
 -- Tabellenstruktur für Tabelle `kunde`
 --
 
+DROP TABLE IF EXISTS `kunde`;
 CREATE TABLE `kunde` (
   `kundenId` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -179,6 +242,11 @@ CREATE TABLE `kunde` (
   `adressId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- TRUNCATE Tabelle vor dem Einfügen `kunde`
+--
+
+TRUNCATE TABLE `kunde`;
 --
 -- Daten für Tabelle `kunde`
 --
@@ -195,21 +263,24 @@ INSERT INTO `kunde` (`kundenId`, `name`, `vorname`, `telefon`, `handicap`, `adre
 -- Tabellenstruktur für Tabelle `route`
 --
 
+DROP TABLE IF EXISTS `route`;
 CREATE TABLE `route` (
   `routenId` int(11) NOT NULL,
-  `farherId` int(11) DEFAULT NULL,
+  `fahrerId` int(11) DEFAULT NULL,
   `fahrzeugId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- TRUNCATE Tabelle vor dem Einfügen `route`
+--
+
+TRUNCATE TABLE `route`;
+--
 -- Daten für Tabelle `route`
 --
 
-INSERT INTO `route` (`routenId`, `farherId`, `fahrzeugId`) VALUES
-(1, 1, 1),
-(2, 2, 3),
-(3, 1, 1),
-(4, 2, 3);
+INSERT INTO `route` (`routenId`, `fahrerId`, `fahrzeugId`) VALUES
+(1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -217,6 +288,7 @@ INSERT INTO `route` (`routenId`, `farherId`, `fahrzeugId`) VALUES
 -- Tabellenstruktur für Tabelle `standort`
 --
 
+DROP TABLE IF EXISTS `standort`;
 CREATE TABLE `standort` (
   `standortId` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -224,12 +296,18 @@ CREATE TABLE `standort` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- TRUNCATE Tabelle vor dem Einfügen `standort`
+--
+
+TRUNCATE TABLE `standort`;
+--
 -- Daten für Tabelle `standort`
 --
 
 INSERT INTO `standort` (`standortId`, `name`, `adressId`) VALUES
-(1, 'Neckarbischofsheim im Ort', 1),
-(2, 'Mosbach an der DHBW', 2);
+(1, 'Neckarbischofsheim im Ort', 5),
+(2, 'Mosbach an der DHBW', 6),
+(3, 'Öhringen', 4);
 
 --
 -- Indizes der exportierten Tabellen
@@ -291,13 +369,13 @@ ALTER TABLE `standort`
 -- AUTO_INCREMENT für Tabelle `adresse`
 --
 ALTER TABLE `adresse`
-  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT für Tabelle `auftrag`
 --
 ALTER TABLE `auftrag`
-  MODIFY `auftragId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `auftragId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT für Tabelle `fahrer`
@@ -321,13 +399,13 @@ ALTER TABLE `kunde`
 -- AUTO_INCREMENT für Tabelle `route`
 --
 ALTER TABLE `route`
-  MODIFY `routenId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `routenId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT für Tabelle `standort`
 --
 ALTER TABLE `standort`
-  MODIFY `standortId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `standortId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
