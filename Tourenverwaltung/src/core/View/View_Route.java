@@ -204,6 +204,7 @@ public class View_Route{
 		for(int i = 0;i<ids.length;i++) {
 			this.lsRoutenModel.addElement(ids[i]);
 		}
+		this.lsRouten.setSelectedIndex(0);
 	}
 	/**
 	 * Füllt die Liste mit Auträgen.
@@ -254,8 +255,8 @@ public class View_Route{
 	public void updateInfo(Map<String,String> data) {
 		this.txtInfoAuftragsnummer.setText(data.get("routenId"));
 		this.txtInfoFahrer.setText(data.get("fahrerId"));
-		this.txtInfoDauer.setText(data.get("duration"));
-		this.txtInfoKm.setText(data.get("distance"));
+		this.txtInfoDauer.setText(data.get("duration")+" min");
+		this.txtInfoKm.setText(data.get("distance")+ " km");
 		this.comboBoxFahrzeug.setSelectedItem(data.get("fahrzeug"));
 	}
 	

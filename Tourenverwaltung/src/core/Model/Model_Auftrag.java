@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import core.Controller.Connector;
 import core.Controller.Requesthandler;
@@ -119,7 +120,7 @@ public class Model_Auftrag {
 					"SELECT auftrag.auftragId,auftrag.entfernung,auftrag.datumDerFahrt,auftrag.letztesÄnderungsDatum,auftrag.entfernung,auftrag.startAdresseId,auftrag.zielAdresseId, "
 							+ "ziel.plz as zielPlz,ziel.stadt as zielOrt,ziel.straße as zielStreet,ziel.hausnummer as zielHausNr,ziel.adresszusatz as zielAdresszusatz, "
 							+ "startAdresse.plz as startPlz,startAdresse.stadt as startOrt,startAdresse.straße as startStreet,startAdresse.hausnummer as startHausNr,startAdresse.adresszusatz as startAdresszusatz, "
-							+ "kunde.name, kunde.vorname, kunde.kundenId as kId, startAdresse.lat as startLAT, startAdresse.lon as startLON, ziel.lat as zielLAT, ziel.lon as zielLON "
+							+ "kunde.name, kunde.vorname, kunde.kundenId as kId, startAdresse.lat as startLAT, startAdresse.lon as startLON, ziel.lat as zielLAT, ziel.lon as zielLON, auftrag.dauer AS dauer "
 							+ "FROM `auftrag` " + "LEFT JOIN adresse ziel on auftrag.zielAdresseId = ziel.adressId "
 							+ "LEFT JOIN kunde on auftrag.kundenId=kunde.kundenId "
 							+ "LEFT JOIN adresse startAdresse on auftrag.startAdresseId = startAdresse.adressId "
@@ -144,6 +145,10 @@ public class Model_Auftrag {
 				zielLON = Double.parseDouble(auftrag.get("zielLON")[0]);
 
 			double entfernung = Double.parseDouble(auftrag.get("entfernung")[0]);
+			double dauer = 0;
+			if (!(auftrag.get("dauer")[0] == null))
+				dauer = Double.parseDouble(auftrag.get("dauer")[0]);
+					
 			boolean startChanged = false;
 			boolean zielChanged = false;
 
@@ -217,7 +222,9 @@ public class Model_Auftrag {
 
 			// Gecoding für entfernung benutzen
 			if (zielChanged || startChanged) {
-				entfernung = Requesthandler.getDistance(startLAT, startLON, zielLAT, zielLON);
+				JSONObject request=Requesthandler.getSummary(startLAT, startLON, zielLAT, zielLON);
+				entfernung = request.getDouble("distance");
+				dauer = request.getDouble("duration");
 			}
 
 			//Datum anpassen //2019-02-27 12:36:07
@@ -238,7 +245,7 @@ public class Model_Auftrag {
 			// speicher alles auf dem Auftrag
 			Connector.updateTable("UPDATE auftrag a SET " + "`zielAdresseId`='" + zielAdressId + "',"
 					+ "`startAdresseId`='" + startAdressId + "'," + "`kundenId`='" + kundenId + "'," + "`entfernung`='"
-					+ entfernung + "'," + "`datumDerFahrt`='" + datum + "' " + "WHERE a.auftragId = " + id);
+					+ entfernung + "'," + "`datumDerFahrt`='" + datum + "', `dauer`= " + dauer + " " + "WHERE a.auftragId = " + id);
 			return true;
 		} catch (SQLException | JSONException e) {
 			e.printStackTrace();

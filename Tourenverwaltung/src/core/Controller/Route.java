@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import core.Model.Model_Route;
@@ -91,7 +93,8 @@ public class Route {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			this.model.generateRoutes();
+			this.view.updateListeRoute(this.model.getRoutenList());
 			
 		}
 	}
@@ -126,7 +129,6 @@ public class Route {
 		public void mouseReleased(MouseEvent e) {}
 	}
 	
-	//TODO Aufträge hinzufügen
 	class AddAuftragAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
@@ -137,14 +139,23 @@ public class Route {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Dialog öffnen mit der auswahl für eine Auftrag
-			//TODO Return wert des Dialogs (Auftrags ID) verabeiten
+			int routenId = Integer.parseInt(this.view.getSelectedRoute());
+			int auftragId;
+			String selection = (String) JOptionPane.showInputDialog(new JFrame("Auftrag auswahl"), 
+						        "Auftrag auswählen",
+						        "Bittewählen Sie ihren Auftrag aus",
+						        JOptionPane.QUESTION_MESSAGE, 
+						        null, 
+						        this.model.getFreieAuftraege().get("auftragId"), 
+						        this.model.getFreieAuftraege().get("auftragId")[0]
+				        		);
+			auftragId = Integer.parseInt(selection);
+			this.model.addAuftrag(routenId, auftragId);
+			this.view.updateListeRoute(this.model.getAuftraegeList(routenId));
 			
 		}
 		
 	}
-	
-	//TODO Auftrag entfernen - Parser
 	class RemoveAuftragAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
@@ -163,8 +174,7 @@ public class Route {
 		}
 		
 	}
-	
-	//TODO Fahrer zuweisen
+
 	class AssignFahrerAction implements ActionListener{
 		Model_Route model;
 		View_Route view;

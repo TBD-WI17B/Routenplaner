@@ -1,10 +1,16 @@
 package core.Model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import core.Controller.Connector;
+import core.Controller.Requesthandler;
 
 public class Model_Route {
 
@@ -67,8 +73,8 @@ public class Model_Route {
 	public int getFahrzeug(int routenId) {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT fahrzeugId FROM route WHERE routenId = " +routenId);
-			int id = Integer.parseInt(result.get("fahrzeugId")[0]);
-			return id; 
+			if(result.get("fahrzeugId")[0] == null) return -1;
+			else return Integer.parseInt(result.get("fahrzeugId")[0]); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,14 +101,27 @@ public class Model_Route {
 	}
 	public int addAuftrag(int routenId, int auftragId) {
 		try {
-			Map<String,String[]> result = Connector.getQueryResult("SELECT MAX(position) FROM auftragzuroute WHERE routenId ="+routenId);
-			int pos = Integer.parseInt(result.get("position")[0]) +1 ;
-			return Connector.insertIntoTable(
-					"INSERT INTO `auftragzuroute` (`routenId`, `auftragId`, `position`,`entfernung`) VALUES (`"+routenId+"`, `"+auftragId+"`, "+pos+", NULL)");
+			Map<String,String[]> result = Connector.getQueryResult("SELECT MAX(position) AS position FROM auftragzuroute WHERE routenId ="+routenId);
+			int pos;
+			if(result.get("position")[0] == null || result == null) pos = 0;
+			else pos = Integer.parseInt(result.get("position")[0]) +1 ;
+			
+			String query = "INSERT INTO `auftragzuroute` (`routenId`, `auftragId`, `position`,`entfernung`) VALUES ("+routenId+", "+auftragId+", "+pos+", NULL)";
+			System.out.println(query);
+			return Connector.insertIntoTable(query);
+					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+	public Map<String, String[]> getFreieAuftraege() {
+		try {
+			return Connector.getQueryResult("SELECT * FROM auftrag WHERE auftragId NOT IN (SELECT auftragId FROM auftragzuroute)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	public void removeAuftrag(int auftragId) {
 		try {
@@ -135,13 +154,86 @@ public class Model_Route {
 		data.put("duration", ""+this.berechneDauer(routenId));
 		data.put("distance", ""+this.berechneEntfernungen(routenId));
 		data.put("fahrzeug", ""+this.getFahrzeug(routenId));
-		return null;
+		return data;
 	}
 	public int berechneEntfernungen(int routenId) {
-		return -1;
+		
+		return 500;
 	}
 	public double berechneDauer(int routenId) {
-		return -1;
+		return 26;
+	}
+	public void generateRoutes() {
+		try {
+			//der nächste auszuführende, noch nicht zu geteilte Auftrag finden
+			Map<String,String[]> auftrag = Connector.getQueryResult("SELECT auftragId, lat as startLAT, lon as startLON, datumDerFahrt, dauer FROM auftrag LEFT JOIN adresse on adresse.adressId = auftrag.startAdresseId WHERE auftragId NOT IN (SELECT auftragId FROM auftragzuroute) ORDER BY datumDerFahrt asc");
+			if(auftrag == null) return;
+			
+			//Alle Standorte holen
+			Map<String,String[]> standort = Connector.getQueryResult("SELECT standortId, lat, lon FROM standort LEFT JOIN adresse a on a.adressId = standort.adressId");
+			
+			double[] startLATStandort = new double[standort.get("lat").length];
+			double[] startLONStandort = new double[standort.get("lon").length];
+			
+			for(int i=0; i < standort.get("standortId").length;i++) {
+				startLATStandort[i] = Double.parseDouble(standort.get("lat")[i]);
+				startLONStandort[i] = Double.parseDouble(standort.get("lat")[i]);
+			}
+			
+			//Nächster Standort finden
+			JSONObject entfernung = Requesthandler.getMatrix(Double.parseDouble(auftrag.get("startLAT")[0]), Double.parseDouble(auftrag.get("startLON")[0]), startLATStandort, startLONStandort);
+			double lowestDis = 999999999;
+			int lowsetDisId= 0;
+			for(int i=1; i < entfernung.getJSONArray("distances").getJSONArray(0).length() ; i++) {
+				double tmp = Double.parseDouble(entfernung.getJSONArray("distances").getJSONArray(0).get(i).toString());
+				if( tmp < lowestDis) {
+					lowestDis = tmp;
+					lowsetDisId = i;
+				}
+			}
+			
+			//Aufträge am selbern Tag finden
+			String queryDate = auftrag.get("datumDerFahrt")[0].substring(0, 10)+"%";
+			String query = "SELECT auftragId, lat as startLAT, lon as startLON, datumDerFahrt, dauer FROM auftrag LEFT JOIN adresse on adresse.adressId = auftrag.startAdresseId WHERE auftragId NOT IN (SELECT auftragId FROM auftragzuroute) AND datumDerFahrt like '"+queryDate+"' ORDER BY datumDerFahrt asc";
+			System.out.println(query);
+			Map<String,String[]> sameDayAuftraege = Connector.getQueryResult(query);
+			
+			//Routen Hinzufügen
+			this.addRoute();
+			int highestRouteId = Integer.parseInt(Connector.getQueryResult("SELECT Max(routenId) FROM route").get("Max(routenId)")[0]);
+			//erster auftrag
+			this.addAuftrag(highestRouteId, Integer.parseInt(auftrag.get("auftragId")[0]));
+			
+			if(sameDayAuftraege != null) {
+								
+				
+				double[] startLAT = new double[sameDayAuftraege.get("startLAT").length-1];
+				double[] startLON = new double[sameDayAuftraege.get("startLON").length-1];
+				
+				//zu weit erntfernte nicht (nur zum ersten Auftrag). rekursion möglich, aber...
+				for(int i=0; i < sameDayAuftraege.get("auftragId").length-1;i++) {
+					startLAT[i] = Double.parseDouble(sameDayAuftraege.get("startLAT")[i]);
+					startLON[i] = Double.parseDouble(sameDayAuftraege.get("startLON")[i]);
+				}
+				entfernung = Requesthandler.getMatrix(Double.parseDouble(auftrag.get("startLAT")[0]), Double.parseDouble(auftrag.get("startLON")[0]), startLAT, startLON);
+				for(int i=1; i < entfernung.getJSONArray("distances").getJSONArray(0).length() ; i++) {
+					double tmp = Double.parseDouble(entfernung.getJSONArray("distances").getJSONArray(0).get(i).toString());
+					System.out.println(tmp);
+					if( tmp < 50000) {
+						this.addAuftrag(highestRouteId, Integer.parseInt(sameDayAuftraege.get("auftragId")[i]));
+					}
+				}
+				
+			}
+			//fahrzeug und Fahrer hinzugefügt. dadurch keine Fehler
+			this.updateFahrer(0, highestRouteId);
+			this.updateFahrzeug(0, highestRouteId);
+			
+			
+			
+		} catch (SQLException | JSONException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
