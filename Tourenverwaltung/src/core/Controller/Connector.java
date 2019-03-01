@@ -63,8 +63,8 @@ public class Connector {
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			int generatedKey = 0;
-			rs.next();
-			return 0;
+			if(!rs.next()) return 0;
+			return rs.getInt(1);
 		}catch(MysqlDataTruncation e) {
 			System.out.println("Länge eines Feldes ist zu lang bitte überprüfen");
 		}

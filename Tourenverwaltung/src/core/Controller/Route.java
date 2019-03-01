@@ -82,7 +82,6 @@ public class Route {
 		
 	}
 	
-	//TODO Route generieren
 	class GenerateRouteAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
@@ -151,7 +150,8 @@ public class Route {
 				        		);
 			auftragId = Integer.parseInt(selection);
 			this.model.addAuftrag(routenId, auftragId);
-			this.view.updateListeRoute(this.model.getAuftraegeList(routenId));
+			this.view.updateListeRoute(this.model.getRoutenList());
+			this.view.updateListeAuftraege(this.model.getAuftraegeList(routenId));
 			
 		}
 		
@@ -169,7 +169,7 @@ public class Route {
 			int auftragId = Integer.parseInt(this.view.getSelectedAuftrag());
 			int routeId = Integer.parseInt(this.view.getSelectedRoute());
 			
-			this.model.removeAuftrag(auftragId);
+			this.model.removeAuftrag(auftragId,routeId);
 			this.view.updateListeAuftraege(this.model.getAuftraegeList(routeId));
 		}
 		

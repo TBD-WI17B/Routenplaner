@@ -1,6 +1,7 @@
 package core.Model;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +15,9 @@ import core.Controller.Requesthandler;
 
 public class Model_Route {
 
+	private DecimalFormat df;
 	public Model_Route() {
-		
+		df = new DecimalFormat("0.00");
 	}
 	public String[] getRoutenList() {
 		try {
@@ -123,10 +125,10 @@ public class Model_Route {
 		}
 		return null;
 	}
-	public void removeAuftrag(int auftragId) {
+	public void removeAuftrag(int auftragId, int routenId) {
 		try {
 			Connector.deleteRecordFromTable(
-					"DELETE FROM `auftragzuroute` WHERE routeId = " + auftragId);
+					"DELETE FROM `auftragzuroute` WHERE routenId = " + routenId+" AND auftragId = "+auftragId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -156,18 +158,37 @@ public class Model_Route {
 		data.put("fahrzeug", ""+this.getFahrzeug(routenId));
 		return data;
 	}
-	public int berechneEntfernungen(int routenId) {
-		
+	public double berechneEntfernungen(int routenId) {
+		try {
+			Map<String,String[]> auftrag = Connector.getQueryResult("SELECT entfernung FROM auftrag WHERE auftragId IN (SELECT auftragId FROM auftragzuroute WHERE routenId = "+routenId+") ");
+			double sum = 0;
+			for (String entfernung : auftrag.get("entfernung")) {
+				if(entfernung != null)sum = sum + Double.parseDouble(entfernung);
+			}
+			return Math.round(sum/1000);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 500;
 	}
 	public double berechneDauer(int routenId) {
+		try {
+			Map<String,String[]> auftrag = Connector.getQueryResult("SELECT dauer FROM auftrag WHERE auftragId IN (SELECT auftragId FROM auftragzuroute WHERE routenId = "+routenId+") ");
+			double sum = 0;
+			for (String dauer : auftrag.get("dauer")) {
+				if(dauer != null)sum = sum + Double.parseDouble(dauer);
+			}
+			return Math.round(sum/60);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 26;
 	}
 	public void generateRoutes() {
 		try {
 			//der nächste auszuführende, noch nicht zu geteilte Auftrag finden
 			Map<String,String[]> auftrag = Connector.getQueryResult("SELECT auftragId, lat as startLAT, lon as startLON, datumDerFahrt, dauer FROM auftrag LEFT JOIN adresse on adresse.adressId = auftrag.startAdresseId WHERE auftragId NOT IN (SELECT auftragId FROM auftragzuroute) ORDER BY datumDerFahrt asc");
-			if(auftrag == null) return;
+			if(auftrag.get("auftragId").length == 0) return;
 			
 			//Alle Standorte holen
 			Map<String,String[]> standort = Connector.getQueryResult("SELECT standortId, lat, lon FROM standort LEFT JOIN adresse a on a.adressId = standort.adressId");
@@ -204,7 +225,7 @@ public class Model_Route {
 			//erster auftrag
 			this.addAuftrag(highestRouteId, Integer.parseInt(auftrag.get("auftragId")[0]));
 			
-			if(sameDayAuftraege != null) {
+			if(sameDayAuftraege != null && sameDayAuftraege.get("auftragId").length >1) {
 								
 				
 				double[] startLAT = new double[sameDayAuftraege.get("startLAT").length-1];
@@ -226,14 +247,15 @@ public class Model_Route {
 				
 			}
 			//fahrzeug und Fahrer hinzugefügt. dadurch keine Fehler
-			this.updateFahrer(0, highestRouteId);
-			this.updateFahrzeug(0, highestRouteId);
+			this.updateFahrer(1, highestRouteId);
+			this.updateFahrzeug(1, highestRouteId);
 			
 			
 			
 		} catch (SQLException | JSONException e) {
 			e.printStackTrace();
 		}
+		generateRoutes();
 	}
 	
 	
