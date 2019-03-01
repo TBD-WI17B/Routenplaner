@@ -1,7 +1,5 @@
 package core.View;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -11,25 +9,13 @@ import javax.swing.JTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 
 public class View {
-	
-	//Models
-	private View_Auftrag auftrag;
-	private View_Fahrer fahrer;
-	private View_Fahrzeug fahrzeug;
-	private View_Kunde kunde;
-	private View_Route route;
-	private View_Test test;
-	private View_Standort standort;
-	
+		
 	//Globale Fenster Einstellungen
 	private int x = 100;
 	private int y= 100;
@@ -94,10 +80,6 @@ public class View {
 	}
 	public void addTabbedPaneTab(String name, JPanel p) {
 		this.tabbedPane.addTab(name, null, p, null);
-	}
-	public void setTest(String txt) 
-	{
-		this.test.setTestTA(txt);
 	}
 	public void setVisible(boolean b) 
 	{

@@ -11,7 +11,6 @@ public class Verwaltung {
 	private Standort standort;
 	private Fahrzeug fahrzeug;
 	private Kunde kunde;
-	private Test test;
 	
 	public Verwaltung() {
 		window = new View();
@@ -30,8 +29,6 @@ public class Verwaltung {
 		fahrzeug = new Fahrzeug();
 		kunde = new Kunde();
 		
-		/*Tab fuer Testzwecke */
-		test = new Test();
 		
 		addTabs();
 	}
@@ -45,8 +42,6 @@ public class Verwaltung {
 		window.addTabbedPaneTab("Standortverwaltung", standort.getPanel());
 		window.addTabbedPaneTab("Standortverwaltung", standort.getPanel());
 		
-		/*Tab fuer Testzwecke */
-		window.addTabbedPaneTab("Test", test.getPanel());
 	}
 		
 }
