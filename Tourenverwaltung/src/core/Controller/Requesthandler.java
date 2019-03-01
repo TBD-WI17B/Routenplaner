@@ -63,8 +63,7 @@ public class Requesthandler {
 	   */
 	  public static JSONArray getGeocoding(String adr) {
 		  try {
-			  String request = URL + "geocode/search" + "?api_key=" + token + "&text=" + URLEncoder.encode(adr, "UTF-8") ;
-			  //System.out.println("Requesent send: "+request);			  
+			  String request = URL + "geocode/search" + "?api_key=" + token + "&text=" + URLEncoder.encode(adr, "UTF-8") ;	  
 			 return sendRequest(request).getJSONArray("features").getJSONObject(0).getJSONObject("geometry").getJSONArray("coordinates");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -81,16 +80,32 @@ public class Requesthandler {
 	   * @param zielLON Längengrad des Zielpunktes
 	   * @return Distanz in Meter
 	   */
-	  public static double getDistance(double startLAT, double startLON, double zielLAT, double zielLON) {
+	  public static JSONObject getSummary(double startLAT, double startLON, double zielLAT, double zielLON) {
 		  try {
-			  String request = URL + "directions" + "?api_key=" + token + "&coordinates=" + startLAT + "," + startLON + "%7C" + zielLAT + "," + zielLON + "&profile=driving-car&language=de&geometry=false&instructions=false";
-			 // System.out.println("Requesent send: "+request);	
-			  //System.out.println(sendRequest(request).getJSONArray("routes").getJSONObject(0).getJSONObject("summary").getDouble("distance"));
-			  return sendRequest(request).getJSONArray("routes").getJSONObject(0).getJSONObject("summary").getDouble("distance");
+			  String request = URL + "directions" + "?api_key=" + token + "&coordinates=" + startLAT + "," + startLON + "%7C" + zielLAT + "," + zielLON + "&profile=driving-car&language=de&geometry=false&instructions=false";			
+			  return sendRequest(request).getJSONArray("routes").getJSONObject(0).getJSONObject("summary");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1;
+		return null;
+	  }
+
+	  public static JSONObject getMatrix(double standortLAT, double standortLON, double[] startLAT, double[] startLON) {
+		  try {
+			  String request = URL + "matrix" + "?api_key=" + token + "&locations=" ;			  
+			  StringBuilder param = new StringBuilder(standortLAT+","+standortLON);
+			  for(int i=0;i < startLAT.length;i++) {
+				  param.append("|"+startLAT[i]+","+startLON[i]);
+			  }			  
+			  String end = "&sources=0&metrics=distance|duration&profile=driving-car";			  
+			  request = request + param + end;
+			  System.out.println("Requesent send: "+request);
+			  return sendRequest(request);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		  return null;
 	  }
 
 }
