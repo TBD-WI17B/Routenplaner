@@ -7,12 +7,26 @@ import java.util.Map;
 
 import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 
+/**
+ * Klasse die die Verbindung und Abfragen mit der SQL Datenbank verwaltet.
+ * Kein Objekt der Klasse notwenig, da satische Funktionen.
+ */
 public class Connector {
+	/**
+	 * Connection URL für die Verbindung mit der MySQL Datenbank.
+	 * Es muss der Login ohne Passwort aktiviert werden.
+	 */
 	private final static String connectionURL = "jdbc:mysql://localhost:3306/tourenverwaltung?serverTimezone=Europe/Berlin&user=root";
 	private static Connection connect = null;
 	private static Statement statement = null;
     private static ResultSet resultSet = null;
 	
+    /**
+     * Senden von einfachen SELECT Querys an die SQL Datenbank.
+     * @param query SELECT Statement
+     * @return Map mit allen Daten
+     * @throws SQLException
+     */
 	public static Map<String,String[]> getQueryResult(String query) throws SQLException{
 		try {
 			if(connect == null)connect = DriverManager.getConnection(connectionURL);
@@ -43,17 +57,22 @@ public class Connector {
 		}
 		throw new SQLException("Fehler beim Aufrufen der SQl Query: " + query);
 	}
-	
+	/**
+	 * Senden eines UPDATE Statements an die SQL Datenbank
+	 * @param query UPDATE Statement
+	 * @throws SQLException
+	 */
 	public static void updateTable(String query) throws SQLException{
 		if(connect == null)connect = DriverManager.getConnection(connectionURL);
 		if(statement == null)statement = connect.createStatement();
 		statement.executeUpdate(query);
 	}
-	
-	public void close()
-	{
-		this.close();
-	}
+	/**
+	 * Senden eines INSERT Statements an die SQL Datenbank
+	 * @param query INSERT Statement
+	 * @return Wenn eine ID generiert wurde, ansonsten 0 oder -1 bei Fehler
+	 * @throws SQLException
+	 */
 	public static int insertIntoTable(String query)throws SQLException {
 		if(connect == null)connect = DriverManager.getConnection(connectionURL);
 		if(statement == null)statement = connect.createStatement();
@@ -70,7 +89,11 @@ public class Connector {
 		}
 		return -1;
 	}
-	
+	/**
+	 * Senden eines DELETE Statements an die Datenbank
+	 * @param query DELETE Statement
+	 * @throws SQLException
+	 */
 	public static void deleteRecordFromTable(String query) throws SQLException{
 		if(connect == null)connect = DriverManager.getConnection(connectionURL);
 		if(statement == null)statement = connect.createStatement();

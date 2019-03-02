@@ -13,11 +13,20 @@ import javax.swing.JPanel;
 import core.Model.Model_Route;
 import core.View.View_Route;
 
+/**
+ * Controller-Class für die Routenverwaltung
+ *
+ */
 public class Route {
 	
 	private View_Route view;
 	private Model_Route model;
 
+	/**
+	 * Konstruktor. Generiert View und Model der Routenverwaltung.
+	 * Bindet Eventhandler an die GUI-Elemente.
+	 * Lädt Vorabdaten und aktualisiert die GUI.
+	 */
 	public Route() {
 		this.view = new View_Route();
 		this.model = new Model_Route();
@@ -47,11 +56,20 @@ public class Route {
 	}
 	
 	
-	//Handler
+	/**
+	 * Eventhandler für das erstellen einer neuen Route.
+	 * Anschließende aktualisierung der Routenliste.
+	 *
+	 */
 	class NewRouteAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
-		
+
+		/**
+		 * Konstruktor des Eventhandlers. Benötigt Die View und Model aus der Oberklasse.
+		 * @param model
+		 * @param view
+		 */
 		public NewRouteAction(Model_Route model,View_Route view) {
 			this.model = model;
 			this.view = view;
@@ -63,11 +81,19 @@ public class Route {
 		}
 		
 	}
-	
+	/**
+	 * Eventhandler für das Löschen einer Route.
+	 * Aktualisierung der Routenliste.
+	 */
 	class DeleteRouteAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
-		
+
+		/**
+		 * Konstruktor des Eventhandlers. Benötigt Die View und Model aus der Oberklasse.
+		 * @param model
+		 * @param view
+		 */
 		public DeleteRouteAction(Model_Route model,View_Route view) {
 			this.model = model;
 			this.view = view;
@@ -81,11 +107,19 @@ public class Route {
 		}
 		
 	}
-	
+	/**
+	 * Eventhandler für das automatische erzeugen der Routen.
+	 * Aktulisierung der Routenliste.
+	 */
 	class GenerateRouteAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
-		
+
+		/**
+		 * Konstruktor des Eventhandlers. Benötigt Die View und Model aus der Oberklasse.
+		 * @param model
+		 * @param view
+		 */
 		public GenerateRouteAction(Model_Route model,View_Route view) {
 			this.model = model;
 			this.view = view;
@@ -97,11 +131,21 @@ public class Route {
 			
 		}
 	}
-	
+	/**
+	 * Eventhandler für die Auswahl einer Route aus der Liste.
+	 * Lädt neue Daten und aktualisiert die GUI.
+	 *
+	 */
 	class RouteListSelectionHandler implements MouseListener{
 		private int lastIndex=0;
 		Model_Route model;
 		View_Route view;
+		
+		/**
+		 * Konstruktor des Eventhandlers. Benötigt Die View und Model aus der Oberklasse.
+		 * @param model
+		 * @param view
+		 */
 		public RouteListSelectionHandler(Model_Route model,View_Route view) {
 			this.model = model;
 			this.view = view;
@@ -127,11 +171,20 @@ public class Route {
 		@Override
 		public void mouseReleased(MouseEvent e) {}
 	}
-	
+	/**
+	 * Eventhandler für das hinzufügen eines Auftrages zu einer Route.
+	 * Öffnet ein Dialog um einen Auftrag auszuwählen.
+	 *
+	 */
 	class AddAuftragAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
-		
+
+		/**
+		 * Konstruktor des Eventhandlers. Benötigt die View und Model aus der Oberklasse.
+		 * @param model
+		 * @param view
+		 */
 		public AddAuftragAction(Model_Route model,View_Route view) {
 			this.model = model;
 			this.view = view;
@@ -156,10 +209,20 @@ public class Route {
 		}
 		
 	}
+	/**
+	 * Eventhandler um einen Auftrag zu entfernen.
+	 * Aktualisierung der Auftragsliste
+	 *
+	 */
 	class RemoveAuftragAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
-		
+
+		/**
+		 * Konstruktor des Eventhandlers. Benötigt die View und Model aus der Oberklasse.
+		 * @param model
+		 * @param view
+		 */
 		public RemoveAuftragAction(Model_Route model,View_Route view) {
 			this.model = model;
 			this.view = view;
@@ -175,10 +238,18 @@ public class Route {
 		
 	}
 
+	/**
+	 * Eventhandler für das zuweisen eines Fahrers
+	 */
 	class AssignFahrerAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
-		
+
+		/**
+		 * Konstruktor des Eventhandlers. Benötigt die View und Model aus der Oberklasse.
+		 * @param model
+		 * @param view
+		 */
 		public AssignFahrerAction(Model_Route model,View_Route view) {
 			this.model = model;
 			this.view = view;
@@ -194,10 +265,19 @@ public class Route {
 		}
 		
 	}
+	/**
+	 * Eventhandler für das wecheln eines Fahres. Wird direkt bei auswahl des Fahrers aufgrérufen.
+	 *
+	 */
 	class ChangeFahrzeugAction implements ActionListener{
 		Model_Route model;
 		View_Route view;
-		
+
+		/**
+		 * Konstruktor des Eventhandlers. Benötigt die View und Model aus der Oberklasse.
+		 * @param model
+		 * @param view
+		 */
 		public ChangeFahrzeugAction(Model_Route model,View_Route view) {
 			this.model = model;
 			this.view = view;

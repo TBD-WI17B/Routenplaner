@@ -12,15 +12,20 @@ import javax.swing.JPanel;
 import core.Model.Model_Auftrag;
 import core.View.View_Auftrag;
 
+/**
+ * Controller-Class für die Auftragsverwaltung
+ *
+ */
 public class Auftrag {
 	private View_Auftrag view;
 	private Model_Auftrag model;
 
 	public Auftrag() {
+		//Model und View generieren
 		this.view = new View_Auftrag();
 		this.model = new Model_Auftrag();
 		
-		//Listeners binden
+		//Eventhandler für die einzelnen Schaltflächen binden
 		view.addListHandler(new AuftragListSelectionHandler(model,view));
 		view.addSavingListener(new saveAction(model, view));
 		view.addAddingListener(new newAction(model,view));
@@ -33,7 +38,9 @@ public class Auftrag {
 		//Preload
 		this.reload();
 	}
-	
+	/**
+	 * Aktualisierung der Daten in der GUI
+	 */
 	public void reload() {
 		String[] list = this.model.getList();
 		this.view.loadCombobox(this.model.getCustomers());
@@ -48,15 +55,26 @@ public class Auftrag {
 	{
 		return view.getSubPanel();
 	}
-	
+	/**
+	 * Eventhandler umd Auftrag zu speichern.
+	 *
+	 */
 	class saveAction implements ActionListener{
 		View_Auftrag view;
 		Model_Auftrag model;
+		/**
+		 * Konstruktor des Eventhandlers
+		 * @param model Model der Auftragsverwaltung
+		 * @param view View der Auftragsverwaltung
+		 */
 		public saveAction(Model_Auftrag model, View_Auftrag view) {
 			this.view = view;
 			this.model = model;
 		}
-		
+		/**
+		 * Holt die ID des ausgewählten Auftrages. Holt entsprechende Daten aus der GUI und übergibt diese.
+		 * Gibt evtl. Fehlermeldung aus (experimental)
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int id = view.getCurrentSelectedAuftragId();
@@ -65,7 +83,10 @@ public class Auftrag {
 		}
 		
 	}
-	
+	/**
+	 * Eventhandler für das Auswählen eines Auftrages. Aktualisiert die angezeigten Daten in der GUI.
+	 *
+	 */
 	class AuftragListSelectionHandler implements MouseListener{
 		private int lastIndex=0;
 		Model_Auftrag model;
@@ -74,7 +95,10 @@ public class Auftrag {
 			this.model = model;
 			this.view = view;
 		}
-		
+		/**
+		 * Action wird aufgerufen, wenn per Mausklick ein andere Auftrag ausgewählt wurde. 
+		 * Holt Daten aus dem Model und übergibt diese an die GUI.
+		 */
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			JList list = (JList) e.getSource();
@@ -93,7 +117,10 @@ public class Auftrag {
 		@Override
 		public void mouseReleased(MouseEvent e) {}
 	}
-	
+	/**
+	 * Eventhandler umd Auftrag zu löschen.
+	 *
+	 */
 	class deleteAction implements ActionListener{
 		View_Auftrag view;
 		Model_Auftrag model;
@@ -101,7 +128,9 @@ public class Auftrag {
 			this.view = view;
 			this.model = model;
 		}
-		
+		/**
+		 * Löscht Auftrag aus der DB und aktualisiert die GUI.
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int id = view.getCurrentSelectedAuftragId();
@@ -120,6 +149,10 @@ public class Auftrag {
 		}
 		
 	}
+	/**
+	 * 
+	 *
+	 */
 	class newAction implements ActionListener{
 		View_Auftrag view;
 		Model_Auftrag model;
@@ -140,6 +173,10 @@ public class Auftrag {
 		}
 		
 	}
+	/**
+	 * Eventhandler für den Abbruch der Eingabe. Verwirft eingegbene Daten und lädt die Ürsprünglichen Daten neu aus der Datenbank.
+	 *
+	 */
 	class abbruchAction implements ActionListener{
 		View_Auftrag view;
 		Model_Auftrag model;
@@ -159,6 +196,10 @@ public class Auftrag {
 		}
 		
 	}
+	/**
+	 * Eventhandler für die Auswahl des Kunden.
+	 * Bei Auswahl eines Kunden werden Daten des Kunden in die Felder der GUI geschrieben.
+	 */
 	class checkboxListener implements ActionListener{
 		View_Auftrag view;
 		Model_Auftrag model;
@@ -191,6 +232,10 @@ public class Auftrag {
 		
 		}
 	}
+	/**
+	 * Eventhandler für die Fehlermeldung
+	 *
+	 */
 	class popUpListener implements ActionListener{
 		View_Auftrag view;
 		Model_Auftrag model;

@@ -11,10 +11,19 @@ import javax.swing.JPanel;
 import core.Model.Model_Kunde;
 import core.View.View_Kunde;
 
+/**
+ * Controller-Class für die Kundenverwaltung
+ *
+ */
 public class Kunde {
 	private View_Kunde view;
 	private Model_Kunde model;
 
+	/**
+	 * Konstruktor. Generiert dieView und Model der Kundenverwaltung.
+	 * Bindet die Eventhandler an die GUI-Elemente.
+	 * Lädt vorab Daten und aktualisiert die GUI.
+	 */
 	public Kunde() {
 		this.view = new View_Kunde();
 		this.model = new Model_Kunde();
@@ -40,7 +49,11 @@ public class Kunde {
 		return view.getSubPanel();
 	}
 }
-
+/**
+ * Eventhandler für die Aushwal eines Kunden aus der Liste
+ * Aktualisiert die Daten und Darstellung der GUI mit den Daten des ausgewählten Kunden.
+ *
+ */
 class ListSelectionHandler implements MouseListener{
 	private int lastIndex=0;
 	Model_Kunde model;
@@ -67,6 +80,10 @@ class ListSelectionHandler implements MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent e) {}
 }
+/**
+ * Eventhandler für die geänderten Kundendaten.
+ *
+ */
 class saveAction implements ActionListener{
 	View_Kunde view;
 	Model_Kunde model;
@@ -83,6 +100,10 @@ class saveAction implements ActionListener{
 	}
 	
 }
+/**
+ * Eventhandler für das Löschen eines Kunden.
+ * Aktualsiert anshcließend die GUI.
+ */
 class deleteAction implements ActionListener{
 	View_Kunde view;
 	Model_Kunde model;
@@ -108,6 +129,11 @@ class deleteAction implements ActionListener{
 	}
 	
 }
+/**
+ * Eventhandler für das Anlegen eines neuen Kunden.
+ * Anschließende aktualisierung der GUI
+ *
+ */
 class newAction implements ActionListener{
 	View_Kunde view;
 	Model_Kunde model;
@@ -126,6 +152,11 @@ class newAction implements ActionListener{
 	}
 	
 }
+/**
+ * Eventhandler für den Abbruch.
+ * Eingegebene Daten werden verworfen.
+ *
+ */
 class abbruchAction implements ActionListener{
 	View_Kunde view;
 	Model_Kunde model;

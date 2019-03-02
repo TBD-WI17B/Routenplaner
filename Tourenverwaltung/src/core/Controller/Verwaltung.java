@@ -2,8 +2,11 @@ package core.Controller;
 
 import core.View.View;
 
+/**
+ * Main-Controller-Class. Verwaltet die anderen Controller
+ *
+ */
 public class Verwaltung {
-	//TODO beim Wechsel vom Tab muss ein Preload von den Tabs gemacht werden
 	private View window;
 	private Route route;
 	private Auftrag auftrag;
@@ -16,10 +19,14 @@ public class Verwaltung {
 		window = new View();
 		
 		initController();	
-
-		window.setVisible(true);//Macht Fenster jetzt erst sichtbar, da es vorher initialisiert wird
+		
+		//Macht Fenster jetzt erst sichtbar, da es vorher initialisiert wird
+		window.setVisible(true);
 	}
 	
+	/**
+	 * Initialisierung der Controller
+	 */
 	private void initController()
 	{
 		route = new Route();
@@ -32,6 +39,9 @@ public class Verwaltung {
 		
 		addTabs();
 	}
+	/**
+	 * Hinzufügen der einzelnen Tabs(Views) der einzelnen Controller
+	 */
 	private void addTabs()
 	{
 		window.addTabbedPaneTab("Routenverwaltung", route.getPanel());

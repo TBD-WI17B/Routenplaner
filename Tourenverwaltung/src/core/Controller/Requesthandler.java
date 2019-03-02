@@ -89,7 +89,14 @@ public class Requesthandler {
 		}
 		return null;
 	  }
-
+	  /**
+	   * URL Request mit einer Matrix (many-to-one) Anfrage Serviceprovider. Es wird die Eintferung und die Zeit zu einem Punkt von meheren anderen Punkten angefragt.
+	   * @param standortLAT Breitengrad des Ausgangpunktes
+	   * @param standortLON Längengrad des Ausgangpuntes
+	   * @param startLAT Breitengrad angefragten Punkte
+	   * @param startLON Längengrad der angefragten Punkte
+	   * @return JSONObject mit distance[[]] und duration[[]]
+	   */
 	  public static JSONObject getMatrix(double standortLAT, double standortLON, double[] startLAT, double[] startLON) {
 		  try {
 			  String request = URL + "matrix" + "?api_key=" + token + "&locations=" ;			  

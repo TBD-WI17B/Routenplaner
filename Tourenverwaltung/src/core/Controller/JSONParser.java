@@ -5,6 +5,11 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Parsen für JSON in brauchene Datenstrukturen (nicht verwndet)
+ * @author Manuel
+ *
+ */
 public class JSONParser {
 	
 	public JSONParser() {
