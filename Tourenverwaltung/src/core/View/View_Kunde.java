@@ -216,7 +216,7 @@ public class View_Kunde {
 		return -1;
 	}
 	/**
-	 * Gibt Map mit aten aus der GUI zurück.
+	 * Gibt Map mit Daten aus der GUI zurück.
 	 * @return
 	 */
 	public Map<String,String> getData() {
