@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 
 /**
@@ -53,6 +56,8 @@ public class Connector {
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(new JFrame(), e.toString(), "SQLException",
+			        JOptionPane.ERROR_MESSAGE);
 			System.out.println("Fehler beim Aufrufen der SQl Query: " + query);
 		}
 		throw new SQLException("Fehler beim Aufrufen der SQl Query: " + query);
@@ -85,6 +90,8 @@ public class Connector {
 			if(!rs.next()) return 0;
 			return rs.getInt(1);
 		}catch(MysqlDataTruncation e) {
+			JOptionPane.showMessageDialog(new JFrame(), e.toString(), "MysqlDataTruncation",
+			        JOptionPane.ERROR_MESSAGE);
 			System.out.println("Länge eines Feldes ist zu lang bitte überprüfen");
 		}
 		return -1;
