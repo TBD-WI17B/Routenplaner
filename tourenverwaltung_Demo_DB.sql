@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 28. Feb 2019 um 23:11
+-- Erstellungszeit: 03. Mrz 2019 um 14:23
 -- Server-Version: 10.1.36-MariaDB
 -- PHP-Version: 7.2.11
 
@@ -43,65 +43,22 @@ CREATE TABLE `adresse` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- TRUNCATE Tabelle vor dem Einfügen `adresse`
---
-
-TRUNCATE TABLE `adresse`;
---
 -- Daten für Tabelle `adresse`
 --
 
 INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adresszusatz`, `lat`, `lon`) VALUES
-(1, '74613', 'Öhringen', 'Ehrenpreisweg', '3', '', NULL, NULL),
 (2, '74821', 'Mosbach', 'Lohrtalweg', '11', '', NULL, NULL),
 (3, '12345', 'Test', 'Muster', '5', '', NULL, NULL),
 (4, '74613', 'Öhringen', 'Kastellstraße', '4', NULL, ' 9.498805', '49.205309'),
 (5, '74821', 'Mosbach', 'Knopfweg', '1', NULL, '9.152894', '49.355755'),
 (6, '74924', 'Neckarbischofsheim', 'Alexandergasse', '2', NULL, '8.961527', '49.292141'),
-(18, '7392', 'Routenbach', 'null', '42', '', NULL, NULL),
-(19, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
-(20, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
-(21, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
-(22, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
-(23, '7392', 'Routenbach', 'Hauptstraße', '42', '', NULL, NULL),
-(24, '07392', 'Routenbacher', 'Hauptweg', '14', '', NULL, NULL),
-(25, '08254', 'Mosbach', 'Lohrtalstraße', '12', '', NULL, NULL),
-(26, '07392', 'Routenbacher', 'Hauptweg', '14', '', NULL, NULL),
-(27, '07392', 'Routenbacher', 'Hauptweg', '14', '', NULL, NULL),
-(28, '07392', 'Routenbach', 'Hauptweg', '14', '', NULL, NULL),
-(29, '74821', 'Mosbach', 'Lohrtalweg', '12', '', NULL, NULL),
-(30, '74821', 'Mosbach', 'Lohrtalweg', '11', '', NULL, NULL),
-(31, '74821', 'Mosbach', 'Lohrtalweg', '12', '', NULL, NULL),
-(32, '74821', 'Mosbach', 'Lohrtalweg', '11', '', NULL, NULL),
-(33, '74821', 'Mosbach', 'Lohrtalweg', '12', '', '49.351393', ''),
-(34, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679'),
-(35, '74821', 'Mosbach', 'Lohrtalweg', '12', NULL, '9.156615', '49.351393'),
-(36, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679'),
-(37, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679'),
-(38, '74613', 'Öhringen', 'Ehrenpreisweg', '1', NULL, '9.490089', '49.211523'),
-(39, '74821', 'Mosbach', 'Lohrtalweg', '12', NULL, '9.156615', '49.351393'),
 (40, '74821', 'Mosbach', 'Lohrtalweg', '11', NULL, '9.150468', '49.355679'),
-(41, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
-(42, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
-(43, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
-(44, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
-(45, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
-(46, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
-(47, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
-(48, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
-(49, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
-(50, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
 (51, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
 (52, '74229', 'Oedheim', 'Ratsstraße', '1', NULL, '9.25733', '49.239581'),
-(53, '74229', 'Oedheim', 'Uhlandstraße', '16', NULL, '9.246089', '49.241895'),
-(54, '74177', 'Bad Friedrichshall', 'Kreßbacher Str.', '3', NULL, '9.216365', '49.222457'),
-(55, '74229', 'Oedheim', 'Uhlandstraße', '16', NULL, '9.246089', '49.241895'),
-(56, '74177', 'Bad Friedrichshall', 'Kreßbacher Str.', '3', NULL, '9.216365', '49.222457'),
 (57, '74229', 'Oedheim', 'Uhlandstraße', '16', NULL, '9.246089', '49.241895'),
 (58, '74177', 'Bad Friedrichshall', 'Kreßbacher Str.', '3', NULL, '9.216365', '49.222457'),
 (59, '74177', 'Bad Friedrichshall', 'Obere Dorfstraße', '12', NULL, '9.216365', '49.222457'),
 (60, '74821', 'Mosbach', 'Alte Bergsteige', '7', NULL, '9.149863', '49.353233'),
-(61, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
 (62, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148');
 
 -- --------------------------------------------------------
@@ -122,11 +79,6 @@ CREATE TABLE `auftrag` (
   `dauer` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- TRUNCATE Tabelle vor dem Einfügen `auftrag`
---
-
-TRUNCATE TABLE `auftrag`;
 --
 -- Daten für Tabelle `auftrag`
 --
@@ -153,20 +105,12 @@ CREATE TABLE `auftragzuroute` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- TRUNCATE Tabelle vor dem Einfügen `auftragzuroute`
---
-
-TRUNCATE TABLE `auftragzuroute`;
---
 -- Daten für Tabelle `auftragzuroute`
 --
 
 INSERT INTO `auftragzuroute` (`routenId`, `auftragId`, `position`, `entfernung`) VALUES
 (1, 1, 1, '50'),
-(1, 2, 2, '22'),
-(29, 9, 0, NULL),
-(29, 10, 1, NULL),
-(29, 11, 2, NULL);
+(1, 2, 2, '22');
 
 -- --------------------------------------------------------
 
@@ -182,11 +126,6 @@ CREATE TABLE `fahrer` (
   `standortId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- TRUNCATE Tabelle vor dem Einfügen `fahrer`
---
-
-TRUNCATE TABLE `fahrer`;
 --
 -- Daten für Tabelle `fahrer`
 --
@@ -211,11 +150,6 @@ CREATE TABLE `fahrzeug` (
   `standortId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- TRUNCATE Tabelle vor dem Einfügen `fahrzeug`
---
-
-TRUNCATE TABLE `fahrzeug`;
 --
 -- Daten für Tabelle `fahrzeug`
 --
@@ -243,11 +177,6 @@ CREATE TABLE `kunde` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- TRUNCATE Tabelle vor dem Einfügen `kunde`
---
-
-TRUNCATE TABLE `kunde`;
---
 -- Daten für Tabelle `kunde`
 --
 
@@ -271,16 +200,11 @@ CREATE TABLE `route` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- TRUNCATE Tabelle vor dem Einfügen `route`
---
-
-TRUNCATE TABLE `route`;
---
 -- Daten für Tabelle `route`
 --
 
 INSERT INTO `route` (`routenId`, `fahrerId`, `fahrzeugId`) VALUES
-(1, 2, 2);
+(1, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -295,11 +219,6 @@ CREATE TABLE `standort` (
   `adressId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- TRUNCATE Tabelle vor dem Einfügen `standort`
---
-
-TRUNCATE TABLE `standort`;
 --
 -- Daten für Tabelle `standort`
 --
@@ -399,7 +318,7 @@ ALTER TABLE `kunde`
 -- AUTO_INCREMENT für Tabelle `route`
 --
 ALTER TABLE `route`
-  MODIFY `routenId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `routenId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `standort`
