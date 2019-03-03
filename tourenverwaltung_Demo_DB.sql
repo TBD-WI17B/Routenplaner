@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 03. Mrz 2019 um 15:59
+-- Erstellungszeit: 03. Mrz 2019 um 16:22
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.2
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `tourenverwaltung`
 --
+CREATE DATABASE IF NOT EXISTS `tourenverwaltung` DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci;
+USE `tourenverwaltung`;
 
 -- --------------------------------------------------------
 
@@ -58,9 +60,7 @@ INSERT INTO `adresse` (`adressId`, `plz`, `stadt`, `straße`, `hausnummer`, `adr
 (59, '74177', 'Bad Friedrichshall', 'Obere Dorfstraße', '12', NULL, '9.216365', '49.222457'),
 (60, '74821', 'Mosbach', 'Alte Bergsteige', '7', NULL, '9.149863', '49.353233'),
 (62, '74613', 'Öhringen', 'Ehrenpreisweg', '3', NULL, '9.489839', '49.21148'),
-(63, '74229', 'Oedheim', 'Brunnenstraße', '3', '', NULL, NULL),
-(64, '74229', 'Oedheim', 'Brunnenstraße', '1', '', NULL, NULL),
-(65, '74229', 'Oedheim', 'Brunnenstraße', '3', '', NULL, NULL);
+(63, '74229', 'Oedheim', 'Brunnenstraße', '3', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -86,10 +86,10 @@ CREATE TABLE `auftrag` (
 
 INSERT INTO `auftrag` (`auftragId`, `zielAdresseId`, `startAdresseId`, `kundenId`, `entfernung`, `datumDerFahrt`, `letztesÄnderungsDatum`, `dauer`) VALUES
 (1, 62, 40, 1, 43413, '2019-02-26 14:00:00', '2019-02-28 15:03:31', 2837.7),
-(2, 2, 3, 13, 0, '2019-02-25 23:00:00', '2019-03-03 14:28:20', 1220),
-(9, 52, 51, 13, 19172.2, '2020-12-20 11:00:00', '2019-03-03 14:28:15', 1253),
-(10, 58, 57, 13, 4246.3, '2020-12-20 11:30:00', '2019-03-03 14:28:23', 523),
-(11, 60, 59, 2, 22004.8, '2020-12-20 12:00:00', '2019-03-03 14:28:26', 2230);
+(2, 2, 3, 13, 0, '2019-02-25 23:00:00', '2019-03-03 15:21:55', 4534),
+(9, 52, 51, 13, 19172.2, '2020-12-20 11:00:00', '2019-03-03 15:21:59', 2468),
+(10, 58, 57, 13, 4246.3, '2020-12-20 11:30:00', '2019-03-03 15:22:02', 453),
+(11, 60, 59, 2, 22004.8, '2020-12-20 12:00:00', '2019-03-03 15:22:06', 2488);
 
 -- --------------------------------------------------------
 
@@ -185,7 +185,7 @@ INSERT INTO `kunde` (`kundenId`, `name`, `vorname`, `telefon`, `handicap`, `adre
 (1, 'Müller', 'Andrea', '0764224521', 0, 3),
 (2, 'Jimek', 'Paul', '0664321527', 0, 2),
 (3, 'Müller', 'Heinz', '0464222521', 1, 3),
-(13, 'Peterson', 'Klaus', '0145546', 0, 64);
+(13, 'Peterson', 'Klaus', '123456', 0, 63);
 
 -- --------------------------------------------------------
 
@@ -289,7 +289,7 @@ ALTER TABLE `standort`
 -- AUTO_INCREMENT für Tabelle `adresse`
 --
 ALTER TABLE `adresse`
-  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `adressId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT für Tabelle `auftrag`
