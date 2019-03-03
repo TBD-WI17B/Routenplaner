@@ -8,13 +8,21 @@ import java.util.Map;
 
 import core.Controller.Connector;
 
+/**
+ * Model-Class der Kundenverwaltung
+ */
 public class Model_Kunde {
 
-	
+	/**
+	 * Konstruktor
+	 */
 	public Model_Kunde() {
 		
 	}
-	
+	/**
+	 * Gibt Liste aller Kunden zurück
+	 * @return
+	 */
 	public String[] getList() {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT kundenId FROM Kunde");
@@ -25,7 +33,11 @@ public class Model_Kunde {
 		}
 		return null;
 	}
-	
+	/**
+	 * Gibt Daten eines Kunden zurück.
+	 * @param id KundenId
+	 * @return
+	 */
 	public Map<String,String> getDataFromCustomer(int id) {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT * FROM kunde k, adresse a WHERE k.kundenId = "+id+" AND k.adressId=a.adressId");
@@ -45,7 +57,11 @@ public class Model_Kunde {
 		}
 		return null;
 	}
-	
+	/**
+	 * speichert Daten eines Kunden.
+	 * @param id KundenId
+	 * @param data Map mit Kundendaten
+	 */
 	public void saveCustomer(int id,Map<String,String> data) {
 		try {
 			String handicap="";
@@ -74,6 +90,10 @@ public class Model_Kunde {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Erzeugt neuen Kunden.
+	 * @return
+	 */
 	public int addCustomer() {
 		try {
 			int adressid = Connector.insertIntoTable("INSERT INTO `adresse`(`plz`, `stadt`, `straße`, `hausnummer`, `adresszusatz`) VALUES ('','','','','')");
@@ -83,7 +103,10 @@ public class Model_Kunde {
 		}
 		return 0;
 	}
-	
+	/**
+	 * öscht Kunden anhand einer ID.
+	 * @param id KundenId
+	 */
 	public void deleteCustomer(int id) {
 		//nur löschen wenn kein offener Auftrag mehr ist als wenn Datum Timestamp kleiner als aktueller Timestamp
 		try {
@@ -98,7 +121,11 @@ public class Model_Kunde {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Gibt Daten für die Tabelle in der Kundenverwaltung zurück.
+	 * @param id
+	 */
+	@Deprecated
 	public void getCustomerAuftrag(int id) {
 		//TODO für Tabelle
 		//Alle Aufträge bekommen mit Datum,auftragsId,start,ziel, Distanz und Betrag

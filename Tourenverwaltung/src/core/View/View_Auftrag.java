@@ -80,10 +80,18 @@ public class View_Auftrag {
 	
 	private DefaultListModel<String> auftragListenModel;
 	private JList<String> auftragListe;
+	private JLabel lblStartStreet;
+	private JLabel lblStartPlz;
+	private JLabel label;
+	private JLabel lblZielPlz;
+	private JLabel lblZielStreet;
 	
 	public View_Auftrag(){
 		createComp();
 	}
+	/**
+	 * Initialisierung der GUI-Komponenten
+	 */
 	private void createComp() {
 		pnl_auftragsverwaltung = new JPanel();
 		this.pnl_auftragsverwaltung.setLayout(null);
@@ -283,23 +291,23 @@ public class View_Auftrag {
 		pnl_auftragsverwaltung.add(zielHausNr);
 		zielHausNr.setColumns(10);
 		
-		JLabel lblStartStreet = new JLabel("Straﬂe, Nr.");
+		lblStartStreet = new JLabel("Straﬂe, Nr.");
 		lblStartStreet.setBounds(244, 193, 90, 14);
 		pnl_auftragsverwaltung.add(lblStartStreet);
 		
-		JLabel lblStartPlz = new JLabel("PLZ, Ort");
+		lblStartPlz = new JLabel("PLZ, Ort");
 		lblStartPlz.setBounds(244, 162, 69, 14);
 		pnl_auftragsverwaltung.add(lblStartPlz);
 		
-		JLabel label = new JLabel("");
+		label = new JLabel("");
 		label.setBounds(244, 224, 46, 14);
 		pnl_auftragsverwaltung.add(label);
 		
-		JLabel lblZielPlz = new JLabel("PLZ, Ort");
+		lblZielPlz = new JLabel("PLZ, Ort");
 		lblZielPlz.setBounds(581, 162, 81, 14);
 		pnl_auftragsverwaltung.add(lblZielPlz);
 		
-		JLabel lblZielStreet = new JLabel("Stra\u00DFe, Nr.");
+		lblZielStreet = new JLabel("Stra\u00DFe, Nr.");
 		lblZielStreet.setBounds(581, 193, 81, 14);
 		pnl_auftragsverwaltung.add(lblZielStreet);
 		
@@ -329,7 +337,10 @@ public class View_Auftrag {
 		
 	}
 	
-	//Load Customer in Combobox
+	/**
+	 * Aktualisierung der Combobox mit Kunden
+	 * @param inhalt
+	 */
 	public void loadCombobox(String[] inhalt) {
 		this.kunde.removeAllItems();
 		for(int i = 0; i<inhalt.length;i++) {
@@ -337,12 +348,18 @@ public class View_Auftrag {
 		}
 	}
 	
-	//Getter
+	/**
+	 * ‹bergabe des Panels
+	 * @return
+	 */
 	public JPanel getSubPanel()
 	{
 		return pnl_auftragsverwaltung;
 	}
-	
+	/**
+	 * Gibt den ausgew‰hlten Auftrag zur¸ck.
+	 * @return
+	 */
 	public int getCurrentSelectedAuftragId() {
 		if(this.auftrag.getText()==""||this.auftrag.getText()==null)return -1;
 		try {
@@ -353,7 +370,10 @@ public class View_Auftrag {
 		}
 		return -1;
 	}
-	
+	/**
+	 * Gibt eine Map der Daten aus der GUI zur¸ck.
+	 * @return
+	 */
 	public Map<String,String> getData() {
 		
 		Map<String,String> data = new HashMap<String,String>();
@@ -379,24 +399,35 @@ public class View_Auftrag {
 	}
 	
 	
-	//Updaten der GUI
+	/**
+	 * Zeigt PopUp f¸r Fehlerdialog
+	 * @param desc
+	 */
 	public void openPopup(String desc) {
 		this.lblpopupDescription.setText(desc);
 		this.pnl_popup.setVisible(true);
 		System.out.println("Show Popup with Message"+desc);
 	}
-	
+	/**
+	 * Schlieﬂt Fehlerdialog
+	 */
 	public void closePopUp() {
 		this.pnl_popup.setVisible(false);
 	}
-	
+	/**
+	 * Aktualisiert die iste mit Auftr‰gen.
+	 * @param names
+	 */
 	public void updateList(String[] names) {
 		this.auftragListenModel.clear();
 		for(int i = 0;i<names.length;i++) {
 			this.auftragListenModel.addElement(names[i]);
 		}
 	}
-		
+	/**
+	 * Aktualisiert die angezeigten Daten des Auftrages.	
+	 * @param map
+	 */
 	public void updateGUIFromCustomer(Map<String,String> map) {
 		
 		this.startUseKundenAdresse.setSelected(false);
@@ -430,11 +461,17 @@ public class View_Auftrag {
 		this.brutto.setText(String.valueOf(bruttoPrice));
 		this.gesamt.setText(String.valueOf(price+bruttoPrice));
 	}
-	
+	/**
+	 * Setzt welches Listen Element ausgew‰hlt ist.
+	 * @param id
+	 */
 	public void setListSelectionOn(int id) {
 		this.auftragListe.setSelectedIndex(id);
 	}
-	
+	/**
+	 * Aktualisiert die Startadresse.
+	 * @param data
+	 */
 	public void updateStartAdresse(Map<String,String> data) {
 		if(data==null)return;
 		this.startPlz.setText(data.get("plz"));
@@ -442,7 +479,10 @@ public class View_Auftrag {
 		this.startStreet.setText(data.get("street"));
 		this.startHausNr.setText(data.get("hausNr"));
 	}
-	
+	/**
+	 * Aktualisiert die Zieladresse
+	 * @param data
+	 */
 	public void updateZielAdresse(Map<String,String>  data) {
 		if(data==null)return;
 		this.zielPlz.setText(data.get("plz"));

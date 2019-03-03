@@ -59,7 +59,9 @@ public class View_Route{
 	{
 		createComp();
 	}
-	
+	/**
+	 * Initialisierung der GUI-Komponenten
+	 */
 	private void createComp()
 	{
 		pnl_routenplaner = new JPanel();

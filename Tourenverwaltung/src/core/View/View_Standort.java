@@ -36,6 +36,9 @@ public class View_Standort {
 	public View_Standort() {
 		createComp();
 	}
+	/**
+	 * Initialisierung der GUI-Komponenten
+	 */
 	private void createComp() {
 		this.pnl_standortverwaltung = new JPanel();
 		this.pnl_standortverwaltung.setLayout(null);

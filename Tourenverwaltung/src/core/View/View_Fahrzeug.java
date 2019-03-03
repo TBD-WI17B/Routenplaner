@@ -54,6 +54,9 @@ public class View_Fahrzeug {
 	{
 		this.createComp();
 	}
+	/**
+	 * Initialisierung der GUI-Komponenten
+	 */
 	private void createComp()
 	{
 		this.pnl_fahrzeugverwaltung = new JPanel();

@@ -13,12 +13,21 @@ import org.json.JSONObject;
 import core.Controller.Connector;
 import core.Controller.Requesthandler;
 
+/**
+ * Model-Class für die Routenverwaltung.
+ */
 public class Model_Route {
 
-	private DecimalFormat df;
+	/**
+	 * Konstruktor
+	 */
 	public Model_Route() {
-		df = new DecimalFormat("0.00");
+		
 	}
+	/**
+	 * Gibt Array mit allen Routen zurück.
+	 * @return
+	 */
 	public String[] getRoutenList() {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT routenId FROM route");
@@ -29,6 +38,10 @@ public class Model_Route {
 		}
 		return null;
 	}
+	/**
+	 * Gibt Array mit allen Fahren zurück. Kombiniert ID und Name für die bessere Identifizierung.
+	 * @return
+	 */
 	public String[] getFahrerList() {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT * FROM fahrer");
@@ -42,6 +55,11 @@ public class Model_Route {
 		}
 		return null;
 	}
+	/**
+	 * Gibt ein Array mit allen Aufträgen einer Route zurück.
+	 * @param newIndex RoutenId
+	 * @return
+	 */
 	public String[] getAuftraegeList(int newIndex) {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT auftragId FROM auftragzuroute WHERE routenId = "+newIndex+";");
@@ -52,6 +70,10 @@ public class Model_Route {
 		}
 		return null;
 	}
+	/**
+	 * Gibt ein Array aller Fahrzeuge zurück. Noch keine Unterscheidung, welcher Standort.
+	 * @return
+	 */
 	public String[] getFahrzeugeList() {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT fahrzuegId FROM fahrzeug");
@@ -62,6 +84,11 @@ public class Model_Route {
 		}
 		return null;
 	}
+	/**
+	 * Gibt den Fahrer einer Route zurück. Kombiniert ID und name.
+	 * @param routenId
+	 * @return
+	 */
 	public String getFahrer(int routenId) {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT * FROM fahrer LEFT JOIN route on fahrer.fahrerId = route.fahrerId WHERE routenId = " +routenId);
@@ -72,6 +99,11 @@ public class Model_Route {
 		}
 		return null;
 	}
+	/**
+	 * Gibt die FahrzegID einer Route zugewiesenen Fahrzeuges zurück 
+	 * @param routenId
+	 * @return
+	 */
 	public int getFahrzeug(int routenId) {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT fahrzeugId FROM route WHERE routenId = " +routenId);
@@ -82,6 +114,10 @@ public class Model_Route {
 		}
 		return -1;
 	}
+	/**
+	 * Erzeugt eine neue Route in der DB.
+	 * @return
+	 */
 	public int addRoute() {
 		try {
 			return Connector.insertIntoTable(
@@ -91,6 +127,10 @@ public class Model_Route {
 		}
 		return -1;
 	}
+	/**
+	 * Löscht eine Route in der DB.
+	 * @param routeId
+	 */
 	public void deleteRoute(int routeId) {
 		try {
 			Connector.deleteRecordFromTable(
@@ -101,6 +141,12 @@ public class Model_Route {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Fügt ein Auftrag einer Route hinzu. Speichert diesen in der DB.
+	 * @param routenId
+	 * @param auftragId
+	 * @return
+	 */
 	public int addAuftrag(int routenId, int auftragId) {
 		try {
 			Map<String,String[]> result = Connector.getQueryResult("SELECT MAX(position) AS position FROM auftragzuroute WHERE routenId ="+routenId);
@@ -117,6 +163,10 @@ public class Model_Route {
 		}
 		return -1;
 	}
+	/**
+	 * Gibt eine Map mit allen nicht vergebenen Aufträgen zurück.
+	 * @return
+	 */
 	public Map<String, String[]> getFreieAuftraege() {
 		try {
 			return Connector.getQueryResult("SELECT * FROM auftrag WHERE auftragId NOT IN (SELECT auftragId FROM auftragzuroute)");
@@ -125,6 +175,11 @@ public class Model_Route {
 		}
 		return null;
 	}
+	/**
+	 * Hebt die Zuweisung eines Auftrages einer Route auf.
+	 * @param auftragId
+	 * @param routenId
+	 */
 	public void removeAuftrag(int auftragId, int routenId) {
 		try {
 			Connector.deleteRecordFromTable(
@@ -133,6 +188,11 @@ public class Model_Route {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Legt den Fahrer einer Route fest.
+	 * @param fahrerId
+	 * @param routenId
+	 */
 	public void updateFahrer(int fahrerId, int routenId) {
 		try {
 			Connector.updateTable(
@@ -141,6 +201,11 @@ public class Model_Route {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Legt das Fahrzeug einer Route fest.
+	 * @param fahrzeugId
+	 * @param routenId
+	 */
 	public void updateFahrzeug(int fahrzeugId, int routenId) {
 		try {
 			Connector.updateTable(
@@ -149,6 +214,11 @@ public class Model_Route {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Gibt eine Map mit allen Daten einer Route zurück.
+	 * @param routenId
+	 * @return
+	 */
 	public Map<String,String> getRouteData(int routenId) {
 		Map<String,String> data = new HashMap<String,String>();
 		data.put("routenId", ""+routenId);
@@ -158,6 +228,11 @@ public class Model_Route {
 		data.put("fahrzeug", ""+this.getFahrzeug(routenId));
 		return data;
 	}
+	/**
+	 * Berechnet gesamte Entfernung einer Route.
+	 * @param routenId
+	 * @return
+	 */
 	public double berechneEntfernungen(int routenId) {
 		try {
 			Map<String,String[]> auftrag = Connector.getQueryResult("SELECT entfernung FROM auftrag WHERE auftragId IN (SELECT auftragId FROM auftragzuroute WHERE routenId = "+routenId+") ");
@@ -169,8 +244,13 @@ public class Model_Route {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 500;
+		return 0;
 	}
+	/**
+	 * Berechner gesamte Dauer einer Route
+	 * @param routenId
+	 * @return
+	 */
 	public double berechneDauer(int routenId) {
 		try {
 			Map<String,String[]> auftrag = Connector.getQueryResult("SELECT dauer FROM auftrag WHERE auftragId IN (SELECT auftragId FROM auftragzuroute WHERE routenId = "+routenId+") ");
@@ -182,8 +262,12 @@ public class Model_Route {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 26;
+		return 0;
 	}
+	/**
+	 * Generiert automatisch Routen für Aufträge, die noch nicht einer Route hinzugefügt wurden. Beachtet hierbei, dass alle Aftrage einer Route auch tatsächlich am sleben Tag stattfinden und
+	 * ordnert diese Chronologisch an. Überprüft NICHT ob diese Zeiten auch machbar sind. Aufträge müssen innerhalb von 50km vom ersten Auftrga liegen.
+	 */
 	public void generateRoutes() {
 		try {
 			//der nächste auszuführende, noch nicht zu geteilte Auftrag finden
@@ -255,6 +339,7 @@ public class Model_Route {
 		} catch (SQLException | JSONException e) {
 			e.printStackTrace();
 		}
+		//erneuter Aufruf, bis keine Aufträge mehr gefunden werden.
 		generateRoutes();
 	}
 	

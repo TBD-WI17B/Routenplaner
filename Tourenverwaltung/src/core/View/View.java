@@ -36,7 +36,7 @@ public class View {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * 
 	 * Wenn möglich hier kein Custom Code, da hier alles auto generiert wird.
 	 */
 	private void initialize() {
@@ -81,6 +81,10 @@ public class View {
 	public void addTabbedPaneTab(String name, JPanel p) {
 		this.tabbedPane.addTab(name, null, p, null);
 	}
+	/**
+	 * Macht das Fenster sichtbar.
+	 * @param b
+	 */
 	public void setVisible(boolean b) 
 	{
 		this.frmTourenverwaltung.setVisible(b);		

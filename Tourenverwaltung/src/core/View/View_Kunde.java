@@ -50,7 +50,9 @@ public class View_Kunde {
 	public View_Kunde() {
 		this.createComp();
 	}
-	
+	/**
+	 * Initialisierung der GUI-Komponenten
+	 */
 	private void createComp() {
 		this.pnl_kundenverwaltung = new JPanel();		
 		this.pnl_kundenverwaltung.setLayout(null);
@@ -199,7 +201,10 @@ public class View_Kunde {
 	public JPanel getSubPanel() {
 		return this.pnl_kundenverwaltung;		
 	}
-	
+	/**
+	 * Gibt ausgewählten Kunden zurück.
+	 * @return
+	 */
 	public int getCurrentSelectedCustomerId() {
 		if(this.txtK.getText()==""||this.txtK.getText()==null)return -1;
 		try {
@@ -210,7 +215,10 @@ public class View_Kunde {
 		}
 		return -1;
 	}
-	
+	/**
+	 * Gibt Map mit aten aus der GUI zurück.
+	 * @return
+	 */
 	public Map<String,String> getData() {
 		Map<String,String> data = new HashMap<String,String>();
 		
@@ -227,14 +235,20 @@ public class View_Kunde {
 		return data;
 	}
 	
-	//Updaten der GUI
+	/**
+	 * Update der Kundenliste.
+	 * @param names
+	 */
 	public void updateList(String[] names) {
 		this.kundenListenModel.clear();
 		for(int i = 0;i<names.length;i++) {
 			this.kundenListenModel.addElement(names[i]);
 		}
 	}
-	
+	/**
+	 * Aktualisiert die angezeigten Daten.
+	 * @param map
+	 */
 	public void updateGUIFromCustomer(Map<String,String> map) {
 		this.name.setText(map.get("name"));
 		this.vorname.setText(map.get("vorname"));
@@ -252,7 +266,10 @@ public class View_Kunde {
 			this.rdbtnNein_1.setSelected(true);
 		}
 	}
-	
+	/**
+	 * Setzt welches Listenelement ausgewählt ist.
+	 * @param id
+	 */
 	public void setListSelectionOn(int id) {
 		this.kundenlist.setSelectedIndex(id);
 	}

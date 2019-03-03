@@ -13,10 +13,18 @@ import org.json.JSONObject;
 import core.Controller.Connector;
 import core.Controller.Requesthandler;
 
+/**
+ * Model-Class für die Auftragsverwaltung
+ *
+ */
 public class Model_Auftrag {
 
 	String fehlermeldung = "";
 
+	/**
+	 * Gibt eine Liste mit allen Auftrags ID's zurück.
+	 * @return
+	 */
 	public String[] getList() {
 		try {
 			Map<String, String[]> result = Connector.getQueryResult("SELECT auftragId FROM auftrag");
@@ -28,6 +36,11 @@ public class Model_Auftrag {
 		return null;
 	}
 
+	/**
+	 * Sendet Anfrage an die DB um sämtliche Daten eines Auftrages zuholen. Organisiert Daten in neuer Map an.
+	 * @param id
+	 * @return
+	 */
 	public Map<String, String> getDataFromAuftrag(int id) {
 		try {
 			Map<String, String[]> auftrag = Connector.getQueryResult(
@@ -97,6 +110,10 @@ public class Model_Auftrag {
 		return null;
 	}
 
+	/**
+	 * Gibt Liste mit allen Kunden zurück.
+	 * @return
+	 */
 	public String[] getCustomers() {
 		try {
 			Map<String, String[]> kunden = Connector.getQueryResult("SELECT * FROM kunde GROUP BY name,vorname");
@@ -114,6 +131,13 @@ public class Model_Auftrag {
 		return new String[] { "" };
 	}
 
+	/**
+	 * Speichern der eingegebenen Daten, wenn diese verändert wurden. Frägt neue Koordinaten ab und speichert diese.
+	 *  Berechnet auch die Entfernung und Dauer zwischen Start und Ziel.
+	 * @param id AuftragId
+	 * @param data Map mit Daten aus der GUI
+	 * @return
+	 */
 	public boolean saveAuftrag(int id, Map<String, String> data) {
 		try {
 			Map<String, String[]> auftrag = Connector.getQueryResult(
@@ -163,6 +187,7 @@ public class Model_Auftrag {
 					|| hasChanged(data, auftrag, "startStreet") || hasChanged(data, auftrag, "startHausNr")) {
 				startChanged = true;
 
+				//Koordinaten für Start
 				String startLATString = "NULL";
 				String startLONString = "Null";
 				if (!data.get("startPlz").isEmpty() && !data.get("startOrt").isEmpty()
@@ -197,6 +222,7 @@ public class Model_Auftrag {
 					|| hasChanged(data, auftrag, "zielStreet") || hasChanged(data, auftrag, "zielHausNr")) {
 				zielChanged = true;
 
+				//Koordinaten für Ziel
 				String zielLATString = "NULL";
 				String zielLONString = "Null";
 				if (!data.get("zielPlz").isEmpty() && !data.get("zielOrt").isEmpty()
@@ -254,6 +280,11 @@ public class Model_Auftrag {
 		return false;
 	}
 
+	/**
+	 * Gibt die Adresse eines Kunden zurück
+	 * @param id KundenId
+	 * @return
+	 */	
 	public Map<String, String> getCustomerAdress(int id) {
 		try {
 			Map<String, String[]> kunde = Connector.getQueryResult("SELECT * FROM kunde k, adresse a WHERE k.kundenId = " + id + " AND k.adressId=a.adressId");
@@ -264,12 +295,15 @@ public class Model_Auftrag {
 			data.put("hausNr", kunde.get("hausnummer")[0]);
 			return data;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 
+	/**
+	 * Fügt einen neuen Auftrag hinzu. Gibt die erzeugte ID zurück
+	 * @return erzeugte ID
+	 */
 	public int addAuftrag() {
 		try {
 			return Connector.insertIntoTable(
@@ -280,6 +314,10 @@ public class Model_Auftrag {
 		return -1;
 	}
 
+	/**
+	 * Löscht Auftrag nach ID
+	 * @param id
+	 */
 	public void deleteAuftrag(int id) {
 
 		try {
@@ -303,15 +341,31 @@ public class Model_Auftrag {
 
 	}
 
+	/**
+	 * Überprüft ob sich Daten geändert haben.
+	 * @param data
+	 * @param query
+	 * @param key
+	 * @return
+	 */
 	private boolean hasChanged(Map<String, String> data, Map<String, String[]> query, String key) {
 		return !data.get(key).equals(query.get(key)[0]);
 	}
 
+	/**
+	 * Übergabe der Fehlermeldung. Benötigt für den Dialog der Fehlermeldung.
+	 * @return
+	 */
 	public String getFehlermeldung() {
 		String tmpFehlermeldung = this.fehlermeldung;
 		this.fehlermeldung = "";
 		return tmpFehlermeldung;
 	}
+	/**
+	 * Parst eintrag des Kunden in dessen ID
+	 * @param kundenString
+	 * @return
+	 */
 	public int getKundenId(String kundenString) {
 		if(kundenString==null) {
 			this.fehlermeldung="Zuerst einen Kunden auswählen";

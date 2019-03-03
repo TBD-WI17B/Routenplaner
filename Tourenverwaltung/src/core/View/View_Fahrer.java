@@ -55,6 +55,9 @@ public class View_Fahrer{
 	{
 		initComp();
 	}
+	/**
+	 * Initialisierung der GUI-Komponenten
+	 */
 	private void initComp()
 	{
 		this.pnl_fahrerverwaltung = new JPanel();
