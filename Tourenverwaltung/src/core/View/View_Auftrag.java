@@ -455,7 +455,7 @@ public class View_Auftrag {
 		this.zielHausNr.setText(map.get("zielHausNr"));
 		
 		this.pauschale.setText("1€ pro km netto");
-		float price = Float.parseFloat(map.get("distance"))*1;
+		float price = Float.parseFloat(map.get("distance"))/1000*0.6f;
 		float bruttoPrice = price*0.19f;
 		this.netto.setText(String.valueOf(price));
 		this.brutto.setText(String.valueOf(bruttoPrice));
