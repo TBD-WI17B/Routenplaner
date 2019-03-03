@@ -36,6 +36,7 @@ public class Route {
 		view.updateListeAuftraege(model.getAuftraegeList(1));
 		view.updateListeFahrer(model.getFahrerList());
 		view.updateFahrzeuge(model.getFahrzeugeList());
+		this.view.updateInfo(this.model.getRouteData(1));
 		
 		//bind Handler
 		this.view.addRoutenListListener(new RouteListSelectionHandler(model, view));

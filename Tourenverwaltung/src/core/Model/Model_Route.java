@@ -121,7 +121,7 @@ public class Model_Route {
 	public int addRoute() {
 		try {
 			return Connector.insertIntoTable(
-					"INSERT INTO `route` (`routenId`, `fahrerId`, `fahrzeugId`) VALUES (NULL, NULL, NULL)");
+					"INSERT INTO `route` (`routenId`, `fahrerId`, `fahrzeugId`) VALUES (NULL, 1, 1)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
